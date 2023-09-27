@@ -18,4 +18,8 @@ export const ALERT_CONFIGS = {
   export const PAGINATIONS_LIMIT = {
     DEFAULT_PAGINATION_LIMIT: 50,
   };
-  
+  export const USER_ROLES = {
+    BackOffice: 1,
+    Travel_Agent: 2,
+
+  };
