@@ -1,11 +1,11 @@
 import React from 'react';
-
+import AppRoutes from './Routes';
+import { ThemeProvider } from '@mui/material';
 function App() {
   return (
     <div >
-     
-          Learn React
-    
+
+   < AppRoutes/>
     </div>
   );
 }

@@ -54,7 +54,7 @@ yarn add react-router-dom
 2. 🛠️ MUI Setup:
 
 ```shell
-yarn add @mui/material @emotion/react @mui/icons-material @emotion/styled\
+yarn add @mui/material @emotion/react @mui/icons-material @mui/lab @emotion/styled\
 ```
 3. 🛠️ Sass :
 
