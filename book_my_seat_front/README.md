@@ -45,8 +45,13 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### `Used Packages and Commands`
-MUI =>yarn add @mui/material @emotion/react @emotion/styled\
+# Environment  Setup  🌍
+
+1. 📥 MUI Setup:
+
+```shell
+yarn add @mui/material @emotion/react @emotion/styled\
+```
 SASS =>yarn add sass
 ROUTER DOM= yarn add react-router-dom
 MUI ICON =>yarn add  @mui/icons-material
