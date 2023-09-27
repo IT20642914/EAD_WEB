@@ -64,6 +64,10 @@ yarn add sass
 4. 🛠️ Redux :
 
 ```shell
- yarn add redux-saga redux
+ yarn add redux-saga redux  react-redux
 ```
+5. Notification stack :
 
+```shell
+yarn add notistack
+```
