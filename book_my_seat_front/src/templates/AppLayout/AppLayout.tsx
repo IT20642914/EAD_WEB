@@ -45,7 +45,7 @@ const AppLayout: React.FC<{
                 </a>
               </div> */}
               <div className="contentGroup ">
-                <img className="logo" src={"maslogo"} alt="MASlogo" />
+                <img className="logo" src={"BookMySeat"} alt="BookMySeatlogo" />
               </div>
             </aside>
 
@@ -61,33 +61,7 @@ const AppLayout: React.FC<{
                       <span>Dashboard</span>
                     </div>
                   </NavLink>
-                </aside>
-                <aside className={"links"}>
-                  <NavLink
-                    style={{ textDecoration: "none" }}
-                    className={({ isActive }) =>
-                      isActive ? "layout-row is-active" : "layout-row"
-                    }
-                    to={APP_ROUTES.ROOT}
-                  >
-                    <div className={`navBarContent navLink layout-row`}>
-                      <span>Dashboard</span>
-                    </div>
-                  </NavLink>
-                </aside>
-                <aside className={"links"}>
-                  <NavLink
-                    style={{ textDecoration: "none" }}
-                    className={({ isActive }) =>
-                      isActive ? "layout-row is-active" : "layout-row"
-                    }
-                    to={APP_ROUTES.ROOT}
-                  >
-                    <div className={`navBarContent navLink layout-row`}>
-                      <span>Dashboard</span>
-                    </div>
-                  </NavLink>
-                </aside>
+                  </aside>
 
 
            
