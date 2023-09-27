@@ -56,8 +56,14 @@ yarn add react-router-dom
 ```shell
 yarn add @mui/material @emotion/react @mui/icons-material @emotion/styled\
 ```
-2. 🛠️ Sass Setup:
+3. 🛠️ Sass :
 
 ```shell
 yarn add sass
 ```
+4. 🛠️ Redux :
+
+```shell
+ yarn add redux-saga redux
+```
+
