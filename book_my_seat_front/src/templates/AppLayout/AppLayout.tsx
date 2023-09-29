@@ -55,7 +55,7 @@ const AppLayout: React.FC<{
                     className={({ isActive }) =>
                       isActive ? "layout-row is-active" : "layout-row"
                     }
-                    to={APP_ROUTES.ROOT}
+                    to={APP_ROUTES.TRAVELLER_MANAGEMENT}
                   >
                     <div className={`navBarContent navLink layout-row`}>
                       <span>Dashboard</span>

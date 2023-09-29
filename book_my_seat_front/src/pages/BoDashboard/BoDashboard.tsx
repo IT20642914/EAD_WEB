@@ -3,8 +3,14 @@ import { AppLayout } from '../../templates'
 import { BoDashboardGrid } from '../../components/BoDashboard'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_TABLE_CONFIGS } from '../../utilities/constants'
+import { APP_TABLE_CONFIGS, travellerData } from '../../utilities/constants'
 import { SortMetaDto } from '../../utilities/models'
+import { travellerDto } from '../../utilities/models/travellor.model'
+import dayjs from 'dayjs'
+import moment from 'moment'
+import SummaryChart from '../../components/Shared/RequestSummaryChart/SummaryChart'
+import { Grid } from '@mui/material'
+import BudgetGraph from '../../components/Shared/RequestBudgetGraph/BudgetGraph'
 
 const BoDashboard = () => {
   const INITIAL_SORT_META: SortMetaDto = {
@@ -16,7 +22,7 @@ const BoDashboard = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-  const [filteredList, setFilteredList] = useState<any[]>([])
+  const [filteredList, setFilteredList] = useState<travellerDto[]>(travellerData)
   const [isFiltered, setIsFiltered] = useState(false)
   
 
@@ -63,43 +69,43 @@ const BoDashboard = () => {
 
   const onFilterHandle = (col: string, value: any) => {
     setIsFiltered(true)
-    // const filtered = getRequestDataResponse.data.filter((item) => {
-    //   const _value = (item as any)[col];
-    //   if (typeof _value === "boolean") {
-    //     return _value ? value === "Yes" : value === "No";
-    //   }
-    //   if(col === "createdDateandTime"){
-    //     const _selectedMin = dayjs(value[0]).format('YYYY-MM-DD HH:mm')
-    //     const _selectedMax = dayjs(value[1]).format('YYYY-MM-DD HH:mm')
-    //     const _targetDate = dayjs(_value).add(330, 'minute').format('YYYY-MM-DD HH:mm')
+    const filtered = travellerData.filter((item) => {
+      const _value = (item as any)[col];
+      if (typeof _value === "boolean") {
+        return _value ? value === "Yes" : value === "No";
+      }
+      if(col === "createdDateandTime"){
+        const _selectedMin = dayjs(value[0]).format('YYYY-MM-DD HH:mm')
+        const _selectedMax = dayjs(value[1]).format('YYYY-MM-DD HH:mm')
+        const _targetDate = dayjs(_value).add(330, 'minute').format('YYYY-MM-DD HH:mm')
 
-    //     return moment(_targetDate).isBetween(_selectedMin, _selectedMax)
-    //   }
-    //   if (col === "departureDateandTime" || col === "returnDateandTime") {
-    //     const _selectedMin = dayjs(value[0]).format('YYYY-MM-DD HH:mm')
-    //     const _selectedMax = dayjs(value[1]).format('YYYY-MM-DD HH:mm')
-    //     const _targetDate = dayjs(_value).format('YYYY-MM-DD HH:mm')
+        return moment(_targetDate).isBetween(_selectedMin, _selectedMax)
+      }
+      if (col === "departureDateandTime" || col === "returnDateandTime") {
+        const _selectedMin = dayjs(value[0]).format('YYYY-MM-DD HH:mm')
+        const _selectedMax = dayjs(value[1]).format('YYYY-MM-DD HH:mm')
+        const _targetDate = dayjs(_value).format('YYYY-MM-DD HH:mm')
 
-    //     return moment(_targetDate).isBetween(_selectedMin, _selectedMax)
-    //   }
-    //   if(value === 'N/A') return !_value
-    //   return _value === value;
-    // });
+        return moment(_targetDate).isBetween(_selectedMin, _selectedMax)
+      }
+      if(value === 'N/A') return !_value
+      return _value === value;
+    });
 
-    // setFilteredList(filtered);
+    setFilteredList(filtered);
   };
   const getFilterList = (col: string): string[] => {
-    // if (!getRequestDataResponse.isLoading)
-    //   return getRequestDataResponse.data
-    //     .map((item) => {
-    //       const value = (item as any)[col];
-    //       if (typeof value === "boolean") {
-    //         return value ? "Yes" : "No";
-    //       }
-    //       return  value ? value : 'N/A';
-    //     })
-    //     .filter((value, index, array) => array.indexOf(value) === index);
-    // else
+    if (true)
+      return travellerData
+        .map((item) => {
+          const value = (item as any)[col];
+          if (typeof value === "boolean") {
+            return value ? "Yes" : "No";
+          }
+          return  value ? value : 'N/A';
+        })
+        .filter((value, index, array) => array.indexOf(value) === index);
+    else
      return []
   };
   const navigteTORequestScreen = (mode: string, id: string) => {
@@ -109,13 +115,20 @@ const BoDashboard = () => {
   }
   const onClearFilter = () => {
     setIsFiltered(false)
-    //setFilteredList(getRequestDataResponse.data)
+    setFilteredList(travellerData)
   }
   return (    
   <React.Fragment>
-    <AppLayout componentTitle="sss">
+    <AppLayout componentTitle="Traveler Management">
       <section className='page-root'>
-
+      <Grid container spacing={4}>
+      <Grid item md={12}>
+     <SummaryChart/>
+     </Grid>
+     {/* <Grid item md={6}>
+     <BudgetGraph/>
+     </Grid> */}
+     </Grid>
   <BoDashboardGrid
     page={page}
     rowsPerPage={rowsPerPage}

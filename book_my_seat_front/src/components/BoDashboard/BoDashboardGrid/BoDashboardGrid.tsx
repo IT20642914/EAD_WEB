@@ -8,6 +8,11 @@ import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import { travellerDto } from '../../../utilities/models/travellor.model';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import { EditOutlined } from '@mui/icons-material';
+
 const BoDashboardGrid:React.FC<{
   page: number,
   rowsPerPage: number,
@@ -34,14 +39,14 @@ const BoDashboardGrid:React.FC<{
         component="div"
         className={style.gridTitle}
       >
-        <h3>Travellor Summary</h3>
+        <h3>Traveler Management</h3>
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       <div className='layout-row'>
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Create Traveller' onClick={() => navigate("APP_ROUTES.LM_REQUEST_APPROVAL")} />
+        <CustomButton text='Create Traveller' onClick={() => navigate(APP_ROUTES.CREATE_TRAVELLER)} />
       </div>
     </div>
 
@@ -68,42 +73,43 @@ const BoDashboardGrid:React.FC<{
         )}
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
-            {props.filteredList.map((req: any) => (
-              <TableRow key={req.requestId}>
-              <StyledTableCell >{!req.recurrentParentId ? 'N/A' : 'R' + req.recurrentParentId}</StyledTableCell>
-              <StyledTableCell >{!req.parentRequestId ? 'N/A' : 'R' + req.parentRequestId}</StyledTableCell>
-                <StyledTableCell >R{req.requestId}</StyledTableCell>
-                <StyledTableCell >{req.requestType}</StyledTableCell>
-              
-                <StyledTableCell >{req.userName ?? '-'}</StyledTableCell>
-                <StyledTableCell >{req.sbuName ?? '-'}</StyledTableCell>
-                <StyledTableCell >{req.plantName ?? '-'}</StyledTableCell>
-                <StyledTableCell >{req.departmentName ?? '-'}</StyledTableCell>
-                <StyledTableCell >{req.travelMode}</StyledTableCell>
-                <StyledTableCell >{req.from}</StyledTableCell>
-                <StyledTableCell >{req.to}</StyledTableCell>
-                <StyledTableCell >{moment(req.departureDateandTime).format(APP_TABLE_CONFIGS.DATE_FORMAT)}</StyledTableCell>
-                <StyledTableCell >{moment(req.returnDateandTime).format(APP_TABLE_CONFIGS.DATE_FORMAT)}</StyledTableCell>
-                <StyledTableCell >{req.passengerCount}</StyledTableCell>
-                <StyledTableCell >{req.preferredVehicle}</StyledTableCell>
-                <StyledTableCell >{req.package ? "Yes" : "No"}</StyledTableCell>
-                <StyledTableCell >{req.cbm}</StyledTableCell>
-                <StyledTableCell >{moment(req.createdDateandTime).add(330, 'minute').format(APP_TABLE_CONFIGS.DATE_FORMAT)}</StyledTableCell>
-                <StyledTableCell >{req.createdBy ?? '-'}</StyledTableCell>
-                <StyledTableCell >{req.purpose === "" ? '-' : req.purpose}</StyledTableCell>
-                <StyledTableCell >{req.projectedCost}</StyledTableCell>
-                <StyledTableCell style={{ backgroundColor: '#282828' }}>
+            {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: travellerDto) => (
+              <TableRow key={req.travellerId}>
+                  <StyledTableCell >{req.travellerId}</StyledTableCell>
+                   <StyledTableCell >{req.firstName}</StyledTableCell>
+                   <StyledTableCell >{req.lastName}</StyledTableCell>
+                   <StyledTableCell >{req.email}</StyledTableCell>
+                   <StyledTableCell >{req.userName}</StyledTableCell>
+                   <StyledTableCell >{req.status}</StyledTableCell>
+                   <StyledTableCell >{req.contactHome}</StyledTableCell>
+                   <StyledTableCell >{req.contactMobile}</StyledTableCell>
+                   <StyledTableCell >{req.address}</StyledTableCell>
+                   <StyledTableCell >{req.reservationCount}</StyledTableCell>
+                   <StyledTableCell >{req.createdDate}</StyledTableCell>
+                  <StyledTableCell style={{ backgroundColor: '#282828' }}>
+
                   <Box className='layout-row'>
                     <Box>
-                      <IconButton size='small' onClick={() => {
-                        
-                     
-                          }    }>
-                        <Tooltip title="View">
-                          <RemoveRedEyeOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
-                        </Tooltip>
-                      </IconButton>
-                    </Box>
+                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                          <Tooltip title="View">
+                            <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                          </Tooltip>
+                        </IconButton>
+                      </Box>
+                      <Box>
+                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                          <Tooltip title="Edit">
+                            <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                          </Tooltip>
+                        </IconButton>
+                      </Box>
+                      <Box>
+                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
+                          <Tooltip title="Delete">
+                            <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                          </Tooltip>
+                        </IconButton>
+                      </Box>
                   </Box>
                 </StyledTableCell>
               </TableRow>
@@ -120,30 +126,29 @@ const BoDashboardGrid:React.FC<{
       </Table>
     </TableContainer>
     <TablePagination
-      rowsPerPageOptions={APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE_OPTIONS}
-      component="div"
-      labelRowsPerPage={
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-start',
-            color: 'white',
-          }}
-        >
-          Items per page
-        </div>
-      }
-      count={-1}
-      page={props.page}
-      onPageChange={props.onHandleChangePage}
-      onRowsPerPageChange={props.onHandleChangeRowsPerPage}
-      rowsPerPage={props.rowsPerPage}
-      nextIconButtonProps={
-        { disabled: -1 < props.filteredList.length && props.filteredList.length < props.rowsPerPage }
-      }
-      sx={{ backgroundColor: "#282828", color: "white" }}
-    />
+        rowsPerPageOptions={APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE_OPTIONS}
+        component="div"
+        labelRowsPerPage={
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              color: 'white',
+            }}
+          >
+            Items per page
+          </div>
+        }
+        count={props.filteredList.length}
+        page={props.page}
+        onPageChange={props.onHandleChangePage}
+        onRowsPerPageChange={props.onHandleChangeRowsPerPage}
+        rowsPerPage={props.rowsPerPage}
+        showFirstButton={true}
+        showLastButton={true}
+        sx={{ backgroundColor: "#282828", color: "white" }}
+      />
   </section>
 
   )
