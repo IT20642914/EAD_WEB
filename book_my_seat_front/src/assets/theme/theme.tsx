@@ -372,7 +372,7 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
   },
   "& .Mui-checked + .MuiSwitch-track": {
     border: "2px solid #00c853",
-    backgroundColor: "#2f2f2f",
+    backgroundColor: "#00c853 ",
   },
   "& .Mui-checked + .MuiSwitch-thumb": {
     color: "yellow",

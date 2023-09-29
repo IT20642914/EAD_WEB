@@ -24,7 +24,106 @@ const TravelerScreen = () => {
         const navigate = useNavigate()
 
         const [screenMode, setScreenMode] = useState("");
+        const [helperText, setHelperText] = useState(true);
         const [TravelloerInfomationForm, setTravelloerInfomationForm] = useState(TRAVELLER_INFORMATION_FORM_INITIAL_STATE);
+        
+        const handleInputFocus = (property: string, section: string) => {
+            if (section === "GI")
+            setTravelloerInfomationForm({
+              ...TravelloerInfomationForm,
+              [property]: {
+                ...TravelloerInfomationForm[property as keyof typeof TravelloerInfomationForm],
+                error: null,
+              },
+            });
+            
+
+        }
+
+  const onInputHandleChange = (property: string, value: any) => {
+    setHelperText(true);
+
+    if (property === "firstName") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          firstName: {
+            ...TravelloerInfomationForm.firstName,
+            value: value,
+          },
+        });
+      }
+      
+    if (property === "lastName") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          lastName: {
+            ...TravelloerInfomationForm.lastName,
+            value: value,
+          },
+        });
+      }
+      
+    if (property === "userName") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          userName: {
+            ...TravelloerInfomationForm.userName,
+            value: value,
+          },
+        });
+      }
+      
+    if (property === "email") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          email: {
+            ...TravelloerInfomationForm.email,
+            value: value,
+          },
+        });
+      }
+      
+    if (property === "address") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          address: {
+            ...TravelloerInfomationForm.address,
+            value: value,
+          },
+        });
+      }
+      
+    if (property === "contactHome") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          contactHome: {
+            ...TravelloerInfomationForm.contactHome,
+            value: value,
+          },
+        });
+      }
+    
+      if (property === "status") {
+        
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+           status: {
+            ...TravelloerInfomationForm. status,
+            value: !value,
+          },
+        });
+      }  if (property === "contactMobile") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          contactMobile: {
+            ...TravelloerInfomationForm.contactMobile,
+            value: value,
+          },
+        });
+      }
+ 
+  }
+
 
 
 
@@ -38,8 +137,9 @@ const  onClose=() => {
     navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
 }
 const  setAsInitialState=() => {
-    
+    setTravelloerInfomationForm(TRAVELLER_INFORMATION_FORM_INITIAL_STATE)  
 }
+
   return (
     <React.Fragment>
       <AppLayout componentTitle="New Traveler">
@@ -51,13 +151,24 @@ const  setAsInitialState=() => {
               </Typography>
             </section>
             <section className={style.sectionCardBody}>
-              <section className={style.stepperRoot}>
+            <section className={style.stepperRoot}>
 
                 <GeneralInformation
+                helperText={helperText}
                 TravelloerInfomationForm={TravelloerInfomationForm}
+                screenMode={screenMode}
+                onInputHandleChange={onInputHandleChange}
+                handleInputFocus={handleInputFocus}
+                
                 />
 
-                <ContactInformation/>
+                <ContactInformation
+                 helperText={helperText}
+                 TravelloerInfomationForm={TravelloerInfomationForm}
+                 screenMode={screenMode}
+                 onInputHandleChange={onInputHandleChange}
+                 handleInputFocus={handleInputFocus}
+                />
 
 
                 

@@ -1,0 +1,43 @@
+@import "../../../assets/theme/constants.scss";
+.stepperHeader {
+    display: flex;
+    align-items: center;
+    background-color: $ternary;
+    border-left: 1px solid $bgColorSidebar;
+    border-right: 1px solid $bgColorSidebar;
+    padding: 10px 39px;
+    top: 0;
+    position: sticky;
+    z-index: 99;
+
+    .stepNumber {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: $bgColorSidebar;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 30px;
+    }
+
+    .stepTitle {
+      color: $white;
+      font-size: 15px;
+    }
+  }
+
+  .stepperContent {
+    display: flex !important;
+    align-items: center;
+
+    .leftSide {
+      width: 60px;
+    }
+
+    .rightSide {
+      padding: 40px;
+      width: calc(100% - 60px);
+      border-left: 2px solid $ternary;
+    }
+  }
