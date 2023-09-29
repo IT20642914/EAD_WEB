@@ -34,14 +34,14 @@ const BoDashboardGrid:React.FC<{
         component="div"
         className={style.gridTitle}
       >
-        <h3>LM Request Summary</h3>
+        <h3>Travellor Summary</h3>
       </Typography>
       <Box sx={{ flexGrow: 1 }} />
       <div className='layout-row'>
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Pending Request' border='1px solid #6e6e6e' bgColor='#282828' onClick={() => navigate("APP_ROUTES.LM_REQUEST_APPROVAL")} />
+        <CustomButton text='Create Traveller' onClick={() => navigate("APP_ROUTES.LM_REQUEST_APPROVAL")} />
       </div>
     </div>
 
@@ -49,28 +49,17 @@ const BoDashboardGrid:React.FC<{
       <Table className={style.table}>
         <TableHead>
           <TableRow>
-            <CustomHeaderCell width={180} id='recurrentParentId' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Parent ID</CustomHeaderCell>
-            <CustomHeaderCell width={220} id='parentRequestId' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Pre-split Request ID</CustomHeaderCell>
-            <CustomHeaderCell width={180} id='requestId' sortable onSort={props.onSortHandle} >Request ID</CustomHeaderCell>
-            <CustomHeaderCell width={180} id='requestType' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Request Type</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='travellerId' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Traveller Id</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='firstName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Frist Name</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='lastName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Last Name</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='email' sortable onSort={props.onSortHandle} >Email</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='userName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >User Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='status' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Status</CustomHeaderCell>
-            <CustomHeaderCell width={300} id='userName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >User Name</CustomHeaderCell>
-            <CustomHeaderCell width={220} id='sbuName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>SBU</CustomHeaderCell>
-            <CustomHeaderCell width={220} id='plantName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Plant</CustomHeaderCell>
-            <CustomHeaderCell width={250} id='departmentName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Department</CustomHeaderCell>
-            <CustomHeaderCell width={150} id='travelMode' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Travel Mode</CustomHeaderCell>
-            <CustomHeaderCell width={200} id='from' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Travel From</CustomHeaderCell>
-            <CustomHeaderCell width={300} id='to' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Travel To (Main Destination)</CustomHeaderCell>
-            <CustomHeaderCell width={270} id='departureDateandTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Departure date & time</CustomHeaderCell>
-            <CustomHeaderCell width={250} id='returnDateandTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Return date & time</CustomHeaderCell>
-            <CustomHeaderCell width={180} id='passengerCount'  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Passenger count</CustomHeaderCell>
-            <CustomHeaderCell width={240} id='preferredVehicle' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Preferred Vehicle</CustomHeaderCell>
-            <CustomHeaderCell width={150} id='package' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Package</CustomHeaderCell>
-            <CustomHeaderCell width={200} id='cbm' sortable onSort={props.onSortHandle} >Total CBM of package</CustomHeaderCell>
-            <CustomHeaderCell width={240} id='createdDateandTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Create date and time</CustomHeaderCell>
-            <CustomHeaderCell width={180} id='createdBy' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Created by</CustomHeaderCell>
-            <CustomHeaderCell width={300} id='purpose' >Purpose</CustomHeaderCell>
-            <CustomHeaderCell width={200} id='projectedCost' sortable onSort={props.onSortHandle} >Projected Cost (LKR)</CustomHeaderCell>
+            <CustomHeaderCell width={300} id='contactHome' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >contact Home</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='contactMobile' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Contact Mobile</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='address' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Address</CustomHeaderCell>
+            <CustomHeaderCell width={250} id='reservationCount' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} > Total Reservation Count</CustomHeaderCell>
+            <CustomHeaderCell width={150} id='createdDate' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Created Date</CustomHeaderCell>
             <CustomHeaderCell width={100} id='actions' >Actions</CustomHeaderCell>
           </TableRow>
         </TableHead>
