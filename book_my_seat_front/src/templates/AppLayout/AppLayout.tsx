@@ -58,11 +58,23 @@ const AppLayout: React.FC<{
                     to={APP_ROUTES.TRAVELLER_MANAGEMENT}
                   >
                     <div className={`navBarContent navLink layout-row`}>
-                      <span>Dashboard</span>
+                      <span>Traveler Management</span>
                     </div>
                   </NavLink>
                   </aside>
-
+                  <aside className={"links"}>
+                  <NavLink
+                    style={{ textDecoration: "none" }}
+                    className={({ isActive }) =>
+                      isActive ? "layout-row is-active" : "layout-row"
+                    }
+                    to={APP_ROUTES.TR_MANAGEMENT}
+                  >
+                    <div className={`navBarContent navLink layout-row`}>
+                      <span>Ticket Management</span>
+                    </div>
+                  </NavLink>
+                  </aside>
 
            
           </aside>
