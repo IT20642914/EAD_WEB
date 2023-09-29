@@ -351,39 +351,38 @@ export const StyledTimePickerInput = styled(MobileTimePicker)(({ theme }) => ({
 
 export const StyledSwitch = styled(Switch)(({ theme }) => ({
   padding: 8,
-  "& .MuiSwitch-track": {
-    border: "2px solid #6b6b6b",
-    borderRadius: 22 / 2,
-    backgroundColor: "#2f2f2f",
-    "&:before, &:after": {
+  '& .MuiSwitch-track': {
+    border: '2px solid #6b6b6b',
+    borderRadius: '22px',
+    backgroundColor: '#2f2f2f',
+    '&:before, &:after': {
       content: '""',
-      position: "absolute",
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 16,
-      height: 16,
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: '16px',
+      height: '16px',
     },
   },
-  "& .MuiSwitch-thumb": {
-    boxShadow: "none",
-    width: 16,
-    height: 16,
-    margin: 2,
+  '& .MuiSwitch-thumb': {
+    boxShadow: 'none',
+    width: '16px',
+    height: '16px',
+    margin: '2px',
+    // Use the primary color from the theme
   },
-  "& .Mui-checked + .MuiSwitch-track": {
-    border: "2px solid #00c853",
-    backgroundColor: "#00c853 ",
+  '& .Mui-checked + .MuiSwitch-track': {
+    border: '2px solid #00c853',
+    backgroundColor: '#00c853',
   },
-  "& .Mui-checked + .MuiSwitch-thumb": {
-    color: "yellow",
+  '& .Mui-checked .MuiSwitch-thumb': {
+    backgroundColor: '#00c853', // Set the background color when checked
   },
-  "& .Mui-checked": {
-    color: "#00c853",
-  },
-  "&.Mui-disabled": {
-    color: "yellow",
+  '&.Mui-disabled': {
+    color: 'yellow',
   },
 }));
+
 
 export const StyledTreeItem = styled((props: TreeItemProps) => (
   // eslint-disable-next-line react/react-in-jsx-scope
