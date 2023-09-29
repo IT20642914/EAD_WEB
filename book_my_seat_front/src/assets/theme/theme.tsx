@@ -376,7 +376,7 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
     backgroundColor: '#00c853',
   },
   '& .Mui-checked .MuiSwitch-thumb': {
-    backgroundColor: '#00c853', // Set the background color when checked
+    // Set the background color when checked
   },
   '&.Mui-disabled': {
     color: 'yellow',

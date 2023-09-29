@@ -28,7 +28,7 @@ ChartJS.register(
 );
 
 const BudgetGraph = (props: any) => {
-  const [budgetData, setBudgetData] = useState([]);
+  const [budgetData, setBudgetData] = useState([45]);
   // console.log("FROM THE SPOT", _data)
 
   useEffect(() => {

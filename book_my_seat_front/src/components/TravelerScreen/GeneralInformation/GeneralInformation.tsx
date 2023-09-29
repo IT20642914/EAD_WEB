@@ -15,7 +15,7 @@ const GeneralInformation:React.FC<{
   const lastName = props.TravelloerInfomationForm.lastName
   const userName = props.TravelloerInfomationForm.userName
   const status = props.TravelloerInfomationForm.status
-
+  const identificationCard = props.TravelloerInfomationForm.identificationCard
 
 
   return (
@@ -23,6 +23,21 @@ const GeneralInformation:React.FC<{
         
                 <>
            <Grid container spacing={4}>
+           <Grid item xs={12} md={6}>
+           <StyledTextField
+                      fullWidth
+                      label="Identification Card Number"
+                      placeholder='Enter Identification Card Number'
+                      size='small'
+                      value={firstName.value}
+                      error={!!firstName.error}
+                      disabled={firstName.disable}
+                      required={firstName.isRequired}
+                      helperText={props.helperText && firstName.error}
+                      onFocus={() => props.handleInputFocus('identificationCard', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('identificationCard', event.target.value)}
+                    />
+           </Grid>
            <Grid item xs={12} md={6}>
            <StyledTextField
                       fullWidth

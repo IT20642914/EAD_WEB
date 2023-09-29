@@ -11,14 +11,15 @@ import { TravellerInformationFormDto } from '../../utilities/models/travellor.mo
 const TravelerScreen = () => {
 
     const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravellerInformationFormDto = {
-        firstName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        userName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        contactHome: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-        address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "",}
+        firstName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        userName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        contactHome: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        identificationCard: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     };
 
         const navigate = useNavigate()
@@ -42,8 +43,17 @@ const TravelerScreen = () => {
 
   const onInputHandleChange = (property: string, value: any) => {
     setHelperText(true);
-
-    if (property === "firstName") {
+    
+    if (property === "identificationCard") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          identificationCard: {
+            ...TravelloerInfomationForm.identificationCard,
+            value: value,
+          },
+        });
+      }
+      if (property === "firstName") {
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
           firstName: {

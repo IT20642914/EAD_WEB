@@ -15,6 +15,7 @@ export interface travellerDto{
 }
 
 export interface TravellerInformationFormDto{
+    identificationCard:FormFieldDto<string>, 
     firstName:FormFieldDto<string>, 
     lastName:FormFieldDto<string>,
     email:FormFieldDto<string>,
