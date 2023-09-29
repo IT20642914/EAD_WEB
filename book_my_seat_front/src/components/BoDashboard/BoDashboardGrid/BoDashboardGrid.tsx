@@ -2,7 +2,7 @@ import React from 'react'
 import style from './BoDashboard.module.scss'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
 import moment from 'moment';
-import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft } from '../../../assets/theme/theme';
+import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
 import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
@@ -80,7 +80,13 @@ const BoDashboardGrid:React.FC<{
                    <StyledTableCell >{req.lastName}</StyledTableCell>
                    <StyledTableCell >{req.email}</StyledTableCell>
                    <StyledTableCell >{req.userName}</StyledTableCell>
-                   <StyledTableCell >{req.status}</StyledTableCell>
+                   <StyledTableCell >
+                   <StyledSwitch
+                           checked={req.status}
+                           disabled={false}
+                           onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
+                   
+                   </StyledTableCell>
                    <StyledTableCell >{req.contactHome}</StyledTableCell>
                    <StyledTableCell >{req.contactMobile}</StyledTableCell>
                    <StyledTableCell >{req.address}</StyledTableCell>
