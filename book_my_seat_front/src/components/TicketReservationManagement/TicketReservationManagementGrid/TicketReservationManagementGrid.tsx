@@ -62,7 +62,7 @@ const TicketReservationManagementGrid:React.FC<{
             <CustomHeaderCell width={220} id='arriveTo' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >arriveTo</CustomHeaderCell>
             <CustomHeaderCell width={250} id='arriveDateAndTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} > Arrive Date And Time</CustomHeaderCell>
             <CustomHeaderCell width={150} id='ticketCount' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Ticket Count</CustomHeaderCell>
-            <CustomHeaderCell width={150} id='Totalprice' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Total Price</CustomHeaderCell>
+            <CustomHeaderCell width={150} id='totalPrice' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Total Price</CustomHeaderCell>
             <CustomHeaderCell width={100} id='actions' >Actions</CustomHeaderCell>
           </TableRow>
         </TableHead>
@@ -84,7 +84,7 @@ const TicketReservationManagementGrid:React.FC<{
                    <StyledTableCell >{req.arriveTo}</StyledTableCell>
                    <StyledTableCell >{req.arriveDateAndTime}</StyledTableCell>
                    <StyledTableCell >{req.ticketCount}</StyledTableCell>
-                   <StyledTableCell >{req.Totalprice}</StyledTableCell>
+                   <StyledTableCell >{req.totalPrice}</StyledTableCell>
 
                   <StyledTableCell style={{ backgroundColor: '#282828' }}>
 

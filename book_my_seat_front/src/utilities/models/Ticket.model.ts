@@ -1,3 +1,4 @@
+import { FormFieldDto } from ".";
 
 export interface TicketReservationDetailsDto{
     referenceID: string;
@@ -13,10 +14,12 @@ export interface TicketReservationDetailsDto{
     depatureFrom: string;
     arriveDateAndTime:string
     arriveTo: string;
-    Totalprice: number
+    totalPrice: number
 }
 
 export interface TicketReservationDetailsFormDto{
+    ticketCount:FormFieldDto<string>, 
+    totalPrice:FormFieldDto<string>, 
 
     
 }

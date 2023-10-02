@@ -124,7 +124,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "New York",
     arriveDateAndTime: "2023-10-10 16:00",
     arriveTo: "Chicago",
-    Totalprice: 250
+    totalPrice: 250
   },
   {
     referenceID: "REF1002",
@@ -140,7 +140,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "New York",
     arriveDateAndTime: "2023-10-10 16:00",
     arriveTo: "Chicago",
-    Totalprice: 150
+    totalPrice: 150
   },
   {
     referenceID: "REF1003",
@@ -156,7 +156,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "New York",
     arriveDateAndTime: "2023-10-10 16:00",
     arriveTo: "Chicago",
-    Totalprice: 75
+    totalPrice: 75
   },
   {
     referenceID: "REF1004",
@@ -172,7 +172,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "New York",
     arriveDateAndTime: "2023-10-10 16:00",
     arriveTo: "Chicago",
-    Totalprice: 55
+    totalPrice: 55
   },
   {
     referenceID: "REF1005",
@@ -188,7 +188,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "Los Angeles",
     arriveDateAndTime: "2023-10-11 17:30",
     arriveTo: "San Francisco",
-    Totalprice: 180
+    totalPrice: 180
   },
   {
     referenceID: "REF1006",
@@ -204,7 +204,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "Los Angeles",
     arriveDateAndTime: "2023-10-11 17:30",
     arriveTo: "San Francisco",
-    Totalprice: 90
+    totalPrice: 90
   },
   {
     referenceID: "REF1007",
@@ -220,7 +220,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "Los Angeles",
     arriveDateAndTime: "2023-10-11 17:30",
     arriveTo: "San Francisco",
-    Totalprice: 90
+    totalPrice: 90
   },
   {
     referenceID: "REF1008",
@@ -236,7 +236,7 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
     depatureFrom: "Los Angeles",
     arriveDateAndTime: "2023-10-11 17:30",
     arriveTo: "San Francisco",
-    Totalprice: 50
+    totalPrice: 50
   },
   // Add more sample data entries here...
 ];

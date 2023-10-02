@@ -17,6 +17,8 @@ const TicketReservationManagementScreen = () => {
           <section className={style.sectionCardBody}>
           <section className={style.stepperRoot}>
 
+            
+
 
           </section>
          </section>
