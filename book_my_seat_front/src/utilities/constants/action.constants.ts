@@ -22,3 +22,16 @@ export const AUTH_ACTION_TYPE = {
   export const ALERT_ACTION_TYPES = {
     TRIGGER_ALERT: "TRIGGER_ALERT",
   };
+
+  export const Train_Ticket_Classes = [
+    { id: 1, name: "First Class" },
+    { id: 2, name: "Second Class" },
+    { id: 3, name: "Third Class" },
+  ];
+
+  export const Ticket_Counts = [
+    { id: 1, name: "1 Ticket" },
+    { id: 2, name: "2 Ticket" },
+    { id: 3, name: "3 Ticket" },
+    { id: 4, name: "4 Ticket" },
+  ];

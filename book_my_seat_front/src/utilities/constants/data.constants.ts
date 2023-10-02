@@ -1,4 +1,5 @@
 import { TicketReservationDetailsDto } from "../models";
+import { SeatNumber, trainDetailsDto } from "../models/trains.model";
 import { travellerDto } from "../models/travellor.model";
 
 export const travellerData: travellerDto[] = [
@@ -241,4 +242,126 @@ export  const ticketReservations: TicketReservationDetailsDto[] = [
   // Add more sample data entries here...
 ];
 
-  
+export const TrainDataset: trainDetailsDto[] = [
+  {
+    id: 1,
+    name: "Train A",
+    schedule: [
+      {
+        stationId: "station1",
+        station: "Station X",
+        arrivalTime: "08:00 AM",
+        departureTime: "08:15 AM",
+      },
+      {
+        stationId: "station2",
+        station: "Station Y",
+        arrivalTime: "09:00 AM",
+        departureTime: "09:15 AM",
+      },
+    ],
+    stations: [
+      {
+        stationId: "station1",
+        station: "Station X",
+      },
+      {
+        stationId: "station2",
+        station: "Station Y",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Train B",
+    schedule: [
+      {
+        stationId: "station1",
+        station: "Station X",
+        arrivalTime: "10:00 AM",
+        departureTime: "10:15 AM",
+      },
+      {
+        stationId: "station3",
+        station: "Station Z",
+        arrivalTime: "11:00 AM",
+        departureTime: "11:15 AM",
+      },
+    ],
+    stations: [
+      {
+        stationId: "station1",
+        station: "Station X",
+      },
+      {
+        stationId: "station3",
+        station: "Station Z",
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Train C",
+    schedule: [
+      {
+        stationId: "station2",
+        station: "Station Y",
+        arrivalTime: "12:00 PM",
+        departureTime: "12:15 PM",
+      },
+      {
+        stationId: "station4",
+        station: "Station W",
+        arrivalTime: "01:00 PM",
+        departureTime: "01:15 PM",
+      },
+    ],
+    stations: [
+      {
+        stationId: "station2",
+        station: "Station Y",
+      },
+      {
+        stationId: "station4",
+        station: "Station W",
+      },
+    ],
+  },
+  {
+    id: 4,
+    name: "Train D",
+    schedule: [
+      {
+        stationId: "station3",
+        station: "Station Z",
+        arrivalTime: "02:00 PM",
+        departureTime: "02:15 PM",
+      },
+      {
+        stationId: "station5",
+        station: "Station V",
+        arrivalTime: "03:00 PM",
+        departureTime: "03:15 PM",
+      },
+    ],
+    stations: [
+      {
+        stationId: "station3",
+        station: "Station Z",
+      },
+      {
+        stationId: "station5",
+        station: "Station V",
+      },
+    ],
+  },
+];
+
+
+export const SeatList: SeatNumber[] = [
+  { id: 1, name: "Seat 1" },
+  { id: 2, name: "Seat 2" },
+  { id: 3, name: "Seat 3" },
+  // Add more data as needed
+];
+

@@ -1,4 +1,5 @@
-import { FormFieldDto } from ".";
+import { Dayjs } from "dayjs";
+import { FormFieldDto, OptionsDto } from ".";
 
 export interface TicketReservationDetailsDto{
     referenceID: string;
@@ -18,18 +19,26 @@ export interface TicketReservationDetailsDto{
 }
 
 export interface TicketReservationDetailsFormDto{
-    ticketCount:FormFieldDto<string>, 
+    ticketCount:FormFieldDto<OptionsDto>,
     totalPrice:FormFieldDto<string>, 
-
+    ReservedPesonName:FormFieldDto<string>,
+    ReserverNationalID:FormFieldDto<string>,
+    depatureFrom:FormFieldDto<OptionsDto>;
+    depatureDate:FormFieldDto<OptionsDto>;
+    depatureTime: FormFieldDto<OptionsDto>;
+    arriveTime: FormFieldDto<string>;
+    arriveTo:FormFieldDto<OptionsDto>, 
+    trainName:FormFieldDto<OptionsDto>,
+    seatNumbers:FormFieldDto<OptionsDto>,
+    TicketType:FormFieldDto<OptionsDto>,
+}
+export interface TicketReservationTableDto{
+    seatNumber:string,
     
-}
-
-export interface traindetailsDtsssp{
-    depature: string;
-    departureDateTime: string;
-    depatureFrom: string;
-    returnDate: string
-    returnTime: string
-    returnTo: string;
 
 }
+
+
+
+
+
