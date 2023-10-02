@@ -21,5 +21,9 @@ export const ALERT_CONFIGS = {
   export const USER_ROLES = {
     BackOffice: 1,
     Travel_Agent: 2,
-
   };
+  export const TicketType = [
+    { id: 1, name: "1st class",},
+    { id: 2, name: "2nd class",},
+    { id: 3, name: "3rd class",},
+  ];
