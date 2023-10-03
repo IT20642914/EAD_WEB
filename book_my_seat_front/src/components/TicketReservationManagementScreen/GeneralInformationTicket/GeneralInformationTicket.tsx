@@ -121,7 +121,7 @@ const GeneralInformationTicket:React.FC<{
                     multiple={false}
                     value={depatureDate.value}
                     minDate={new Date()}
-                    // maxDate={_returnDate.value}
+                    maxDate={new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)} 
                     error={!!depatureDate.error}
                     disabled={depatureDate.disable}
                     readOnly={depatureDate.readonly}
