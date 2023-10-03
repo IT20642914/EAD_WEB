@@ -55,12 +55,18 @@ const TicketReservationManagementScreen = () => {
   
 
   useEffect(() => {
-    const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value)
-    setTicketInfomationForm({...TicketInfomationForm,
-                totalPrice:{...TicketInfomationForm.totalPrice,
-                value:price},
-             
-      }) 
+
+    if(TicketInfomationForm.TicketType.value.value){
+      const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value)
+      setTicketInfomationForm({...TicketInfomationForm,
+                  totalPrice:{...TicketInfomationForm.totalPrice,
+                  value:price},
+               
+        }) 
+
+      
+    }
+   
   }, [TicketInfomationForm.TicketType.value.value,TicketInfomationForm.ticketCount.value.value])
   
 

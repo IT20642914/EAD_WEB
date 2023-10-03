@@ -26,3 +26,14 @@ export interface SeatNumber{
   id: number,
   name: string,
 } 
+export interface trainDetailsGridDto{
+  id: number,
+  name: string,
+  fristClassSeatCount:number,
+  secondClassSeatCount:number,
+  ThirdClassSeatCount:number,
+  status:boolean,
+  sheduleDateRange:string[]
+  schedule:schedule[],
+  stations:station[],
+}
