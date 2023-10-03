@@ -54,6 +54,16 @@ const TicketReservationManagementScreen = () => {
   }, [])
   
 
+  useEffect(() => {
+    const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value)
+    setTicketInfomationForm({...TicketInfomationForm,
+                totalPrice:{...TicketInfomationForm.totalPrice,
+                value:price},
+             
+      }) 
+  }, [TicketInfomationForm.TicketType.value.value,TicketInfomationForm.ticketCount.value.value])
+  
+
 
   const onInputHandleChange = (property: string, value: any) => {
     setHelperText(true);
@@ -128,8 +138,9 @@ if(property==="depatureFrom"){
 }
 if(property==="arriveTo"){
   if(value.value!==TicketInfomationForm.depatureFrom.value.value){
-    const shedules=Shedules.filter((item:schedule) => item.stationId === value.value)
-    const price =calculateTicketPrice(TicketInfomationForm.TicketType.value,TicketInfomationForm.depatureFrom.value,value)
+
+    const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,value)
+    console.log("price",price)
     setTicketInfomationForm({...TicketInfomationForm,
       arriveTo:{...TicketInfomationForm.arriveTo,
                 value:value },
@@ -250,7 +261,7 @@ const removeFrometable=(id:number) =>{
   setSelectedSeatLis(SelectedSeatLis.filter(item=>item.id!==id))
 }
 
-const calculateTicketPrice = (ticketType:OptionsDto,departureFrom:OptionsDto,arriveTo:OptionsDto) => {
+const calculateTicketPrice = (departureFrom:OptionsDto,arriveTo:OptionsDto) => {
   const distanceA= ShedulesUnchange.filter(shedules=>shedules.stationId==departureFrom.value)
   const distanceB= ShedulesUnchange.filter(shedules=>shedules.stationId==arriveTo.value)
 
@@ -259,26 +270,26 @@ const calculateTicketPrice = (ticketType:OptionsDto,departureFrom:OptionsDto,arr
   if (distanceA.length > 0 && distanceB.length > 0) {
     const distanceAValue = distanceA[0].distancefromstartPoint; // Assuming distance is a property in your schedule objects
     const distanceBValue = distanceB[0].distancefromstartPoint;
-    difference = distanceBValue - distanceAValue;
+    difference = Math.abs(distanceBValue - distanceAValue);
   }
   
-  console.log("ticketType",ticketType,departureFrom,arriveTo)
+  console.log("difference",difference)
+  console.log("ticketType",TicketInfomationForm.TicketType.value.value,departureFrom,arriveTo)
   let basePrice:number =10
   let ratePerKM:number= 0.05
   
-  if(ticketType.value===1){
+  if(TicketInfomationForm.TicketType.value.value===1){
     basePrice=25
     ratePerKM=0.01
   }
-  if(ticketType.value===2){
+  if(TicketInfomationForm.TicketType.value.value===2){
     basePrice=15
     ratePerKM=0.08
   }
  
-const ticketPrice =( basePrice + difference * ratePerKM)*Number(TicketInfomationForm.ticketCount.value.value);
+ const ticketCount:number=Number(TicketInfomationForm.ticketCount.value.value)||1
+const ticketPrice =( basePrice + difference * ratePerKM)*ticketCount;
 
-
-console.log("ticketPrice",ticketPrice)
   return ticketPrice;
 };
   return (
