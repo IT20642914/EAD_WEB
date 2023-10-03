@@ -20,7 +20,7 @@ export interface TicketReservationDetailsDto{
 
 export interface TicketReservationDetailsFormDto{
     ticketCount:FormFieldDto<OptionsDto>,
-    totalPrice:FormFieldDto<string>, 
+    totalPrice:FormFieldDto<number>, 
     ReservedPesonName:FormFieldDto<string>,
     ReserverNationalID:FormFieldDto<string>,
     depatureFrom:FormFieldDto<OptionsDto>;
@@ -31,6 +31,8 @@ export interface TicketReservationDetailsFormDto{
     trainName:FormFieldDto<OptionsDto>,
     seatNumbers:FormFieldDto<OptionsDto>,
     TicketType:FormFieldDto<OptionsDto>,
+    arriveDistance:FormFieldDto<number>
+    dipatureDistance:FormFieldDto<number>
 }
 export interface TicketReservationTableDto{
     seatNumber:string,

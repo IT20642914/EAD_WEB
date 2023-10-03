@@ -7,12 +7,14 @@ export interface trainDetailsDto{
 export interface station{
     stationId:string,
     station:string,
+
 } 
 export interface schedule{
   stationId:string,
   station:string,
   arrivalTime:string,
   departureTime:string,
+  distancefromstartPoint:number,
 } 
 
 export interface TainlistDto{

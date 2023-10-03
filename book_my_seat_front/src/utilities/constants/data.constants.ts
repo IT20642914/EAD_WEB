@@ -252,12 +252,14 @@ export const TrainDataset: trainDetailsDto[] = [
         station: "Station X",
         arrivalTime: "08:00 AM",
         departureTime: "08:15 AM",
+        distancefromstartPoint:40,
       },
       {
         stationId: "station2",
         station: "Station Y",
         arrivalTime: "09:00 AM",
         departureTime: "09:15 AM",
+        distancefromstartPoint:10,
       },
     ],
     stations: [
@@ -280,12 +282,14 @@ export const TrainDataset: trainDetailsDto[] = [
         station: "Station X",
         arrivalTime: "10:00 AM",
         departureTime: "10:15 AM",
+        distancefromstartPoint:20,
       },
       {
         stationId: "station3",
         station: "Station Z",
         arrivalTime: "11:00 AM",
         departureTime: "11:15 AM",
+        distancefromstartPoint:10,
       },
     ],
     stations: [
@@ -308,12 +312,14 @@ export const TrainDataset: trainDetailsDto[] = [
         station: "Station Y",
         arrivalTime: "12:00 PM",
         departureTime: "12:15 PM",
+        distancefromstartPoint:30,
       },
       {
         stationId: "station4",
         station: "Station W",
         arrivalTime: "01:00 PM",
         departureTime: "01:15 PM",
+        distancefromstartPoint:60,
       },
     ],
     stations: [
@@ -336,12 +342,14 @@ export const TrainDataset: trainDetailsDto[] = [
         station: "Station Z",
         arrivalTime: "02:00 PM",
         departureTime: "02:15 PM",
+        distancefromstartPoint:70,
       },
       {
         stationId: "station5",
         station: "Station V",
         arrivalTime: "03:00 PM",
         departureTime: "03:15 PM",
+        distancefromstartPoint:80,
       },
     ],
     stations: [

@@ -6,7 +6,7 @@ import { AlertDto, OptionsDto, TicketReservationDetailsFormDto } from '../../uti
 import { useNavigate } from 'react-router-dom'
 import { DetailedInformationTicket, GeneralInformationTicket } from '../../components/TicketReservationManagementScreen'
 import { CustomButton } from '../../components/Shared'
-import { ALERT_ACTION_TYPES, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TrainDataset } from '../../utilities/constants'
+import { ALERT_ACTION_TYPES, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
 import { SeatNumber, TainlistDto, schedule, station, trainDetailsDto } from '../../utilities/models/trains.model'
 import { alertActions } from '../../redux/action/alert.action'
 import { useDispatch } from 'react-redux'
@@ -16,18 +16,20 @@ const TicketReservationManagementScreen = () => {
 
 
   const TICKET_INFORMATION_FORM_INITIAL_STATE: TicketReservationDetailsFormDto = {
-    ticketCount:{ value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-    totalPrice: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    ticketCount: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    totalPrice: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     ReservedPesonName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     ReserverNationalID: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    depatureDate: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-    depatureTime:  { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-    arriveTime:  { value:"", isRequired: true, disable: false, readonly: false, validator: "text", error: "",},
-    arriveTo:  { value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "",},
-    trainName:  { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-    seatNumbers:  { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-    TicketType:  { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "",},
-  depatureFrom:{ value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "",},
+    depatureDate: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    depatureTime: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    arriveTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    arriveTo: { value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "", },
+    trainName: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    seatNumbers: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    TicketType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    depatureFrom: { value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "", },
+    arriveDistance: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    dipatureDistance:  { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
   }
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -118,6 +120,7 @@ if(property==="depatureFrom"){
   setTicketInfomationForm({...TicketInfomationForm,
   depatureFrom:{...TicketInfomationForm.depatureFrom,
             value:value },
+           
   })
   
 
@@ -125,10 +128,18 @@ if(property==="depatureFrom"){
 }
 if(property==="arriveTo"){
   if(value.value!==TicketInfomationForm.depatureFrom.value.value){
+    const shedules=Shedules.filter((item:schedule) => item.stationId === value.value)
+    const price =calculateTicketPrice(TicketInfomationForm.TicketType.value,TicketInfomationForm.depatureFrom.value,value)
     setTicketInfomationForm({...TicketInfomationForm,
       arriveTo:{...TicketInfomationForm.arriveTo,
-                value:value }
+                value:value },
+                totalPrice:{...TicketInfomationForm.totalPrice,
+                value:price},
+             
       }) 
+
+
+
   }else{
     setTicketInfomationForm({...TicketInfomationForm,
       arriveTo:{...TicketInfomationForm.arriveTo,
@@ -155,6 +166,7 @@ if(property==="depatureTime"){
             value:value },
             arriveTime:{...TicketInfomationForm.arriveTime,
             value:arriveTime[0].arrivalTime}
+
   })
 }
 if(property==="seatNumbers"){
@@ -237,6 +249,38 @@ const  setAsInitialState=() => {
 const removeFrometable=(id:number) =>{
   setSelectedSeatLis(SelectedSeatLis.filter(item=>item.id!==id))
 }
+
+const calculateTicketPrice = (ticketType:OptionsDto,departureFrom:OptionsDto,arriveTo:OptionsDto) => {
+  const distanceA= ShedulesUnchange.filter(shedules=>shedules.stationId==departureFrom.value)
+  const distanceB= ShedulesUnchange.filter(shedules=>shedules.stationId==arriveTo.value)
+
+  let difference = 0;
+
+  if (distanceA.length > 0 && distanceB.length > 0) {
+    const distanceAValue = distanceA[0].distancefromstartPoint; // Assuming distance is a property in your schedule objects
+    const distanceBValue = distanceB[0].distancefromstartPoint;
+    difference = distanceBValue - distanceAValue;
+  }
+  
+  console.log("ticketType",ticketType,departureFrom,arriveTo)
+  let basePrice:number =10
+  let ratePerKM:number= 0.05
+  
+  if(ticketType.value===1){
+    basePrice=25
+    ratePerKM=0.01
+  }
+  if(ticketType.value===2){
+    basePrice=15
+    ratePerKM=0.08
+  }
+ 
+const ticketPrice =( basePrice + difference * ratePerKM)*Number(TicketInfomationForm.ticketCount.value.value);
+
+
+console.log("ticketPrice",ticketPrice)
+  return ticketPrice;
+};
   return (
     <React.Fragment>
     <AppLayout componentTitle="New Traveler">

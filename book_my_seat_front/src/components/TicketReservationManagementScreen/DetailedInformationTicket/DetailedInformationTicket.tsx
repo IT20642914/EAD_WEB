@@ -29,6 +29,7 @@ Shedules:schedule[];
   const depatureTime=props.TicketInfomationForm.depatureTime
   const arriveTime=props.TicketInfomationForm.arriveTime
   const seatNumbers=props.TicketInfomationForm.seatNumbers
+  const totalPrice=props.TicketInfomationForm.totalPrice
   // const TicketType=props.TicketInfomationForm.TicketType
 
   return (
@@ -154,6 +155,21 @@ Shedules:schedule[];
 />
         </Grid>
         <Grid item xs={12} md={6}>
+           <StyledTextField
+  fullWidth
+  label="Toatal Price"
+  placeholder='Enter Toatal Price'
+  size='small'
+  value={totalPrice.value}
+  error={!!totalPrice.error}
+  disabled={totalPrice.disable}
+  required={totalPrice.isRequired}
+  helperText={props.helperText && totalPrice.error}
+  onFocus={() => props.handleInputFocus('totalPrice', 'GI')}
+  onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('totalPrice', event.target.value)}
+/>
+  </Grid>
+        <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
             label="Seat Numbers"
@@ -179,7 +195,7 @@ Shedules:schedule[];
             }
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
         </Grid>
       </Grid>
       <section>
