@@ -274,8 +274,8 @@ const calculateTicketPrice = (departureFrom:OptionsDto,arriveTo:OptionsDto) => {
   let difference = 0;
 
   if (distanceA.length > 0 && distanceB.length > 0) {
-    const distanceAValue = distanceA[0].distancefromstartPoint; // Assuming distance is a property in your schedule objects
-    const distanceBValue = distanceB[0].distancefromstartPoint;
+    const distanceAValue = distanceA[0].distanceFromStartPoint; // Assuming distance is a property in your schedule objects
+    const distanceBValue = distanceB[0].distanceFromStartPoint;
     difference = Math.abs(distanceBValue - distanceAValue);
   }
   

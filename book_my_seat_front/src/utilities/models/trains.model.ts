@@ -14,7 +14,7 @@ export interface schedule{
   station:string,
   arrivalTime:string,
   departureTime:string,
-  distancefromstartPoint:number,
+  distanceFromStartPoint:number,
 } 
 
 export interface TainlistDto{
@@ -27,13 +27,22 @@ export interface SeatNumber{
   name: string,
 } 
 export interface trainDetailsGridDto{
-  id: number,
-  name: string,
-  fristClassSeatCount:number,
-  secondClassSeatCount:number,
-  ThirdClassSeatCount:number,
+  id: number;
+  name: string;
+  firstClassSeatCount: number;
+  secondClassSeatCount: number;
+  thirdClassSeatCount: number;
   status:boolean,
-  sheduleDateRange:string[]
+ 
+}
+export interface sheduleTrainDetailsGridDto{
+  sheduleid:string
+  trainId:string,
+  trainName:string
+  status:boolean,
+  startingStation:string,
+  arrivingStation:string,
+  scheduleDateRange:string
   schedule:schedule[],
   stations:station[],
 }
