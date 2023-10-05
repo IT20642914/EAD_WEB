@@ -233,8 +233,6 @@ if(property==="schedule"){
   setstationlist(filteredList2[value].stations)
   setisOpenViewStationsPopup(true)
 }
-
-
 }
 
 const OnPopUPClose = (property:string) => {
