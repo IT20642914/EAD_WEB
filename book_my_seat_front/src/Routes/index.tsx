@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { BoDashboard, Login, TicketReservationManagement, TicketReservationManagementScreen,TravelerScreen } from '../pages';
 import TrainManagement from '../pages/TrainManagement/TrainManagement';
 import TrainScreen from '../pages/TrainScreen/TrainScreen';
+import SheduleScreen from '../pages/SheduleScreen/SheduleScreen';
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
 {/* Traine Management routes */}
 <Route path={APP_ROUTES.TRAIN_MANAGEMENT} element={<TrainManagement/>}/>
 <Route path={APP_ROUTES.ADD_TRAIN} element={<TrainScreen/>}/>
+<Route path={APP_ROUTES.CREATE_SHEDULE} element={<SheduleScreen/>}/>
 
 
       </Routes>

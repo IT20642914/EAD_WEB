@@ -11,7 +11,7 @@ const SheduleScreen = () => {
       <section className={style.sectionCard}>
           <section className={style.sectionCardHeader}>
             <Typography noWrap component="div" className={style.title}>
-              <h3>Manage Trains</h3>
+              <h3>Manage Shedules</h3>
             </Typography>
           </section>
           <section className={style.sectionCardBody}>

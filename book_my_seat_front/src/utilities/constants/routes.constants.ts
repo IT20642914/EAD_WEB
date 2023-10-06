@@ -6,4 +6,5 @@ TR_MANAGEMENT="/ticket-reservation-management",
 BOOK_TICKET="/ticket-reservation-management/create",
 TRAIN_MANAGEMENT="/train-management",
 ADD_TRAIN="/train-management/add",
+CREATE_SHEDULE="/train-management/Create",
 }
