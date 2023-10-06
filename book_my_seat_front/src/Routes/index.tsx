@@ -1,8 +1,9 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
  import { APP_ROUTES } from "../utilities/constants";
-import { BoDashboard, Login, TicketReservationManagement, TicketReservationManagementScreen, TravelerScreen } from '../pages';
+import { BoDashboard, Login, TicketReservationManagement, TicketReservationManagementScreen,TravelerScreen } from '../pages';
 import TrainManagement from '../pages/TrainManagement/TrainManagement';
+import TrainScreen from '../pages/TrainScreen/TrainScreen';
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,8 @@ const AppRoutes = () => {
 
 {/* Traine Management routes */}
 <Route path={APP_ROUTES.TRAIN_MANAGEMENT} element={<TrainManagement/>}/>
+<Route path={APP_ROUTES.ADD_TRAIN} element={<TrainScreen/>}/>
+
 
       </Routes>
     </BrowserRouter>

@@ -47,7 +47,7 @@ const SheduleManagemetGrid: React.FC<{
                     {props.isFiltered &&
                         <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
                     }
-                    <CustomButton text='Add Train' onClick={() => navigate(APP_ROUTES.ADD_TRAIN)} />
+                    <CustomButton text='Create A shedule' onClick={() => navigate(APP_ROUTES.ADD_TRAIN)} />
                 </div>
             </div>
 
