@@ -402,13 +402,11 @@ export const TrainDetailsList:trainDetailsGridDto[] =[
 
 
 export const SheduleList: sheduleTrainDetailsGridDto []=[ {
-  sheduleid: "1",
-  status: true,
   trainId: "1",
+  status: true,
   trainName: "Train 1",
   startingStation: "Station A",
   arrivingStation: "Station B",
-  scheduleDateRange: "2023-10-01 to 2023-10-10",
   schedule: [
     {
       stationId: "1",

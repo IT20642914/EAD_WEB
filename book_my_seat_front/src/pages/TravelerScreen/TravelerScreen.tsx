@@ -8,6 +8,7 @@ import { CustomButton } from '../../components/Shared'
 import { useNavigate } from 'react-router-dom'
 import { APP_ROUTES } from '../../utilities/constants'
 import { TravellerInformationFormDto } from '../../utilities/models/travellor.model'
+import { SheduleListFormDto, schedule } from '../../utilities/models/trains.model'
 const TravelerScreen = () => {
 
     const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravellerInformationFormDto = {
@@ -20,14 +21,15 @@ const TravelerScreen = () => {
         contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         identificationCard: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    };
-
+    }; 
+ 
+    
         const navigate = useNavigate()
 
         const [screenMode, setScreenMode] = useState("");
         const [helperText, setHelperText] = useState(true);
         const [TravelloerInfomationForm, setTravelloerInfomationForm] = useState(TRAVELLER_INFORMATION_FORM_INITIAL_STATE);
-        
+   
         const handleInputFocus = (property: string, section: string) => {
             if (section === "GI")
             setTravelloerInfomationForm({

@@ -40,14 +40,14 @@ const SheduleManagemetGrid: React.FC<{
                     component="div"
                     className={style.gridTitle}
                 >
-                    <h3>Shedule Management</h3>
+                    <h3>Train Shedule Details</h3>
                 </Typography>
                 <Box sx={{ flexGrow: 1 }} />
                 <div className='layout-row'>
                     {props.isFiltered &&
                         <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
                     }
-                    <CustomButton text='Create A shedule' onClick={() => navigate(APP_ROUTES.CREATE_SHEDULE)} />
+                    <CustomButton text='Add Train' onClick={() => navigate(APP_ROUTES.ADD_TRAIN)} />
                 </div>
             </div>
 
@@ -55,15 +55,15 @@ const SheduleManagemetGrid: React.FC<{
                 <Table className={style.table}>
                     <TableHead>
                         <TableRow>
-                            <CustomHeaderCell width={180} id='id' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Shedule Id</CustomHeaderCell>
+                            <CustomHeaderCell width={180} id='trainid' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Train Id</CustomHeaderCell>
                             <CustomHeaderCell width={180} id='trainName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Train Name</CustomHeaderCell>
                             <CustomHeaderCell width={180} id='startingStation' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Starting Station</CustomHeaderCell>
                             <CustomHeaderCell width={220} id='arrivingStation' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Arriving Station</CustomHeaderCell>
                             <CustomHeaderCell width={180} id='status' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Status</CustomHeaderCell>
-                            <CustomHeaderCell width={180} id='schedule'  >schedule</CustomHeaderCell>
-                            <CustomHeaderCell width={180} id='stations'  >stations</CustomHeaderCell>
+                            <CustomHeaderCell width={180} id='schedule'>schedule</CustomHeaderCell>
+                            <CustomHeaderCell width={180} id='stations'>stations</CustomHeaderCell>
 
-                            <CustomHeaderCell width={120} id='action' >Action</CustomHeaderCell>
+                            <CustomHeaderCell width={120} id='action'>Action</CustomHeaderCell>
 
                         </TableRow>
                     </TableHead>
@@ -74,7 +74,7 @@ const SheduleManagemetGrid: React.FC<{
                         <TableBody>
                             {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: sheduleTrainDetailsGridDto,index) => (
                                 <TableRow key={index}>
-                                    <StyledTableCell >{req.sheduleid}</StyledTableCell> 
+                                    <StyledTableCell >{req.trainId}</StyledTableCell> 
                                     <StyledTableCell >{req.trainName}</StyledTableCell>
                                     <StyledTableCell >{req.startingStation}</StyledTableCell>
                                     <StyledTableCell >{req.arrivingStation}</StyledTableCell>

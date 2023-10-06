@@ -1,3 +1,5 @@
+import { FormFieldDto, OptionsDto } from ".";
+
 export interface trainDetailsDto{
     id: number,
     name: string,
@@ -36,13 +38,31 @@ export interface trainDetailsGridDto{
  
 }
 export interface sheduleTrainDetailsGridDto{
-  sheduleid:string
+
   trainId:string,
   trainName:string
   status:boolean,
   startingStation:string,
   arrivingStation:string,
-  scheduleDateRange:string
   schedule:schedule[],
   stations:station[],
+}
+export interface trainDetailsGridFormDto{
+  trainType:FormFieldDto<OptionsDto>,
+  trainId: FormFieldDto<string>, 
+  trainName: FormFieldDto<string>,
+  trainLength: FormFieldDto<string>,  
+  firstClassSeatCount:FormFieldDto<string>, 
+  secondClassSeatCount:FormFieldDto<string>, 
+  thirdClassSeatCount:FormFieldDto<string>, 
+  startingStation:FormFieldDto<OptionsDto>, 
+  arrivingStation:FormFieldDto<OptionsDto>,
+  status:FormFieldDto<boolean>, 
+}
+export interface SheduleListFormDto{
+  stationId:FormFieldDto<string>,
+  station:FormFieldDto<string>,
+  arrivalTime:FormFieldDto<string>,
+  departureTime:FormFieldDto<string>,
+  distanceFromStartPoint:FormFieldDto<number>,
 }
