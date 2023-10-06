@@ -2,10 +2,14 @@ import React from 'react'
 import { SheduleListFormDto, schedule, trainDetailsGridFormDto } from '../../../utilities/models/trains.model'
 import style from './TrainScreenForm.module.scss'
 import Stepper from '../../Shared/Stepper/Stepper'
-import { Grid, Typography } from '@mui/material'
-import { StyledSwitch, StyledTextField } from '../../../assets/theme/theme'
-import { Train_Ticket_Classes, Train_Types, stations, } from '../../../utilities/constants'
+import { Box, Grid, IconButton, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@mui/material'
+import { StyledSwitch, StyledTableCell, StyledTextField } from '../../../assets/theme/theme'
+import { TRAIN_SCREEN_MODES, Train_Ticket_Classes, Train_Types, stations, } from '../../../utilities/constants'
 import CustomAutocomplete from '../../Shared/CustomAutocomplete/CustomAutocomplete'
+import { CustomHeaderCell, CustomTimePicker } from '../../Shared'
+import { EditOutlined } from '@mui/icons-material'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+
 const TrainScreenForm :React.FC<{
   helperText: boolean
   screenMode: string
@@ -14,6 +18,7 @@ const TrainScreenForm :React.FC<{
   TrainInfomationForm:trainDetailsGridFormDto 
   onInputHandleChange(property: string, value: any): void;
   handleInputFocus(property: string, section: string): void;
+  handleTableClick(index: number, property: string): void;
 }> = (props) => {
 
   const trainName = props.TrainInfomationForm.trainName
@@ -26,6 +31,11 @@ const TrainScreenForm :React.FC<{
   const startingStation = props.TrainInfomationForm.startingStation
   const trainLength = props.TrainInfomationForm.trainLength
   const TotalSeatCount:number=Number(firstClassSeatCount)+Number(secondClassSeatCount)+Number(thirdClassSeatCount)
+  const station = props.SheduleInfomationForm.station
+  const departureTime = props.SheduleInfomationForm.departureTime
+  const arrivalTime = props.SheduleInfomationForm.arrivalTime
+  const distanceFromStartPoint = props.SheduleInfomationForm.distanceFromStartPoint
+  
 
   return (<>
     <Stepper stepNumber={1} stepTitle={"General Information"}>
@@ -224,9 +234,140 @@ const TrainScreenForm :React.FC<{
 <Stepper stepNumber={3} stepTitle={"Shedule Information"}>
           <Grid container spacing={4}>
            <Grid item xs={12} md={6}>
+          
+     <CustomAutocomplete
+                     freeSolo={true}
+                      label="Station"
+                      placeholder="Select Station"
+                      onFocus={() =>
+                        props.handleInputFocus("station", "GI")
+                      }
+                      options={
+                        stations &&
+                        stations.map((l: any) => {
+                          return { label: l.station, value: l.stationId };
+                        })
+                      }
+                      value={{
+                        label: station.value.label,
+                        value: station.value.value,
+                      }}
+                      error={!!station.error}
+                      disabled={station.disable}
+                      readonly={station.readonly}
+                      required={station.isRequired}
+                      helperText={props.helperText && station.error}
+                      onChange={(event: any, value: any) =>
+                        props.onInputHandleChange("station", value)
+                      }
+                    />
+       
            </Grid>
-    
+           <Grid item xs={12} md={6}>
+           <CustomTimePicker
+                    label="Arrival at"
+                    placeholder='Select Time'
+                    value={arrivalTime.value}
+                    error={!!arrivalTime.error}
+                    disabled={arrivalTime.disable}
+                    readOnly={arrivalTime.readonly}
+                    required={arrivalTime.isRequired}
+                    helperText={props.helperText && arrivalTime.error}
+                    onFocus={() => props.handleInputFocus('arrivalTime', 'GI')}
+                    onChange={(value: any) => props.onInputHandleChange("arrivalTime", value)}
+                  />
+           </Grid>
+           <Grid item xs={12} md={6}>
+           <CustomTimePicker
+                    label="Departure at"
+                    placeholder='Select Time'
+                    value={departureTime.value}
+                    error={!!departureTime.error}
+                    disabled={departureTime.disable}
+                    readOnly={departureTime.readonly}
+                    required={departureTime.isRequired}
+                    helperText={props.helperText && departureTime.error}
+                    onFocus={() => props.handleInputFocus('departureTime', 'GI')}
+                    onChange={(value: any) => props.onInputHandleChange("departureTime", value)}
+                  />
+           </Grid>
+           <Grid item xs={12} md={6}>
+           <StyledTextField
+                      fullWidth
+                      label="Distance FromS tart Point"
+                      placeholder='Enter Distance FromS tart Point'
+                      size='small'
+                      value={distanceFromStartPoint.value}
+                      error={!!distanceFromStartPoint.error}
+                      disabled={distanceFromStartPoint.disable}
+                      required={distanceFromStartPoint.isRequired}
+                      helperText={props.helperText && distanceFromStartPoint.error}
+                      onFocus={() => props.handleInputFocus('distanceFromStartPoint', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('distanceFromStartPoint', event.target.value)}
+                    />
+           </Grid>
+         
+           <Grid item xs={12} md={12}>
+           </Grid>
     </Grid>
+    <section className={style.gridSection}>
+        <TableContainer component={Paper} className={style.grid}>
+          <Table className={style.table}>
+            <TableHead>
+              <TableRow>
+                <CustomHeaderCell id='stationId'  >Station Id</CustomHeaderCell>
+                <CustomHeaderCell id='station'  >Station</CustomHeaderCell>
+                <CustomHeaderCell id='arrivalTime' >Arrival Time</CustomHeaderCell>
+                <CustomHeaderCell id='departureTime' >Distance From Start Point</CustomHeaderCell>
+                <CustomHeaderCell id='distanceFromStartPoint' >Departure Time</CustomHeaderCell>
+                {props.screenMode !== TRAIN_SCREEN_MODES.VIEW &&
+                  <CustomHeaderCell width={100} id='actions' >Actions</CustomHeaderCell>
+                }
+              </TableRow>
+            </TableHead>
+            {props.SheduleData && props.SheduleData.length > 0 &&
+              <TableBody>
+                {props.SheduleData.map((p,index) => (
+                  <TableRow key={p.stationId}>
+                    <StyledTableCell >{p.stationId}</StyledTableCell>
+                    <StyledTableCell >{p.station}</StyledTableCell>
+                    <StyledTableCell >{p.arrivalTime}</StyledTableCell>
+                    <StyledTableCell >{p.departureTime}</StyledTableCell>
+                    <StyledTableCell >{p.distanceFromStartPoint}</StyledTableCell>
+                    {props.screenMode !== TRAIN_SCREEN_MODES.VIEW &&
+                      <StyledTableCell style={{ backgroundColor: '#282828' }}>
+                        <Box className='layout-row'>
+                          <Box>
+                            <IconButton size='small' onClick={() => props.handleTableClick(index,"Delete")}>
+                              <Tooltip title="Delete">
+                                <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                              </Tooltip>
+                            </IconButton>
+                          </Box>
+                          <Box>
+                            <IconButton size='small' onClick={() => props.handleTableClick(index,"Edite")}>
+                              <Tooltip title="Edit">
+                                <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                              </Tooltip>
+                            </IconButton>
+                          </Box>
+                        </Box>
+                      </StyledTableCell>
+                    }
+                  </TableRow>
+                ))}
+              </TableBody>
+            }
+            {props.SheduleData.length === 0 &&
+              <TableBody>
+                <TableRow>
+                  <StyledTableCell align="center" colSpan={6}>No data to preview</StyledTableCell>
+                </TableRow>
+              </TableBody>
+            }
+          </Table>
+        </TableContainer>
+      </section>
 </Stepper>
 </>
   )

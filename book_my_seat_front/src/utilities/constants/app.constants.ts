@@ -27,3 +27,8 @@ export const ALERT_CONFIGS = {
     { id: 2, name: "2nd class",},
     { id: 3, name: "3rd class",},
   ];
+  export const TRAIN_SCREEN_MODES = {
+    CREATE: "CREATE",
+    EDIT: "EDIT",
+    VIEW: "VIEW",
+  };

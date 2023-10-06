@@ -21,7 +21,7 @@ const TrainScreen = () => {
     trainLength: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
   };
   const Shedule_INFORMATION_FORM_INITIAL_STATE: SheduleListFormDto = {
-    station: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    station: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arrivalTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     departureTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     distanceFromStartPoint: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
@@ -75,6 +75,10 @@ const TrainScreen = () => {
         setTrainInfomationForm(TRAIN_INFORMATION_FORM_INITIAL_STATE)  
       }
 
+      const handleTableClick=() => {
+        
+      }
+
   return (
     <React.Fragment>
     <AppLayout componentTitle="New Traveler">
@@ -88,6 +92,7 @@ const TrainScreen = () => {
           <section className={style.sectionCardBody}>
           <section className={style.stepperRoot}>
           <TrainScreenForm
+          handleTableClick={handleTableClick}
             helperText={helperText}
             TrainInfomationForm={TrainInfomationForm}
             SheduleInfomationForm={SheduleInfomationForm}

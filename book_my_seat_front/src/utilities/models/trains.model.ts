@@ -61,7 +61,7 @@ export interface trainDetailsGridFormDto{
 }
 export interface SheduleListFormDto{
   stationId:FormFieldDto<string>,
-  station:FormFieldDto<string>,
+  station:FormFieldDto<OptionsDto>,
   arrivalTime:FormFieldDto<string>,
   departureTime:FormFieldDto<string>,
   distanceFromStartPoint:FormFieldDto<number>,
