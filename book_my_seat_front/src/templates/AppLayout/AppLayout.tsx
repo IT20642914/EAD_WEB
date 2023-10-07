@@ -5,6 +5,7 @@ import { AppLayoutHeader } from "../index";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ApplicationStateDto, AuthorizedUserDto } from "../../utilities/models";
+import { logo } from "../../assets/images";
 
 const AppLayout: React.FC<{
   children: React.ReactNode;
@@ -45,7 +46,7 @@ const AppLayout: React.FC<{
                 </a>
               </div> */}
               <div className="contentGroup ">
-                <img className="logo" src={"BookMySeat"} alt="BookMySeatlogo" />
+                <img className="logo" src={logo} alt="BookMySeatlogo" />
               </div>
             </aside>
 

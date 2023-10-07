@@ -16,6 +16,7 @@ import { AlertDto, ApplicationStateDto } from "../../utilities/models";
 // import { loginRequest } from "../../core/authConfig";
 // import { alertActions, authActions } from "../../redux/actions";
 import useEnhancedEffect from "@mui/material/utils/useEnhancedEffect";
+import { logo } from "../../assets/images";
 const Login = () => {
 //   const { instance, accounts } = useMsal();
 //   //const isAuthenticated = true;
@@ -30,12 +31,7 @@ const Login = () => {
 //     (state: ApplicationStateDto) => state.authUser.authorizedUser
 //   );
 
-  const _generalUser = 'navindu@gmail.com' 
-  const _lineManager = 'dasun.perera@acentura.com'
-  const _transportManager = 'ishara.manage@acentura.com'
-  const _tdu = 'tdu@gmail.com' // TRANSPORT DIVISION USER
-  const _sbu = 'sbu@gmail.com' //SBU MANAGER
-  const _osa = 'osa@gmail.com' //SUPER ADMIN
+
 
  // React.useEffect(() => {
 //
@@ -110,7 +106,7 @@ const Login = () => {
         <aside className={styles.logincard}>
           <aside className={styles.loginActions}>
             <aside>
-              
+            <img className={styles.logo} src={logo} alt="logo" />
               <h1>Welcome to BOOK MY Seat - Ticket Reservation  System</h1>
             </aside>
             <Button

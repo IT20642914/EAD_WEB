@@ -1,2 +1,2 @@
-export { default as maslogo } from './mas-logo-200x70.png'
+export { default as logo } from './logo_transparent.png'
 
