@@ -33,7 +33,7 @@ const TrainScreenForm :React.FC<{
   const arrivingStation = props.TrainInfomationForm.arrivingStation
   const startingStation = props.TrainInfomationForm.startingStation
   const trainLength = props.TrainInfomationForm.trainLength
-  const TotalSeatCount:number=Number(firstClassSeatCount)+Number(secondClassSeatCount)+Number(thirdClassSeatCount)
+  const TotalSeatCount= props.TrainInfomationForm.totalCount
   const station = props.SheduleInfomationForm.station
   const departureTime = props.SheduleInfomationForm.departureTime
   const arrivalTime = props.SheduleInfomationForm.arrivalTime
@@ -222,11 +222,11 @@ const TrainScreenForm :React.FC<{
                       label="Third Class Seat Count"
                       placeholder='Enter Third Class Seat Count'
                       size='small'
-                      value={TotalSeatCount}
-                      error={false}
-                      disabled={false}
-                      required={false}
-                      helperText={props.helperText && thirdClassSeatCount.error}
+                      value={TotalSeatCount.value}
+                      error={!!TotalSeatCount.error}
+                      disabled={TotalSeatCount.disable}
+                      required={TotalSeatCount.isRequired}
+                      helperText={props.helperText && TotalSeatCount.error}
                       onFocus={() => props.handleInputFocus('TotalSeatCount', 'GI')}
                       onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('TotalSeatCount', event.target.value)}
                     />
@@ -314,7 +314,7 @@ const TrainScreenForm :React.FC<{
            <section className={style.actions}>
             {/* <CustomButton text={!props.isEdit ? 'Add Multiple Locations' : 'Edit Multiple Locations'} border='0px solid #6e6e6e' bgColor='transparent' isShadow='none' textDecoration='underline' onClick={() => props.showAddMultipleLocationPopup(true)} /> */}
             <CustomButton text='Clear' textColor='black' bgColor='#bfbfbf' onClick={props.onClearDetails} />
-            <CustomButton text={!props.isEdit ? 'Add Shedule' : 'Edit Shedule'} border='1px solid #6e6e6e' bgColor='#282828' onClick={()=>{ props.handleShedule("Add Shedule")}} />
+            <CustomButton text={!props.isEdit ? 'Add Shedule' : 'Edit Shedule'} border='1px solid #6e6e6e' bgColor='#282828' onClick={()=>{ !props.isEdit ? props.handleShedule("AddShedule"): props.handleShedule("EditeShedule")}} />
           </section>
            </Grid>
     </Grid>

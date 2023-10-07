@@ -52,12 +52,13 @@ export interface trainDetailsGridFormDto{
   trainId: FormFieldDto<string>, 
   trainName: FormFieldDto<string>,
   trainLength: FormFieldDto<string>,  
-  firstClassSeatCount:FormFieldDto<string>, 
-  secondClassSeatCount:FormFieldDto<string>, 
-  thirdClassSeatCount:FormFieldDto<string>, 
+  firstClassSeatCount:FormFieldDto<number>, 
+  secondClassSeatCount:FormFieldDto<number>, 
+  thirdClassSeatCount:FormFieldDto<number>, 
   startingStation:FormFieldDto<OptionsDto>, 
   arrivingStation:FormFieldDto<OptionsDto>,
   status:FormFieldDto<boolean>, 
+  totalCount:FormFieldDto<number>, 
 }
 export interface SheduleListFormDto{
   stationId:FormFieldDto<string>,
