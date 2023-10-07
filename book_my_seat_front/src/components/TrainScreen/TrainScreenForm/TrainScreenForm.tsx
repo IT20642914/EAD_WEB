@@ -6,7 +6,7 @@ import { Box, Grid, IconButton, Paper, Table, TableBody, TableContainer, TableHe
 import { StyledSwitch, StyledTableCell, StyledTextField } from '../../../assets/theme/theme'
 import { TRAIN_SCREEN_MODES, Train_Ticket_Classes, Train_Types, stations, } from '../../../utilities/constants'
 import CustomAutocomplete from '../../Shared/CustomAutocomplete/CustomAutocomplete'
-import { CustomHeaderCell, CustomTimePicker } from '../../Shared'
+import { CustomButton, CustomHeaderCell, CustomTimePicker } from '../../Shared'
 import { EditOutlined } from '@mui/icons-material'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
@@ -19,6 +19,9 @@ const TrainScreenForm :React.FC<{
   onInputHandleChange(property: string, value: any): void;
   handleInputFocus(property: string, section: string): void;
   handleTableClick(index: number, property: string): void;
+  onClearDetails(): void;
+  isEdit: boolean,
+  handleShedule(property : string,): void
 }> = (props) => {
 
   const trainName = props.TrainInfomationForm.trainName
@@ -308,6 +311,11 @@ const TrainScreenForm :React.FC<{
            </Grid>
          
            <Grid item xs={12} md={12}>
+           <section className={style.actions}>
+            {/* <CustomButton text={!props.isEdit ? 'Add Multiple Locations' : 'Edit Multiple Locations'} border='0px solid #6e6e6e' bgColor='transparent' isShadow='none' textDecoration='underline' onClick={() => props.showAddMultipleLocationPopup(true)} /> */}
+            <CustomButton text='Clear' textColor='black' bgColor='#bfbfbf' onClick={props.onClearDetails} />
+            <CustomButton text={!props.isEdit ? 'Add Shedule' : 'Edit Shedule'} border='1px solid #6e6e6e' bgColor='#282828' onClick={()=>{ props.handleShedule("Add Shedule")}} />
+          </section>
            </Grid>
     </Grid>
     <section className={style.gridSection}>

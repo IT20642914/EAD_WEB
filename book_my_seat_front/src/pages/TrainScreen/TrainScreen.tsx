@@ -34,7 +34,7 @@ const TrainScreen = () => {
         const [TrainInfomationForm, setTrainInfomationForm] = useState(TRAIN_INFORMATION_FORM_INITIAL_STATE);
         const [SheduleInfomationForm, setSheduleInfomationForm] = useState(Shedule_INFORMATION_FORM_INITIAL_STATE);
         const [SheduleData, setSheduleData] = useState<schedule[]>([]);
-        
+        const [isEdit, setisEdit] = useState(false);
 
 
         const handleInputFocus = (property: string, section: string) => {
@@ -76,8 +76,15 @@ const TrainScreen = () => {
       }
 
       const handleTableClick=() => {
-        
+
       }
+      const handleShedule=(property:string) => {
+
+      }
+      const onClearDetails=() => {
+        setSheduleInfomationForm(Shedule_INFORMATION_FORM_INITIAL_STATE)
+      }
+
 
   return (
     <React.Fragment>
@@ -92,6 +99,10 @@ const TrainScreen = () => {
           <section className={style.sectionCardBody}>
           <section className={style.stepperRoot}>
           <TrainScreenForm
+          isEdit={isEdit}
+          onClearDetails={onClearDetails}
+          handleShedule={handleShedule}
+           
           handleTableClick={handleTableClick}
             helperText={helperText}
             TrainInfomationForm={TrainInfomationForm}
