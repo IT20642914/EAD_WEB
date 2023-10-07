@@ -1,24 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style   from "./TrainScreen.module.scss";
 import { Typography } from '@mui/material';
 import { AppLayout } from '../../templates';
 import { SheduleListFormDto, schedule, trainDetailsGridFormDto } from '../../utilities/models/trains.model';
 import { useNavigate } from 'react-router-dom';
-import { APP_ROUTES } from '../../utilities/constants';
+import { APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants';
 import { TrainScreenForm } from '../../components/TrainScreen';
 import { OptionsDto } from '../../utilities/models';
+import { validateFormData } from '../../utilities/helpers';
+import { CustomButton } from '../../components/Shared';
 const TrainScreen = () => {
   const TRAIN_INFORMATION_FORM_INITIAL_STATE: trainDetailsGridFormDto = {
     trainId: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
     trainName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    firstClassSeatCount: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    secondClassSeatCount: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    thirdClassSeatCount: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    firstClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    secondClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    thirdClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     trainType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     startingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arrivingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     trainLength: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    totalCount: { value: 0, isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
   };
   const Shedule_INFORMATION_FORM_INITIAL_STATE: SheduleListFormDto = {
     station: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
@@ -37,7 +40,23 @@ const TrainScreen = () => {
         const [isEdit, setisEdit] = useState(false);
 
 
-        const handleInputFocus = (property: string, section: string) => {
+
+
+       useEffect(() => {
+      let  totalCount=Number(TrainInfomationForm.firstClassSeatCount.value)+Number(TrainInfomationForm.secondClassSeatCount.value)+Number(TrainInfomationForm.thirdClassSeatCount.value)
+      setTrainInfomationForm({
+        ...TrainInfomationForm,
+        totalCount: {
+          ...TrainInfomationForm.totalCount,
+          value: totalCount,
+        },
+      });
+
+       }, [TrainInfomationForm.firstClassSeatCount,TrainInfomationForm.secondClassSeatCount,TrainInfomationForm.thirdClassSeatCount])
+        
+
+    const handleInputFocus = (property: string, section: string) => {
+          console.log("property",property)
           if (section === "GI")
           setTrainInfomationForm({
             ...TrainInfomationForm,
@@ -58,12 +77,144 @@ const TrainScreen = () => {
             },
           });
         }
+        if (property === "trainType") {
+          if(value===null){
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              trainType: {
+                ...TrainInfomationForm.trainType,
+                value: {}as OptionsDto,
+              },
+            });
+          }else{
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              trainType: {
+                ...TrainInfomationForm.trainType,
+                value: value,
+              },
+            });
+          }
+          }
+          if (property === "trainLength") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              trainLength: {
+                ...TrainInfomationForm.trainLength,
+                value: value,
+              },
+            });
+          }
+          if (property === "status") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              status: {
+                ...TrainInfomationForm.status,
+                value: !value,
+              },
+            });
+          }
+          if (property === "firstClassSeatCount") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              firstClassSeatCount: {
+                ...TrainInfomationForm.firstClassSeatCount,
+                value: value,
+              },
+            });
+          }
+          if (property === "secondClassSeatCount") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              secondClassSeatCount: {
+                ...TrainInfomationForm.secondClassSeatCount,
+                value: value,
+              },
+            });
+          }
+          if (property === "thirdClassSeatCount") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              thirdClassSeatCount: {
+                ...TrainInfomationForm.thirdClassSeatCount,
+                value: value,
+              },
+            });
+          }
+          if (property === "arrivingStation") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              arrivingStation: {
+                ...TrainInfomationForm.arrivingStation,
+                value: value,
+              },
+            });
+          }
+          if (property === "startingStation") {
+            setTrainInfomationForm({
+              ...TrainInfomationForm,
+              startingStation: {
+                ...TrainInfomationForm.startingStation,
+                value: value,
+              },
+            });
+          }
+          if (property === "station") {
+            if(value === null){
+              setSheduleInfomationForm({
+                ...SheduleInfomationForm,
+                station: {
+                  ...SheduleInfomationForm.station,
+                  value: {}as OptionsDto,
+                },
+              });
+            }else{
+              setSheduleInfomationForm({
+                ...SheduleInfomationForm,
+                station: {
+                  ...SheduleInfomationForm.station,
+                  value: value,
+                  error:null,
+                },
+              });
+            }
+           
+          } if (property === "departureTime") {
+            setSheduleInfomationForm({
+              ...SheduleInfomationForm,
+              departureTime: {
+                ...SheduleInfomationForm.departureTime,
+                value: value,
+                error:null,
+              },
+            });
+          } if (property === "arrivalTime") {
+            setSheduleInfomationForm({
+              ...SheduleInfomationForm,
+              arrivalTime: {
+                ...SheduleInfomationForm.arrivalTime,
+                value: value,
+                error:null,
+              },
+            });
+          } if (property === "distanceFromStartPoint") {
+            setSheduleInfomationForm({
+              ...SheduleInfomationForm,
+              distanceFromStartPoint: {
+                ...SheduleInfomationForm.distanceFromStartPoint,
+                value: value,
+                error:null,
+              },
+            });
+          }
       
       }
 
 
-      const  createNewRequest=() => {
-    
+      const  createNewRequest=async () => {
+        const [validateData, isValid] = await validateFormData(TrainInfomationForm);
+        setTrainInfomationForm(validateData);
+        
       }
       const  editRequest=() => {
           
@@ -78,7 +229,10 @@ const TrainScreen = () => {
       const handleTableClick=() => {
 
       }
-      const handleShedule=(property:string) => {
+      const handleShedule=async (property:string) => {
+        const [validateData, isValid] = await validateFormData(SheduleInfomationForm);
+        setSheduleInfomationForm(validateData);
+        
 
       }
       const onClearDetails=() => {
@@ -102,7 +256,6 @@ const TrainScreen = () => {
           isEdit={isEdit}
           onClearDetails={onClearDetails}
           handleShedule={handleShedule}
-           
           handleTableClick={handleTableClick}
             helperText={helperText}
             TrainInfomationForm={TrainInfomationForm}
@@ -112,8 +265,51 @@ const TrainScreen = () => {
             onInputHandleChange={onInputHandleChange}
             handleInputFocus={handleInputFocus}/>
          </section>
+         <section className={style.sectionCardFooter}>
+                <CustomButton
+                  text="Close"
+                  textColor="black"
+                  bgColor="#bfbfbf"
+                  onClick={onClose}
+                />
+                  {screenMode !== TRAIN_SCREEN_MODES.VIEW && (
+                  <>
+                  {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.CREATE && (    <>
+                          <CustomButton
+                            text="Clear"
+                            border="1px solid #6e6e6e"
+                            bgColor="#282828"
+                            onClick={setAsInitialState}
+                          />
+                      
+                          <CustomButton
+                            text="ADD Train Details"
+                            disabled={false}
+                            isLoading={
+                             false
+                            }
+                            onClick={() => createNewRequest()}
+                          />
+                        </>   )}
+                    
+                 
+                
+                        {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.EDIT && (
+                        <CustomButton
+                          text="Edit Train Details"
+                          disabled={false}
+                          isLoading={false}
+                          onClick={editRequest}
+                        />
+                        )}
+                    
+                  </>
+                  )}
+              </section>
          </section>
-         
+        
           </section>
         </section>
       </AppLayout>

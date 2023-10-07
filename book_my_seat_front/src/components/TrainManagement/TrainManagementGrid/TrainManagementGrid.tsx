@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
 import moment from 'moment';
 import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
-import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
+import { APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
@@ -46,7 +46,8 @@ const TrainManagementGrid :React.FC<{
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Add Train' onClick={() => navigate(APP_ROUTES.ADD_TRAIN)} />
+        <CustomButton text='Add Train' onClick={() => {  sessionStorage.setItem("Mode",TRAIN_SCREEN_MODES.CREATE);
+        sessionStorage.setItem("id", ""); navigate(APP_ROUTES.ADD_TRAIN)}} />
       </div>
     </div>
 
