@@ -1,0 +1,56 @@
+@import "../../assets/theme/constants.scss";
+
+.CardBox {
+  background-color: $bgColorSidebar !important;
+  // height: 15;
+  max-height: 11rem;
+}
+
+.CardContainer {
+  background: red;
+  display: flex;
+  text-align: left;
+  justify-content: space-between !important;
+  // padding: 2rem;
+}
+
+.cardTitle {
+  color: $white;
+}
+
+.listbox {
+  margin-top: 1.5rem;
+}
+
+.summaryCard {
+  height: 24rem !important;
+  background-color: $bgColorSidebar !important;
+  padding: 10px 20px;
+
+  .summaryCardTitle {
+    display: flex;
+    align-items: end;
+
+    .main {
+      font-weight: 400;
+      font-size: 1rem;
+      color: $white;
+    }
+    .sub {
+      font-size: 0.7rem;
+      padding-right: 2rem;
+      color: #bfbfbf;
+    }
+  }
+}
+
+@media (max-width: 1800px) {
+  .summaryCard {
+    height: 24rem !important;
+  }
+}
+@media (max-width: 1546px) {
+  .summaryCard {
+    height: auto !important;
+  }
+}

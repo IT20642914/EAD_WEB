@@ -45,13 +45,29 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-# Environment  Setup  🌍
+# Environment  Setup 🌍 and Built Using 🧩  
 
-1. 📥 MUI Setup:
+1. 🛠️ Install Router :
+```shell
+yarn add react-router-dom
+```
+2. 🛠️ MUI Setup:
 
 ```shell
-yarn add @mui/material @emotion/react @emotion/styled\
+yarn add @mui/material @emotion/react @mui/icons-material @mui/lab @emotion/styled\
 ```
-SASS =>yarn add sass
-ROUTER DOM= yarn add react-router-dom
-MUI ICON =>yarn add  @mui/icons-material
+3. 🛠️ Sass :
+
+```shell
+yarn add sass
+```
+4. 🛠️ Redux :
+
+```shell
+ yarn add redux-saga redux  react-redux
+```
+5. Notification stack :
+
+```shell
+yarn add notistack
+```

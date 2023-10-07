@@ -1,0 +1,705 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap");
+@import "./constants.scss";
+
+body {
+  margin: 0;
+  font-family: $primaryFont;
+  font-size: $primaryFontSize;
+  color: $white;
+}
+.custom-datepicker-input {
+  color: white;
+  border-radius: 3px;
+  border: 1px #3a3a3a solid;
+  background-color: #2f2f2f;
+  height: 37px;
+  padding: 4px 12px;
+}
+
+.custom-datepicker-input:focus {
+  border: 1px solid white;
+}
+.custom-datepicker-input:hover {
+  border: 1px solid white;
+}
+.custom-datepicker-input.error {
+  border: 1px solid red;
+}
+
+.page-root {
+  margin: $pageMargin;
+}
+.apexcharts-legend {
+  margin-bottom: 0 !important;
+}
+.breadcrumb {
+  width: 100%;
+  font-size: 15px;
+  padding: 12px 12px;
+  margin: 0px;
+  background: $white;
+  color: $cyan;
+  margin-bottom: 10px;
+
+  a {
+    color: $cyan;
+
+    &:hover {
+      color: $red;
+    }
+  }
+}
+
+h1,
+h2,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+  font-family: $primaryFont;
+}
+
+.cursorPointer {
+  cursor: pointer !important;
+}
+
+.buttonGroup {
+  margin-right: 10px;
+}
+
+.iconButtonView {
+  padding: unset !important;
+  margin-top: 8px !important;
+}
+
+.gridStyle {
+  margin-bottom: 40px !important;
+}
+
+.authorizedContainer {
+  background-color: $bgColor;
+  height: 100%;
+  overflow: hidden;
+
+  .minimizing {
+    display: none;
+    border-color: $black;
+    color: $black;
+
+    @media only screen and (max-width: 425px) {
+      display: block;
+      position: absolute;
+      cursor: pointer;
+      border: 3px solid $black;
+      border-radius: 8px;
+      width: 35px;
+      height: 35px;
+      @include transition(ease all 0.4s);
+      margin: 14px;
+      margin-right: 20px;
+      margin-left: 3.5px;
+    }
+  }
+
+  .sideNavigation {
+    @include transition(ease all 0.4s);
+    max-width: 260px;
+    z-index: 999;
+
+    &.collapsed {
+      @include transition(ease all 0.4s);
+      max-width: 65px;
+      white-space: nowrap;
+
+      @media screen and (max-width: 425px) {
+        display: none;
+      }
+    }
+
+    .navBar {
+      position: relative;
+      align-items: center;
+      background: $bgColorSidebar;
+      max-width: 260px;
+      min-width: 65px;
+      padding: 2px 0px 2px 0px;
+      overflow-y: scroll;
+      overflow-x: hidden;
+
+      .links {
+        a {
+          color: $white;
+          width: 100%;
+          position: relative;
+          padding: 5px 5px 5px 10px;
+          &:hover {
+            border-color: $red;
+            color: $red;
+          }
+
+          &:focus {
+            border-color: $red;
+            color: $red;
+          }
+        }
+
+        .is-active {
+          position: relative;
+        }
+        .is-active::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 5px;
+          height: 100%;
+          background-color: $red;
+          border-radius: 0px 10px 10px 0px;
+        }
+      }
+
+      .menuBox {
+        @include transition(ease all 0.4s);
+        margin: 14px 14px 14px 14px;
+        cursor: pointer;
+
+        .menuIcon {
+          border: 2px solid $gray;
+          border-radius: 8px;
+          display: inline-block;
+          width: 38px;
+          height: 38px;
+          cursor: pointer;
+          vertical-align: middle;
+
+          :hover {
+            color: $red;
+            border-color: $red;
+          }
+
+          &:hover {
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.03);
+            border-color: $red;
+            color: $red;
+          }
+
+          span {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 2px;
+            margin-left: 6px;
+            margin-top: 15px;
+            width: 22px;
+            background: $gray;
+            vertical-align: middle;
+
+            &::before {
+              @include transition(ease all 0.4s);
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: -9px;
+              background: $gray;
+              color: $red;
+            }
+
+            &::after {
+              @include transition(ease all 0.4s);
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 9px;
+              background: $gray;
+            }
+          }
+        }
+
+        &:hover {
+          @include transition(ease all 0.4s);
+
+          .menuIcon {
+            span {
+              @include transition(ease all 0.4s);
+              background: $red;
+
+              &::before {
+                background: $red;
+                @include transition(ease all 0.4s);
+                left: -1px;
+                width: 70%;
+                transform: rotate(-45deg);
+                top: -6px;
+              }
+
+              &::after {
+                background: $red;
+                @include transition(ease all 0.4s);
+                width: 70%;
+                left: -1px;
+                transform: rotate(45deg);
+                top: 6px;
+              }
+            }
+          }
+        }
+
+        &.collapsed {
+          @include transition(ease all 0.4s);
+
+          span {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 2px;
+            margin-left: 6px;
+            margin-top: 15px;
+            width: 22px;
+            background: $gray;
+            vertical-align: middle;
+
+            &::before {
+              @include transition(ease all 0.4s);
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: -9px;
+              background: $gray;
+              color: $red;
+            }
+
+            &::after {
+              @include transition(ease all 0.4s);
+              content: "";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 9px;
+              background: $gray;
+            }
+          }
+
+          &:hover {
+            cursor: pointer;
+            border-color: $red;
+            color: $red;
+
+            .menuIcon {
+              span {
+                background: $red;
+                color: $red;
+
+                &::before {
+                  background: $red;
+                  @include transition(ease all 0.4s);
+                  left: 8px;
+                  width: 70%;
+                  transform: rotate(45deg);
+                  top: -6px;
+                }
+
+                &::after {
+                  background: $red;
+                  @include transition(ease all 0.4s);
+                  width: 70%;
+                  left: 8px;
+                  transform: rotate(-45deg);
+                  top: 6px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .appLinkIconGroup {
+        padding-top: 10px;
+
+        .appLinkIcon {
+          padding: 2px 17px;
+          cursor: pointer;
+          margin: 0px 0 8px;
+          vertical-align: middle;
+
+          .icons {
+            @include transition(ease all 0.4s);
+            border: 2px solid;
+            border-radius: 8px;
+            width: 33px;
+            height: 33px;
+            display: block;
+            padding: 5px;
+            margin-left: -1px;
+            cursor: pointer;
+          }
+
+          .iconsSub {
+            @include transition(ease all 0.4s);
+            border: 2px solid;
+            border-radius: 8px;
+            width: 25px;
+            height: 25px;
+            display: block;
+            padding: 5px;
+            margin-left: -13px;
+            cursor: pointer;
+            margin-top: 4px;
+          }
+
+          .icons:hover {
+            border-color: $red;
+            color: $red;
+          }
+
+          .icons:active {
+            color: red !important;
+            border-color: red;
+          }
+        }
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.03);
+          border-color: $red;
+          color: $red;
+        }
+
+        &:focus {
+          border-color: $red;
+          color: $red;
+        }
+      }
+
+      .logo {
+        padding: 0 7px;
+        margin-bottom: 20px;
+        margin-top: 14px;
+        overflow: hidden;
+        max-width: 50%;
+        margin-left: 25px;
+      }
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .navBar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .navBarContent {
+      @include transition(ease all 0.4s);
+      padding-top: 10px;
+      position: relative;
+      padding-bottom: 3px;
+      padding: 10px;
+      opacity: 1;
+      max-width: 200px;
+
+      &.collapsed {
+        @include transition(ease all 0.4s);
+        opacity: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: 0;
+        padding: 5px 0;
+      }
+
+      .contentGroup {
+        overflow: hidden;
+
+        .logo {
+          padding: 14px;
+          max-width: 100px;
+          overflow: hidden;
+        }
+
+        h1 {
+          margin: 2px 0 26px;
+          color: #005792;
+          font-size: 22px;
+          white-space: nowrap;
+          font-weight: 500;
+          line-height: 1.5em;
+        }
+
+        .activeNavLink {
+          color: $red;
+        }
+
+        .navLink {
+          @include transition(ease all 0.4s);
+          text-decoration: none;
+          display: block;
+          padding: 12px 0;
+          border-bottom: 1px solid $gray;
+          color: $gray;
+          max-height: 400px;
+
+          h4 {
+            overflow: hidden;
+            color: $gray;
+          }
+
+          a {
+            overflow: hidden;
+          }
+
+          .MuiSvgIcon-root {
+            margin-right: 7px;
+            vertical-align: middle;
+            color: $primary;
+            cursor: pointer;
+
+            .MuiStepIcon-root {
+              color: blueviolet;
+
+              :active {
+                color: $red;
+              }
+            }
+          }
+
+          &:hover {
+            @include transition(ease all 0.4s);
+            background: rgba(0, 0, 0, 0.03);
+            border-color: $red;
+            color: $red;
+          }
+        }
+      }
+    }
+  }
+
+  .expand {
+    padding-bottom: 3px !important;
+  }
+
+  .content {
+    // padding: 2px 10px 12px 16px;
+    overflow-y: scroll;
+    background-size: cover;
+
+    .maincontent {
+      max-height: 80px;
+
+      .content2 {
+        width: 900px;
+
+        label {
+          font-size: 14px;
+          line-height: 1.2em;
+          padding-left: 8px;
+          white-space: pre;
+
+          sub {
+            font-size: 12px;
+            font-weight: 500;
+          }
+        }
+
+        h2 {
+          font-size: revert;
+          margin: 10px 7px 0px 7px;
+          white-space: nowrap;
+
+          @media only screen and (max-width: 768px) {
+            font-size: 19px !important;
+          }
+        }
+      }
+
+      .content3 {
+        padding: 45px !important;
+      }
+
+      .profilecontent {
+        padding: 10px;
+        text-align: right;
+
+        .innercontentDetails {
+          padding-top: 3px;
+          width: 250px;
+          text-align: right;
+          margin-top: 3px;
+          margin-left: -66px !important;
+
+          label {
+            font-size: 13px;
+            line-height: 1.2em;
+
+            sub {
+              font-size: 12px;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .innercontent {
+          width: 50px;
+          padding-bottom: 2px;
+
+          .profile {
+            border: 2px solid $red;
+            border-radius: 8px;
+            width: 35px;
+            height: 35px;
+            padding: 3px;
+            vertical-align: middle;
+            color: $white;
+            background-color: $red;
+          }
+        }
+      }
+    }
+  }
+}
+
+.copyright {
+  background: $white;
+  padding: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 998;
+  text-align: center;
+  font-size: 12px;
+  border-top: 2px solid rgba(0, 0, 0, 0.1);
+
+  p {
+    @media all and (max-width: $m) {
+      margin-left: 60px;
+    }
+  }
+}
+
+.masterdataTabs {
+  .MuiBox-root {
+    padding: 0 !important;
+  }
+
+  .MuiTabs-root {
+    height: 25px !important;
+    min-height: 20px !important;
+    margin-top: 10px !important;
+
+    .MuiTabs-indicator {
+      background-color: #fccc92 !important;
+    }
+  }
+
+  .summaryTab {
+    margin-right: 2px !important;
+    height: 10px !important;
+    min-width: 40px !important;
+    min-height: 10px !important;
+    text-transform: none !important;
+    border-radius: 3px !important;
+    background: $white !important;
+
+    &.Mui-selected {
+      color: $black;
+      background: #fccc92 !important;
+    }
+  }
+}
+
+.configTabs {
+  .MuiTabs-indicator {
+    background-color: $red !important;
+  }
+
+  .childTab {
+    text-transform: capitalize !important;
+
+    &.Mui-selected {
+      color: $red !important;
+    }
+  }
+}
+
+.autoSelect {
+  .Mui-disabled {
+    color: $gray !important;
+    -webkit-text-fill-color: $gray !important;
+  }
+}
+
+.headerStyle {
+  font-weight: 500 !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+  font-size: 17px !important;
+  margin-top: -3px !important;
+  white-space: nowrap !important;
+}
+.apexcharts-canvas {
+  position: relative;
+  user-select: none;
+  margin: auto;
+}
+.headerStyleAccordian {
+  font-weight: 500 !important;
+  width: 100% !important;
+  flex-shrink: 0 !important;
+  font-size: 17px !important;
+  margin-top: -5px !important;
+  text-transform: capitalize !important;
+}
+
+.dividerStyleAccodian {
+  margin-top: -9px !important;
+}
+
+.dividerStyle {
+  margin-top: 10px !important;
+}
+
+.iconStyleAccordian {
+  width: 20px !important;
+  height: 20px !important;
+  margin-top: -2px !important;
+  margin-right: 3px !important;
+}
+
+.iconStyle {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 5px !important;
+  margin: -1px 5px 0 0 !important;
+}
+
+
+.chartIcon {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 5px !important;
+  margin: 0 5px 0 0 !important;
+  @include transition(ease all 0.4s);
+  // border: 2px solid;
+  border-radius: 4px;
+}
+.dashboardStyle {
+  width: auto;
+}
+
+.gridStyleDashboard {
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+}
+.subGrid {
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.apexcharts-legend{
+  // max-width: 170px !important;
+}
+
+.MuiSelect-icon {
+  color: white !important;
+}

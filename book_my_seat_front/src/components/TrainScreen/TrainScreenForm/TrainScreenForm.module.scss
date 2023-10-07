@@ -1,0 +1,28 @@
+@import "../../../assets/theme/constants.scss";
+
+.switchField {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .label {
+    margin-right: 10px;
+  }
+}
+@import "../../../assets/theme/constants.scss";
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 40px 0px;
+}
+
+.instructionSection{
+    margin-bottom: 30px;
+
+    .instruction {
+        font-size: 14px;
+        color: #6b6b6b;
+    }
+}

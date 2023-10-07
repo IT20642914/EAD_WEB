@@ -1,0 +1,22 @@
+@import "/src/assets/theme/constants.scss";
+
+.headerRow{
+    padding: 2px 0px;
+    padding-left: 0px;
+    background-color: $bgColorSidebar !important;
+}
+
+.userName {
+    color: $white;
+}
+
+.actionIcons {
+    color: #bfbfbf;
+    background-color: $bgColor;
+    margin: 0px 10px;
+    border-radius: 3px;
+}
+.profileslide{
+    max-width: 10%;
+}
+

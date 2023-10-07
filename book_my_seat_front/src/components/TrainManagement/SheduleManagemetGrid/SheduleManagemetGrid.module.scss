@@ -1,0 +1,46 @@
+@import "../../../assets/theme/constants.scss";
+
+.gridContainer {
+    margin-top: 45px;
+    border-radius: 5px;
+    background-color: $bgColorSidebar;
+    padding-bottom: 40px;
+
+    .gridHeader {
+        display: flex;
+        padding: 20px;
+        align-items: center;
+
+        .gridTitle {
+            color: $white;
+        }
+
+        .gridActionButton {
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $primary;
+
+            .icon {
+                margin-right: 4px;
+                font-size: 20px;
+            }
+
+            .text{
+                text-transform: none;
+            }
+        }
+    }
+
+    .grid::-webkit-scrollbar-track {
+        background-color: $bgColorSidebar !important;
+    }
+    .grid::-webkit-scrollbar-thumb {
+        background-color: rgb(146, 146, 146) !important;
+    }
+}
+   
+.table {
+    width: max-content !important;
+}
