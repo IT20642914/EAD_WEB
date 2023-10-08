@@ -16,11 +16,12 @@
     display: grid;
 
     .logincard {
+
       border: 1px solid #555555;
       border-radius: 14px;
       padding: 0 24px;
-      width: 460px;
-      height: 700px;
+      width: 480px;
+      height: 620px;
       // margin: 0 auto;
       background-color: $bgColorSidebar;
 
@@ -29,7 +30,7 @@
       }
 
       .loginActions {
-        // padding: 10px 0 10px;
+        //  padding: 10px 0 10px;
 
         text-align: center;
 
@@ -37,23 +38,23 @@
           width: auto;
         }
 
-        // .logo {
-        //   max-width: 150px;
-        //   padding: 15px 0px;
-        //   text-align: center;
+        .logo {
+          max-width: 150px;
+          padding: 15px 0px;
+          text-align: center;
 
-        //   @media all and (max-width: $s) {
-        //     padding: 20px 0 0px;
-        //   }
-        // }
+          @media all and (max-width: $s) {
+            padding: 20px 0 0px;
+          }
+        }
 
         h1 {
           border-bottom: 1px solid #555555;
 
           color: #818286;
-          // padding-bottom: 20px;
-          // padding: 10px 0;
-          // font-size: 20px;
+          padding-bottom: 20px;
+          padding: 10px 0;
+          font-size: 20px;
           font-weight: 500;
           vertical-align: middle;
           margin: 8px 0;
@@ -66,7 +67,7 @@
           border-top: 1px solid #555555;
           line-height: 20px;
           font-size: 14px;
-          // margin-top: 80px;
+        
           color: #818286;
         }
 
