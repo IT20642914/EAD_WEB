@@ -2,6 +2,7 @@
 
 namespace BookMySeat.Models
 {
+    [BsonIgnoreExtraElements]
     public class Station
     {
 
