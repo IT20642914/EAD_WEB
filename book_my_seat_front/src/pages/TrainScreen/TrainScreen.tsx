@@ -2,13 +2,15 @@ import React, { useEffect, useState } from 'react'
 import style   from "./TrainScreen.module.scss";
 import { Typography } from '@mui/material';
 import { AppLayout } from '../../templates';
-import { SheduleListFormDto, schedule, trainDetailsGridFormDto } from '../../utilities/models/trains.model';
+import { SheduleListFormDto, schedule, station, trainDetailsGridFormDto } from '../../utilities/models/trains.model';
 import { useNavigate } from 'react-router-dom';
-import { APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants';
+import { APP_ACTION_STATUS, APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants';
 import { TrainScreenForm } from '../../components/TrainScreen';
-import { OptionsDto } from '../../utilities/models';
+import { ApplicationStateDto, OptionsDto } from '../../utilities/models';
 import { validateFormData } from '../../utilities/helpers';
 import { CustomButton } from '../../components/Shared';
+import { StationAction } from '../../redux/action/station.Action';
+import { useDispatch, useSelector } from 'react-redux';
 const TrainScreen = () => {
   const TRAIN_INFORMATION_FORM_INITIAL_STATE: trainDetailsGridFormDto = {
     trainId: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
@@ -37,10 +39,27 @@ const TrainScreen = () => {
         const [TrainInfomationForm, setTrainInfomationForm] = useState(TRAIN_INFORMATION_FORM_INITIAL_STATE);
         const [SheduleInfomationForm, setSheduleInfomationForm] = useState(Shedule_INFORMATION_FORM_INITIAL_STATE);
         const [SheduleData, setSheduleData] = useState<schedule[]>([]);
+        const [Stations, setStations] = useState<station[]>([]);
         const [isEdit, setisEdit] = useState(false);
+        const dispatch = useDispatch()
+        
+        const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
+
+        useEffect(() => {
+          dispatch(StationAction.getAllStations());
+       
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        },[])
 
 
-
+        useEffect(() => {
+         if(APP_ACTION_STATUS.SUCCESS===StationList.status){
+          setStations(StationList.data)
+         }
+      
+        }, [ StationList.status])
+        
+  
 
        useEffect(() => {
       let  totalCount=Number(TrainInfomationForm.firstClassSeatCount.value)+Number(TrainInfomationForm.secondClassSeatCount.value)+Number(TrainInfomationForm.thirdClassSeatCount.value)
@@ -151,13 +170,24 @@ const TrainScreen = () => {
             });
           }
           if (property === "startingStation") {
-            setTrainInfomationForm({
-              ...TrainInfomationForm,
-              startingStation: {
-                ...TrainInfomationForm.startingStation,
-                value: value,
-              },
-            });
+            if(value ===null){
+              setTrainInfomationForm({
+                ...TrainInfomationForm,
+                startingStation: {
+                  ...TrainInfomationForm.startingStation,
+                  value: {}as OptionsDto,
+                },
+              });
+            }else{
+              setTrainInfomationForm({
+                ...TrainInfomationForm,
+                startingStation: {
+                  ...TrainInfomationForm.startingStation,
+                  value: value,
+                },
+              });
+            }
+            
           }
           if (property === "station") {
             if(value === null){
@@ -253,6 +283,7 @@ const TrainScreen = () => {
           <section className={style.sectionCardBody}>
           <section className={style.stepperRoot}>
           <TrainScreenForm
+          Stations={Stations}
           isEdit={isEdit}
           onClearDetails={onClearDetails}
           handleShedule={handleShedule}

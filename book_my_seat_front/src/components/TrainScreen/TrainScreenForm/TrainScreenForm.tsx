@@ -1,5 +1,5 @@
 import React from 'react'
-import { SheduleListFormDto, schedule, trainDetailsGridFormDto } from '../../../utilities/models/trains.model'
+import { SheduleListFormDto, schedule, station, trainDetailsGridFormDto } from '../../../utilities/models/trains.model'
 import style from './TrainScreenForm.module.scss'
 import Stepper from '../../Shared/Stepper/Stepper'
 import { Box, Grid, IconButton, Paper, Table, TableBody, TableContainer, TableHead, TableRow, Tooltip, Typography } from '@mui/material'
@@ -12,6 +12,7 @@ import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const TrainScreenForm :React.FC<{
   helperText: boolean
+  Stations:station[]
   screenMode: string
   SheduleData:schedule[]
   SheduleInfomationForm:SheduleListFormDto
@@ -39,6 +40,8 @@ const TrainScreenForm :React.FC<{
   const arrivalTime = props.SheduleInfomationForm.arrivalTime
   const distanceFromStartPoint = props.SheduleInfomationForm.distanceFromStartPoint
   
+
+
 
   return (<>
     <Stepper stepNumber={1} stepTitle={"General Information"}>
@@ -124,9 +127,9 @@ const TrainScreenForm :React.FC<{
                         props.handleInputFocus("startingStation", "GI")
                       }
                       options={
-                        stations &&
-                        stations.map((l: any) => {
-                          return { label: l.station, value: l.stationId };
+                        props.Stations &&
+                        props.Stations.map((l: any) => {
+                          return { label: l.stationName, value: l.stationId };
                         })
                       }
                       value={{
@@ -152,9 +155,9 @@ const TrainScreenForm :React.FC<{
                         props.handleInputFocus("arrivingStation", "GI")
                       }
                       options={
-                        stations &&
-                        stations.map((l: any) => {
-                          return { label: l.station, value: l.stationId };
+                         props.Stations &&
+                         props.Stations.map((l: any) => {
+                          return { label: l.stationName, value: l.stationId };
                         })
                       }
                       value={{
@@ -246,9 +249,9 @@ const TrainScreenForm :React.FC<{
                         props.handleInputFocus("station", "GI")
                       }
                       options={
-                        stations &&
-                        stations.map((l: any) => {
-                          return { label: l.station, value: l.stationId };
+                        props.Stations &&
+                        props.Stations.map((l: any) => {
+                          return { label: l.stationName, value: l.stationId };
                         })
                       }
                       value={{
