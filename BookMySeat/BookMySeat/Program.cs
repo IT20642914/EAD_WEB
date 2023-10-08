@@ -15,6 +15,7 @@ builder.Services.AddSingleton<IBookMySeatStoreDatabaseSettings>(sp =>
 builder.Services.AddSingleton<IMongoClient>(s =>
         new MongoClient(builder.Configuration.GetValue<string>("BookMySeatDatabaseSettings:ConnectionStrings")));
 builder.Services.AddScoped<IStationService, StationService>();
+builder.Services.AddScoped<ITravelerService, TravelerService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
