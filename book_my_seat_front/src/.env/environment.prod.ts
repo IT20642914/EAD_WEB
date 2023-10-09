@@ -2,7 +2,7 @@ import {ENV_VARIABLES} from "./index";
 
 export let ENV_PROD: ENV_VARIABLES = {
     APP_ENV: "prod",
-    API_BASE: "",
+    API_BASE: "https://localhost:7282/",
     AUTHORITY: "",
     CLIENT_ID: "",
     REDIRECT_URL: "https://localhost:7282",
