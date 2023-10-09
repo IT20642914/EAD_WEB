@@ -11,15 +11,24 @@ builder.Services.Configure<BookMySeatDatabaseSettings>(
 
 builder.Services.AddSingleton<IBookMySeatStoreDatabaseSettings>(sp =>
     sp.GetRequiredService<IOptions<BookMySeatDatabaseSettings>>().Value);
-
 builder.Services.AddSingleton<IMongoClient>(s =>
         new MongoClient(builder.Configuration.GetValue<string>("BookMySeatDatabaseSettings:ConnectionStrings")));
 builder.Services.AddScoped<IStationService, StationService>();
 builder.Services.AddScoped<ITravelerService, TravelerService>();
+builder.Services.AddScoped<ITrainService, TrainService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Replace with the actual frontend URL
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -33,7 +42,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseCors("AllowOrigin");
 app.MapControllers();
 
 app.Run();

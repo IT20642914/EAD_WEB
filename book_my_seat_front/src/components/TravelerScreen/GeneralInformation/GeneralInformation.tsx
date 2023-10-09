@@ -29,11 +29,11 @@ const GeneralInformation:React.FC<{
                       label="Identification Card Number"
                       placeholder='Enter Identification Card Number'
                       size='small'
-                      value={firstName.value}
-                      error={!!firstName.error}
-                      disabled={firstName.disable}
-                      required={firstName.isRequired}
-                      helperText={props.helperText && firstName.error}
+                      value={identificationCard.value}
+                      error={!!identificationCard.error}
+                      disabled={identificationCard.disable}
+                      required={identificationCard.isRequired}
+                      helperText={props.helperText && identificationCard.error}
                       onFocus={() => props.handleInputFocus('identificationCard', 'GI')}
                       onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('identificationCard', event.target.value)}
                     />

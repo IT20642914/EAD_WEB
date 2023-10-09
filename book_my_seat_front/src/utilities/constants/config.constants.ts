@@ -1,0 +1,14 @@
+import ENV from '../../.env/'
+
+export const APP_CONFIGS = {
+  APP_OWNER: 'BookMySeat',
+  APP_ENV: ENV.APP_ENV,
+  API_BASE: ENV.API_BASE,
+  AUTHORITY: ENV.AUTHORITY,
+  CLIENT_ID: ENV.CLIENT_ID,
+  REDIRECT_URL: ENV.REDIRECT_URL,
+  APP_SCOPES: ENV.APP_SCOPES,
+  USER_DATA_COOKIE: 'BookMySeat',
+}
+
+export const SECRET_KEY = '1234'

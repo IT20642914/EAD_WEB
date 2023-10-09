@@ -6,12 +6,7 @@ export interface PermissionDto {
   description: string;
 }
 
-export interface UserInformationFormDto {
-  sbu: FormFieldDto<OptionsDto>;
-  plant: FormFieldDto<OptionsDto>;
-  department: FormFieldDto<OptionsDto>;
-  roles:FormFieldDto<OptionsDto>;
-}
+
 
 export interface UserByDeptDto {
   id: number;

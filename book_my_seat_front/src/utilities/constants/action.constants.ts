@@ -23,38 +23,14 @@ export const ALERT_ACTION_TYPES = {
   TRIGGER_ALERT: "TRIGGER_ALERT",
 };
 
-export const Train_Ticket_Classes = [
-  { id: 1, name: "First Class" },
-  { id: 2, name: "Second Class" },
-  { id: 3, name: "Third Class" },
-];
-export const Train_Types = [
-  { id: 1, name: "Express" },
-  { id: 2, name: "Inter-City" },
-  { id: 3, name: "Slow" },
-];
 
-export const Ticket_Counts = [
-  { id: 1, name: "1 Ticket" },
-  { id: 2, name: "2 Ticket" },
-  { id: 3, name: "3 Ticket" },
-  { id: 4, name: "4 Ticket" },
-];
-export const stations = [
-  {
-    stationId: 1,
-    station: "Station A",
-  },
-  {
-    stationId: 2,
-    station: "Station B",
-  },
-  {
-    stationId: 3,
-    station: "Station C",
-  },
-  {
-    stationId: 4,
-    station: "Station D",
-  },
-];
+
+
+export const STATIONS_ACTION_TYPE = {
+  GET_ALL_STATIONS: "GET_ALL_STATIONS",
+ 
+};
+export const TRAIN_ACTION_TYPES  = {
+  GET_ALL_TRAIN_LIST: "GET_ALL_TRAIN_LIST",
+ 
+};

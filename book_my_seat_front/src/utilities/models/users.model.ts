@@ -1,3 +1,4 @@
+import { FormFieldDto } from "./common.model";
 import { PermissionDto } from "./permission.model";
 
 export interface AuthorizedUserDto {
@@ -43,4 +44,9 @@ export interface HierarchyDto {
   name: string,
   typeId: number,
   type: string
+}
+
+export interface LoginFormDto {
+  userName:FormFieldDto<string>, 
+  passWord:FormFieldDto<string>, 
 }

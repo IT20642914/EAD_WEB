@@ -16,12 +16,13 @@
     display: grid;
 
     .logincard {
+margin-top: 6rem;
       border: 1px solid #555555;
       border-radius: 14px;
       padding: 0 24px;
-      width: 460px;
-      height: 500px;
-      margin: 0 auto;
+      width: 480px;
+      height: 620px;
+      // margin: 0 auto;
       background-color: $bgColorSidebar;
 
       @media all and (max-width: $s) {
@@ -29,7 +30,7 @@
       }
 
       .loginActions {
-        padding: 10px 0 10px;
+        //  padding: 10px 0 10px;
 
         text-align: center;
 
@@ -52,8 +53,8 @@
 
           color: #818286;
           padding-bottom: 20px;
-          // padding: 10px 0;
-          // font-size: 20px;
+          padding: 10px 0;
+          font-size: 20px;
           font-weight: 500;
           vertical-align: middle;
           margin: 8px 0;
@@ -62,11 +63,11 @@
         }
 
         p {
-          padding-top: 15px;
+          // padding-top: 15px;
           border-top: 1px solid #555555;
           line-height: 20px;
           font-size: 14px;
-          margin-top: 80px;
+        
           color: #818286;
         }
 
@@ -84,7 +85,7 @@
         }
 
         .loginNotification {
-          margin-top: 60px;
+          // margin-top: 60px;
 
           p {
             font-size: 13px;
@@ -101,14 +102,14 @@
             background: #fff8cb;
           }
 
-          .error {
-            padding: 4px 8px;
-            background: #fff8cb;
-            padding: 10px;
-            border-radius: 6px;
-            margin: 14px 0;
-            width: 400px;
-          }
+          // .error {
+          //   padding: 4px 8px;
+          //   background: #fff8cb;
+          //   padding: 10px;
+          //   border-radius: 6px;
+          //   margin: 14px 0;
+          //   width: 400px;
+          // }
         }
 
         .loginFooter {
