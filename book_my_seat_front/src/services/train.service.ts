@@ -9,7 +9,11 @@ const addTrainDetails = (payload:traindetailsDto):  Promise<AxiosResponse<any[]>
 const getAllTrainDetails = ():  Promise<AxiosResponse<traindetailsDto[]>> => {
     return axiosPrivateInstance.get(`/api/Train/GetTrainList`);
 }
+const getTrainDetailsById = (payload:string):  Promise<AxiosResponse<traindetailsDto[]>> => {
+    return axiosPrivateInstance.get(`api/Train/GetTrainByID?id=${payload}`);
+}
 export const trainService = {
     addTrainDetails,
-    getAllTrainDetails
+    getAllTrainDetails,
+    getTrainDetailsById
 }

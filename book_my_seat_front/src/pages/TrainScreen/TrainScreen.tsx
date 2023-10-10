@@ -47,12 +47,20 @@ const TrainScreen = () => {
 
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
   const addTrainResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
+  const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
 
   useEffect(() => {
-    dispatch(StationAction.getAllStations());
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    GetInitialData()
+    const _mode = sessionStorage.getItem("Mode");
+    const _id = sessionStorage.getItem("id");
+
+    if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
+
+      if (_id) dispatch(TrainAction.getTrainById(_id));
+    }
   }, [])
+
 
 
   useEffect(() => {
@@ -82,6 +90,16 @@ const TrainScreen = () => {
     });
 
   }, [TrainInfomationForm.firstClassSeatCount, TrainInfomationForm.secondClassSeatCount, TrainInfomationForm.thirdClassSeatCount])
+
+
+const GetInitialData =()=>{
+  const _mode = sessionStorage.getItem("Mode");
+    if (_mode !== null) setScreenMode(_mode);
+    dispatch(StationAction.getAllStations());
+
+}
+
+
 
 
   const handleInputFocus = (property: string, section: string) => {

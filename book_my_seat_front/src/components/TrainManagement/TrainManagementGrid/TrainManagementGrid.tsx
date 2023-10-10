@@ -22,6 +22,7 @@ const TrainManagementGrid :React.FC<{
     requestDataIsLoading: boolean,
     filteredList: trainDetailsGridDto[],
     sortMeta: SortMetaDto,
+    handleAction(id:string,type:string):void
     onSortHandle(col: string): void
     // onShowStatus(id: string): void
     onFilterHandle(col: string, value: any): void;
@@ -76,7 +77,7 @@ const TrainManagementGrid :React.FC<{
                    <StyledTableCell >{req.trainName}</StyledTableCell>
                    <StyledTableCell >
                    <StyledSwitch
-                           checked={req.status}
+                           checked={req.isActive}
                            disabled={false}
                            onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
                    </StyledTableCell>
@@ -88,21 +89,21 @@ const TrainManagementGrid :React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                        <IconButton size='small' onClick={() => { props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
                           <Tooltip title="Delete">
                             <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>

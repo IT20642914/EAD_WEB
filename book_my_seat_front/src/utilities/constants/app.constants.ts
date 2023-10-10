@@ -31,6 +31,7 @@ export const ALERT_CONFIGS = {
     CREATE: "CREATE",
     EDIT: "EDIT",
     VIEW: "VIEW",
+    DELETE: "DELETE",
   };export const Train_Ticket_Classes = [
     { id: 1, name: "First Class" },
     { id: 2, name: "Second Class" },

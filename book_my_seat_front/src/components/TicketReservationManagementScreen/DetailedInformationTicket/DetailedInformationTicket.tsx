@@ -35,32 +35,7 @@ Shedules:schedule[];
   return (
     <Stepper stepNumber={2} stepTitle={"Detailed Information"}>
       <Grid container spacing={4}>
-        <Grid item xs={12} md={6}>
-          <CustomAutocomplete
-            freeSolo={true}
-            label="Train Name"
-            placeholder="Select Train Name"
-            onFocus={() => props.handleInputFocus("trainName", "GI")}
-            options={
-              props.TrainList &&
-              props.TrainList.map((l: any) => {
-                return { label: l.name, value: l.id };
-              })
-            }
-            value={{
-              label: trainName.value.label,
-              value: trainName.value.value,
-            }}
-            error={!!trainName.error}
-            disabled={trainName.disable}
-            readonly={trainName.readonly}
-            required={trainName.isRequired}
-            helperText={props.helperText && trainName.error}
-            onChange={(event: any, value: any) =>
-              props.onInputHandleChange("trainName", value)
-            }
-          />
-        </Grid>
+       
         <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
@@ -110,6 +85,32 @@ Shedules:schedule[];
             helperText={props.helperText && arriveTo.error}
             onChange={(event: any, value: any) =>
               props.onInputHandleChange("arriveTo", value)
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomAutocomplete
+            freeSolo={true}
+            label="Train Name"
+            placeholder="Select Train Name"
+            onFocus={() => props.handleInputFocus("trainName", "GI")}
+            options={
+              props.TrainList &&
+              props.TrainList.map((l: any) => {
+                return { label: l.name, value: l.id };
+              })
+            }
+            value={{
+              label: trainName.value.label,
+              value: trainName.value.value,
+            }}
+            error={!!trainName.error}
+            disabled={trainName.disable}
+            readonly={trainName.readonly}
+            required={trainName.isRequired}
+            helperText={props.helperText && trainName.error}
+            onChange={(event: any, value: any) =>
+              props.onInputHandleChange("trainName", value)
             }
           />
         </Grid>

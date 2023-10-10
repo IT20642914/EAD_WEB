@@ -22,7 +22,6 @@ function* getAllTrainList(action: { type: string,  }) {
     }
   }
   function* addTrainDetails(action: { type: string, payload:traindetailsDto  }) {
-    console.log("saga: addTrainDetails")
     try {
       const trainDetails: AxiosResponse<any> = yield call(trainService.addTrainDetails,action.payload)
       yield put({
@@ -39,6 +38,47 @@ function* getAllTrainList(action: { type: string,  }) {
       }
       yield put(setAlert)
     } catch (error) {
+      const setAlert: AlertDto = {
+        message: error as string,
+        type: ALERT_ACTION_TYPES.TRIGGER_ALERT + COMMON_ACTION_TYPES.SUCCESS,
+        options: {
+          key: new Date().getTime() + Math.random(),
+          varient: 'error'
+        }
+      }
+      yield put(setAlert)
+      yield put({
+        type: TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.ERROR,
+        error: error
+      })
+    }
+  }
+  function* getTrainDetailsByID(action: { type: string, payload:string  }) {
+    try {
+      const trainDetails: AxiosResponse<any> = yield call(trainService.getTrainDetailsById,action.payload)
+      yield put({
+        type: TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.SUCCESS,
+        data: trainDetails.data
+      })
+      const setAlert: AlertDto = {
+        message: trainDetails.data,
+        type: ALERT_ACTION_TYPES.TRIGGER_ALERT + COMMON_ACTION_TYPES.SUCCESS,
+        options: {
+          key: new Date().getTime() + Math.random(),
+          varient: 'success'
+        }
+      }
+      yield put(setAlert)
+    } catch (error) {
+      const setAlert: AlertDto = {
+        message: error as string,
+        type: ALERT_ACTION_TYPES.TRIGGER_ALERT + COMMON_ACTION_TYPES.SUCCESS,
+        options: {
+          key: new Date().getTime() + Math.random(),
+          varient: 'error'
+        }
+      }
+      yield put(setAlert)
       yield put({
         type: TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.ERROR,
         error: error
@@ -49,6 +89,7 @@ function* getAllTrainList(action: { type: string,  }) {
   function* trainSaga() {
     yield takeEvery(TRAIN_ACTION_TYPES.GET_ALL_TRAIN_LIST + COMMON_ACTION_TYPES.REQUEST, getAllTrainList)
     yield takeEvery(TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST, addTrainDetails)
+    yield takeEvery(TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.REQUEST, getTrainDetailsByID)
   }
   
   export default trainSaga

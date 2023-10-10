@@ -33,15 +33,15 @@ export interface trainDetailsGridDto {
   firstClassSeatCount: number;
   secondClassSeatCount: number;
   thirdClassSeatCount: number;
-  status: boolean;
+  isActive: boolean;
 }
 export interface sheduleTrainDetailsGridDto {
   trainId: string;
   trainName: string;
-  status: boolean;
-  startingStation: string;
-  arrivingStation: string;
-  schedule: schedule[];
+  isActive: boolean;
+  departureStation: station;
+  arrivalStation: station;
+  trainShedule: schedule[];
   stations: station[];
 }
 export interface trainDetailsGridFormDto {

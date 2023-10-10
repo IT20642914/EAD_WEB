@@ -12,6 +12,12 @@ const INITIAL_STATE: TrainStateDto = {
     error: null,
     isLoading: false,
     status: null
+   },getDetailsById:{
+    data: {},
+    error: null,
+    isLoading: false,
+    status: null
+
    }
 }
 const trainReducer = (state = INITIAL_STATE, action: any) => {
@@ -106,6 +112,50 @@ const trainReducer = (state = INITIAL_STATE, action: any) => {
                 data: null,
               },
             };
+            case TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.REQUEST:
+              return {
+                ...state,
+                getDetailsById: {
+                  ...state.getDetailsById,
+                  isLoading: true,
+                  status: APP_ACTION_STATUS.LOADING,
+                  error: null,
+                  data: null,
+                },
+              };
+            case TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.SUCCESS:
+              return {
+                ...state,
+                getDetailsById: {
+                  ...state.getDetailsById,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.SUCCESS,
+                  error: null,
+                  data: action.data,
+                },
+              };
+            case TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.ERROR:
+              return {
+                ...state,
+                getDetailsById: {
+                  ...state.getDetailsById,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.ERROR,
+                  error: action.error,
+                  data: null,
+                },
+              };
+            case TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.CLEAR:
+              return {
+                ...state,
+                getDetailsById: {
+                  ...state.getDetailsById,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.INITIAL,
+                  error: null,
+                  data: null,
+                },
+              };
           default:
             return state;
         }

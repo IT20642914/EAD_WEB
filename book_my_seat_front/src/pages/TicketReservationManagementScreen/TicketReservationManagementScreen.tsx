@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react'
 import style from './TicketReservationManagementScreen.module.scss'
 import { Typography } from '@mui/material'
 import { AppLayout } from '../../templates'
-import { AlertDto, OptionsDto, TicketReservationDetailsFormDto } from '../../utilities/models'
+import { AlertDto, ApplicationStateDto, OptionsDto, TicketReservationDetailsFormDto } from '../../utilities/models'
 import { useNavigate } from 'react-router-dom'
 import { DetailedInformationTicket, GeneralInformationTicket } from '../../components/TicketReservationManagementScreen'
 import { CustomButton } from '../../components/Shared'
-import { ALERT_ACTION_TYPES, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
+import { ALERT_ACTION_TYPES, APP_ACTION_STATUS, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
 import { SeatNumber, TainlistDto, schedule, station, trainDetailsDto } from '../../utilities/models/trains.model'
 import { alertActions } from '../../redux/action/alert.action'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { StationAction } from '../../redux/action/station.Action'
 
 const TicketReservationManagementScreen = () => {
 
@@ -23,11 +24,11 @@ const TicketReservationManagementScreen = () => {
     depatureDate: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     depatureTime: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arriveTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    arriveTo: { value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "", },
+    arriveTo: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     trainName: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     seatNumbers: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     TicketType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    depatureFrom: { value: {} as OptionsDto, isRequired: true, disable: true, readonly: false, validator: "object", error: "", },
+    depatureFrom: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arriveDistance: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     dipatureDistance:  { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
   }
@@ -37,12 +38,27 @@ const TicketReservationManagementScreen = () => {
   const [helperText, setHelperText] = useState(true);
   const [TicketInfomationForm, setTicketInfomationForm] = useState(TICKET_INFORMATION_FORM_INITIAL_STATE);
   const [TrainDetails, setTrainDetails] = useState<trainDetailsDto[]>(TrainDataset);
-  const [stationList, setstationList] = useState<station[]>([]);
+  
   const [Shedules, setShedules] = useState<schedule[]>([]);
   const [ShedulesUnchange, setShedulesUnchange] = useState<schedule[]>([]);
   const [TrainList, setTrainList] = useState<TainlistDto[]>([]);
   const [SeatData, setSeatData] = useState<SeatNumber[]>(SeatList);
   const [SelectedSeatLis, setSelectedSeatLis] = useState<SeatNumber[]>([]);
+
+  const [Stations, setStations] = useState<station[]>([]);
+  
+  const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
+
+  useEffect(() => {
+    dispatch(StationAction.getAllStations());
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+useEffect(() => {
+if(StationList.status===APP_ACTION_STATUS.SUCCESS){
+  setStations(StationList.data)
+}
+}, [StationList.status])
 
 
   useEffect(() => {
@@ -109,13 +125,7 @@ if(value){
 
 
 // Details Section
-if(property==="trainName"){
-  const train: trainDetailsDto | undefined  = TrainDetails.find((item:trainDetailsDto) => item.id === value.value);
-  if(train){  
-    setstationList(train.stations)
-    setShedules(train.schedule)
-    setShedulesUnchange(train.schedule)
-  }
+if(property==="trainName"){ 
   setTicketInfomationForm({...TicketInfomationForm,
   trainName:{...TicketInfomationForm.trainName,
             value:value },
@@ -321,11 +331,11 @@ const ticketPrice =( basePrice + difference * ratePerKM)*ticketCount;
            />
             
            <DetailedInformationTicket
-           SelectedSeatLis={SelectedSeatLis}
-           SeatData={SeatData}
+            SelectedSeatLis={SelectedSeatLis}
+            SeatData={SeatData}
             Shedules={Shedules}
              TrainList={TrainList}
-             stationList={stationList}
+             stationList={Stations}
              helperText={helperText}
              TicketInfomationForm={TicketInfomationForm}
              screenMode={screenMode}

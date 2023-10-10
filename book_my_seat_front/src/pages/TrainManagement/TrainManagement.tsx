@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_ACTION_STATUS, APP_TABLE_CONFIGS, SheduleList, } from '../../utilities/constants'
+import { APP_ACTION_STATUS, APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES,  } from '../../utilities/constants'
 import { ApplicationStateDto, SortMetaDto } from '../../utilities/models'
 import { travellerDto } from '../../utilities/models/travellor.model'
 import { TrainManagementGrid } from '../../components/TrainManagement'
@@ -53,6 +53,7 @@ useEffect(() => {
 useEffect(() => {
 
   if(GetTrainResponse.status===APP_ACTION_STATUS.SUCCESS){
+    console.log("GetTrainResponse",GetTrainResponse.data)
     setFilteredList(GetTrainResponse.data)
     setFilteredList2(GetTrainResponse.data)
   }
@@ -193,7 +194,7 @@ const onSortHandle2 = (col: string) => {
 
 const onFilterHandle2 = (col: string, value: any) => {
   setIsFiltered(true)
-  const filtered = SheduleList.filter((item) => {
+  const filtered = filteredList2.filter((item) => {
     const _value = (item as any)[col];
     if (typeof _value === "boolean") {
       return _value ? value === "Yes" : value === "No";
@@ -220,7 +221,7 @@ const onFilterHandle2 = (col: string, value: any) => {
 };
 const getFilterList2 = (col: string): string[] => {
   if (true)
-    return SheduleList
+    return filteredList2
       .map((item) => {
         const value = (item as any)[col];
         if (typeof value === "boolean") {
@@ -239,13 +240,16 @@ const navigteTORequestScreen2 = (mode: string, id: string) => {
 }
 const onClearFilter2 = () => {
   setIsFiltered2(false)
-  setFilteredList2(SheduleList)
+  setFilteredList2(filteredList2)
 }
 
 const handleView=(property: string, value:number)=>{
 console.log("property",property,value)
 if(property==="schedule"){
-  setShedule(filteredList2[value].schedule)
+
+  console.log("filteredList2[value].schedule",filteredList2[value].trainShedule)
+  
+  setShedule(filteredList2[value].trainShedule)
   setisOpenViewShedulePopup(true)
 }else{
   setstationlist(filteredList2[value].stations)
@@ -264,7 +268,17 @@ const OnPopUPClose = (property:string) => {
 
 };
 
+const handleAction =(id:string,type:string)=>{
+  if(type===TRAIN_SCREEN_MODES.DELETE){
 
+  }else{
+    sessionStorage.setItem("Mode",type);
+    sessionStorage.setItem("id", id);
+    navigate(APP_ROUTES.ADD_TRAIN)
+  }
+    
+ 
+}
       const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
       };
@@ -319,6 +333,7 @@ const OnPopUPClose = (property:string) => {
       
       </Grid>
 
+
 <Grid item xs={12} md={12}>
 <TabPanel value="1">
 <TrainManagementGrid
@@ -334,6 +349,7 @@ const OnPopUPClose = (property:string) => {
         getFilterList={getFilterList}
         navigateTo={navigteTORequestScreen}
         onClearFilter={onClearFilter}
+        handleAction={handleAction}
         isFiltered={isFiltered}/>
 
 </TabPanel>

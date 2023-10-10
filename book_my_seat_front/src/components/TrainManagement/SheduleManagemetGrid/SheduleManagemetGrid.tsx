@@ -61,9 +61,8 @@ const SheduleManagemetGrid: React.FC<{
                             <CustomHeaderCell width={220} id='arrivingStation' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Arriving Station</CustomHeaderCell>
                             <CustomHeaderCell width={180} id='status' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Status</CustomHeaderCell>
                             <CustomHeaderCell width={180} id='schedule'>schedule</CustomHeaderCell>
-                            <CustomHeaderCell width={180} id='stations'>stations</CustomHeaderCell>
 
-                            <CustomHeaderCell width={120} id='action'>Action</CustomHeaderCell>
+                            {/* <CustomHeaderCell width={120} id='action'>Action</CustomHeaderCell> */}
 
                         </TableRow>
                     </TableHead>
@@ -76,10 +75,10 @@ const SheduleManagemetGrid: React.FC<{
                                 <TableRow key={index}>
                                     <StyledTableCell >{req.trainId}</StyledTableCell> 
                                     <StyledTableCell >{req.trainName}</StyledTableCell>
-                                    <StyledTableCell >{req.startingStation}</StyledTableCell>
-                                    <StyledTableCell >{req.arrivingStation}</StyledTableCell>
+                                    <StyledTableCell >{req.departureStation.stationName}</StyledTableCell>
+                                    <StyledTableCell >{req.arrivalStation.stationName}</StyledTableCell>
                                     <StyledTableCell >      <StyledSwitch
-                           checked={req.status}
+                           checked={req.isActive}
                            disabled={false}
                            onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
                    </StyledTableCell>
@@ -87,11 +86,9 @@ const SheduleManagemetGrid: React.FC<{
                                     <StyledTableCell>
                                     <CustomButton text="View schedule"bgColor="#6e6e6e" onClick={() => props.handleView("schedule", index)} />
                                    </StyledTableCell>
-                                   <StyledTableCell>
-                                    <CustomButton text="View stations"bgColor="#6e6e6e" onClick={() => props.handleView("stations", index)} />
-                                   </StyledTableCell>
+                                   
 
-                                    <StyledTableCell style={{ backgroundColor: '#282828' }}>
+                                    {/* <StyledTableCell style={{ backgroundColor: '#282828' }}>
 
                                         <Box className='layout-row'>
                                             <Box>
@@ -116,7 +113,7 @@ const SheduleManagemetGrid: React.FC<{
                                                 </IconButton>
                                             </Box>
                                         </Box>
-                                    </StyledTableCell>
+                                    </StyledTableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>

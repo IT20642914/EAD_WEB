@@ -330,42 +330,42 @@ export const TrainDataset: trainDetailsDto[] = [
 //   },
 // ];
 
-export const SheduleList: sheduleTrainDetailsGridDto[] = [
-  {
-    trainId: "1",
-    status: true,
-    trainName: "Train 1",
-    startingStation: "Station A",
-    arrivingStation: "Station B",
-    schedule: [
-      {
-        stationId: "1",
-        stationName: "stationName A",
-        arrivalAt: "08:00 AM",
-        departureAt: "08:15 AM",
-        distanceFromStartPoint: 0,
-      },
-      {
-        stationId: "2",
-        stationName: "Station B",
-        arrivalAt: "09:30 AM",
-        departureAt: "09:45 AM",
-        distanceFromStartPoint: 50,
-      },
-    ],
-    stations: [
-      {
-        stationId: "1",
-        stationName: "Station A",
-      },
-      {
-        stationId: "2",
-        stationName: "Station B",
-      },
-      // Add more station data here...
-    ],
-  },
-];
+// export const SheduleList: sheduleTrainDetailsGridDto[] = [
+//   {
+//     trainId: "1",
+//     status: true,
+//     trainName: "Train 1",
+//     startingStation: "Station A",
+//     arrivingStation: "Station B",
+//     schedule: [
+//       {
+//         stationId: "1",
+//         stationName: "stationName A",
+//         arrivalAt: "08:00 AM",
+//         departureAt: "08:15 AM",
+//         distanceFromStartPoint: 0,
+//       },
+//       {
+//         stationId: "2",
+//         stationName: "Station B",
+//         arrivalAt: "09:30 AM",
+//         departureAt: "09:45 AM",
+//         distanceFromStartPoint: 50,
+//       },
+//     ],
+//     stations: [
+//       {
+//         stationId: "1",
+//         stationName: "Station A",
+//       },
+//       {
+//         stationId: "2",
+//         stationName: "Station B",
+//       },
+//       // Add more station data here...
+//     ],
+//   },
+// ];
 
 export const SeatList: SeatNumber[] = [
   { id: 1, name: "Seat 1" },
