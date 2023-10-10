@@ -19,14 +19,14 @@ namespace BookMySeat.Controllers
 
 
         // GET: api/<StationController>
-        [HttpGet]
+        [HttpGet("GetstationList")]
         public ActionResult<List<Station>> Get()
         {
             return stationService.Get();
         }
 
         // GET api/<StationController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GetstationById")]
         public ActionResult<Station> Get(string id)
         {
             var station = stationService.Get(id);
