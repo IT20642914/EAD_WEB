@@ -131,7 +131,7 @@ const onInputHandleChange = (property: string, value: any) => {
               }
               onClick={() => handleLogin()}
             >
-              Login with masholdings.com
+              Login with BookMySeat.com
             </Button>
             <div className={styles.loginFooter}>
               <p>
