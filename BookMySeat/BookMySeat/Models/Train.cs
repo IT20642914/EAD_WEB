@@ -7,7 +7,10 @@ namespace BookMySeat.Models
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+
         public string TrainId { get; set; } = String.Empty;
+        [BsonElement("trainName")]// mongo db Accept only trainName this and .net Name Fist letter should capital
+        public string TrainName { get; set; } = String.Empty;
         [BsonElement("trainType")]// mongo db Accept only trainName this and .net Name Fist letter should capital
         public TrainType TrainType { get; set; } = new TrainType();
         [BsonElement("trainLength")]

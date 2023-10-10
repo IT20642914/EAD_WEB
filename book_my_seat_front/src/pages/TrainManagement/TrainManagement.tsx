@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import dayjs from 'dayjs'
 import moment from 'moment'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_TABLE_CONFIGS, SheduleList, TrainDetailsList } from '../../utilities/constants'
-import { SortMetaDto } from '../../utilities/models'
+import { APP_ACTION_STATUS, APP_TABLE_CONFIGS, SheduleList, } from '../../utilities/constants'
+import { ApplicationStateDto, SortMetaDto } from '../../utilities/models'
 import { travellerDto } from '../../utilities/models/travellor.model'
 import { TrainManagementGrid } from '../../components/TrainManagement'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
@@ -15,6 +15,7 @@ import { schedule, sheduleTrainDetailsGridDto, station, trainDetailsGridDto } fr
 import SheduleManagemetGrid from '../../components/TrainManagement/SheduleManagemetGrid/SheduleManagemetGrid'
 import ViewShedulePopup from '../../components/TrainManagement/ViewShedulePopup/ViewShedulePopup'
 import ViewStationsPopup from '../../components/TrainManagement/ViewStationsPopup/ViewStationsPopup'
+import { TrainAction } from '../../redux/action/train.Action'
 
 const TrainManagement = () => {
 
@@ -27,13 +28,13 @@ const TrainManagement = () => {
       const [page, setPage] = useState(0)
       const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
       const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-      const [filteredList, setFilteredList] = useState<trainDetailsGridDto[]>(TrainDetailsList)
+      const [filteredList, setFilteredList] = useState<trainDetailsGridDto[]>([])
       const [isFiltered, setIsFiltered] = useState(false)
 
       const [page2, setPage2] = useState(0)
       const [rowsPerPage2, setRowsPerPage2] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
       const [sortMeta2, setSortMeta2] = useState<SortMetaDto>(INITIAL_SORT_META);
-      const [filteredList2, setFilteredList2] = useState<sheduleTrainDetailsGridDto[]>(SheduleList)
+      const [filteredList2, setFilteredList2] = useState<sheduleTrainDetailsGridDto[]>([])
       const [shedule, setShedule] = useState<schedule[]>([])
       const [stationlist, setstationlist] = useState<station[]>([])
       
@@ -42,6 +43,23 @@ const TrainManagement = () => {
       const [isOpenViewShedulePopup, setisOpenViewShedulePopup] =useState(false);
       const [isOpenViewStationsPopup, setisOpenViewStationsPopup] =useState(false);
     
+      const GetTrainResponse = useSelector((state: ApplicationStateDto) => state.train.getAllTrainList);
+
+useEffect(() => {
+  dispatch(TrainAction.getAllTrainList())
+  dispatch(TrainAction.addTrainDetailsClear())
+}, [])
+
+useEffect(() => {
+
+  if(GetTrainResponse.status===APP_ACTION_STATUS.SUCCESS){
+    setFilteredList(GetTrainResponse.data)
+    setFilteredList2(GetTrainResponse.data)
+  }
+}, [GetTrainResponse.status])
+
+
+
       const handleChangePage = (event: unknown, newPage: number) => {
         // getRequestList(rowsPerPage, newPage + 1)
         setPage(newPage)
@@ -84,7 +102,7 @@ const TrainManagement = () => {
     
       const onFilterHandle = (col: string, value: any) => {
         setIsFiltered(true)
-        const filtered = TrainDetailsList.filter((item) => {
+        const filtered = filteredList.filter((item) => {
           const _value = (item as any)[col];
           if (typeof _value === "boolean") {
             return _value ? value === "Yes" : value === "No";
@@ -111,7 +129,7 @@ const TrainManagement = () => {
       };
       const getFilterList = (col: string): string[] => {
         if (true)
-          return TrainDetailsList
+          return filteredList
             .map((item) => {
               const value = (item as any)[col];
               if (typeof value === "boolean") {
@@ -130,7 +148,7 @@ const TrainManagement = () => {
       }
       const onClearFilter = () => {
         setIsFiltered(false)
-        setFilteredList(TrainDetailsList)
+        setFilteredList(filteredList)
       }
 /////////////////////////
 const handleChangePage2 = (event: unknown, newPage: number) => {

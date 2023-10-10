@@ -70,7 +70,7 @@ Shedules:schedule[];
             options={
               props.stationList &&
               props.stationList.map((l: station) => {
-                return { label: l.station, value: l.stationId };
+                return { label: l.stationName, value: l.stationId };
               })
             }
             value={{
@@ -96,7 +96,7 @@ Shedules:schedule[];
             options={
               props.stationList &&
               props.stationList.map((l: station) => {
-                return { label: l.station, value: l.stationId };
+                return { label: l.stationName, value: l.stationId };
               })
             }
             value={{
@@ -122,7 +122,7 @@ Shedules:schedule[];
             options={
               props.Shedules &&
               props.Shedules.map((l: schedule) => {
-                return { label: l.departureTime, value: l.stationId };
+                return { label: l.departureAt, value: l.stationId };
               })
             }
             value={{

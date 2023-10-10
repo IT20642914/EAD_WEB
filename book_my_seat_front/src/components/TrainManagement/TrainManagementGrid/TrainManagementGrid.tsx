@@ -71,9 +71,9 @@ const TrainManagementGrid :React.FC<{
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
             {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: trainDetailsGridDto) => (
-              <TableRow key={req.id}>
-                   <StyledTableCell >{req.id}</StyledTableCell>
-                   <StyledTableCell >{req.name}</StyledTableCell>
+              <TableRow key={req.trainId}>
+                   <StyledTableCell >{req.trainId}</StyledTableCell>
+                   <StyledTableCell >{req.trainName}</StyledTableCell>
                    <StyledTableCell >
                    <StyledSwitch
                            checked={req.status}

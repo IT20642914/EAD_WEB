@@ -8,13 +8,13 @@ export interface trainDetailsDto {
 }
 export interface station {
   stationId: string;
-  station: string;
+  stationName: string;
 }
 export interface schedule {
   stationId: string;
-  station: string;
-  arrivalTime: string;
-  departureTime: string;
+  stationName: string;
+  arrivalAt: string;
+  departureAt: string;
   distanceFromStartPoint: number;
 }
 
@@ -28,8 +28,8 @@ export interface SeatNumber {
   name: string;
 }
 export interface trainDetailsGridDto {
-  id: number;
-  name: string;
+  trainId: number;
+  trainName: string;
   firstClassSeatCount: number;
   secondClassSeatCount: number;
   thirdClassSeatCount: number;
@@ -72,7 +72,8 @@ export interface trainTypeDto {
 
 export interface traindetailsDto {
   trainId:string;
-  trainType:trainTypeDto
+  trainName:string;
+  trainType:trainTypeDto;
   traiLength:string;
   isActive: boolean;
   departureStation:station

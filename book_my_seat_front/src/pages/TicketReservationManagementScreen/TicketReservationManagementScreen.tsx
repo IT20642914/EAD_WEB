@@ -177,12 +177,12 @@ if(property==="arriveTo"){
 }
 
 if(property==="depatureTime"){
-  const arriveTime=ShedulesUnchange.filter((item:schedule) => (item.stationId === value.value)&&(item.departureTime === value.label))
+  const arriveTime=ShedulesUnchange.filter((item:schedule) => (item.stationId === value.value)&&(item.arrivalAt === value.label))
   setTicketInfomationForm({...TicketInfomationForm,
   depatureTime:{...TicketInfomationForm.depatureTime,
             value:value },
             arriveTime:{...TicketInfomationForm.arriveTime,
-            value:arriveTime[0].arrivalTime}
+            value:arriveTime[0].arrivalAt}
 
   })
 }

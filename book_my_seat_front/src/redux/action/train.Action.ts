@@ -1,4 +1,5 @@
 import { COMMON_ACTION_TYPES, TRAIN_ACTION_TYPES } from "../../utilities/constants"
+import { traindetailsDto } from "../../utilities/models/trains.model"
 
 const getAllTrainList = () => {
     return {
@@ -6,7 +7,21 @@ const getAllTrainList = () => {
         type: TRAIN_ACTION_TYPES.GET_ALL_TRAIN_LIST + COMMON_ACTION_TYPES.REQUEST,
     }
 }
-export const TrainActionTypes = {
+const addTrainDetails = (payload:traindetailsDto) => {
+    return {
+        type: TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+    }
+}
+const addTrainDetailsClear = () => {
+    return {
+        type: TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.CLEAR,
+      
+    }
+}
+export const TrainAction = {
     getAllTrainList,
+    addTrainDetails,
+    addTrainDetailsClear
 
 }

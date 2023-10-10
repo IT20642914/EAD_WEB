@@ -41,7 +41,7 @@ const ViewStationsPopup : React.FC<{
                                               {props.station.map((station, index) => (
                                                   <TableRow key={index}>
                                                       <StyledTableCell>{station.stationId}</StyledTableCell>
-                                                      <StyledTableCell>{station.station}</StyledTableCell>
+                                                      <StyledTableCell>{station.stationName}</StyledTableCell>
                                                
                                                   </TableRow>
                                               ))}
