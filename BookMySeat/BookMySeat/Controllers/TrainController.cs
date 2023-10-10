@@ -19,14 +19,14 @@ namespace BookMySeat.Controllers
         }
 
         // GET: api/<TrainController>
-        [HttpGet]
+        [HttpGet("GetTrainList")]
         public ActionResult<List<Train>> GetTrainList()
         {
             return trainService.GetTrainList();
         }
 
         // GET api/<TrainController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GetTrainByID")]
         public ActionResult<Train> GetTrainByID(string id)
         {
             var train = trainService.GetTrainByID(id);
@@ -46,7 +46,7 @@ namespace BookMySeat.Controllers
         }
 
         // PUT api/<TrainController>/5
-        [HttpPut("{id}")]
+        [HttpPut("UpdateTrainDetailsById")]
         public ActionResult UpdateTrainDetails(string id, [FromBody] Train train)
         {
             var exisitingStaion = trainService.GetTrainByID(id);
@@ -60,7 +60,7 @@ namespace BookMySeat.Controllers
         }
 
         // DELETE api/<TrainController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteById")]
         public ActionResult Delete(string id)
         {
             var exisitingTrain = trainService.GetTrainByID(id);

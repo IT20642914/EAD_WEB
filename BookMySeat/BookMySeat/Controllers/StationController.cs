@@ -19,14 +19,14 @@ namespace BookMySeat.Controllers
 
 
         // GET: api/<StationController>
-        [HttpGet]
+        [HttpGet("GetstationList")]
         public ActionResult<List<Station>> Get()
         {
             return stationService.Get();
         }
 
         // GET api/<StationController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GetstationById")]
         public ActionResult<Station> Get(string id)
         {
             var station = stationService.Get(id);
@@ -46,7 +46,7 @@ namespace BookMySeat.Controllers
         }
 
         // PUT api/<StationController>/5
-        [HttpPut("{id}")]
+        [HttpPut("updateById")]
         public ActionResult Put(string id, [FromBody] Station station)
         {
             var exisitingStaion = stationService.Get(id);
@@ -60,7 +60,7 @@ namespace BookMySeat.Controllers
         }
 
         // DELETE api/<StationController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteById")]
         public ActionResult Delete(string id)
         {
             var Staion = stationService.Get(id);
