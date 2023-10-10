@@ -27,7 +27,7 @@ const TrainScreenForm :React.FC<{
 
   const trainName = props.TrainInfomationForm.trainName
   const trainType = props.TrainInfomationForm.trainType
-  const status = props.TrainInfomationForm.status
+  const status = props.TrainInfomationForm.isActive
   const firstClassSeatCount = props.TrainInfomationForm.firstClassSeatCount
   const secondClassSeatCount = props.TrainInfomationForm.secondClassSeatCount
   const thirdClassSeatCount = props.TrainInfomationForm.thirdClassSeatCount

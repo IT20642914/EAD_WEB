@@ -20,7 +20,7 @@ const TrainScreen = () => {
     firstClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     secondClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     thirdClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     trainType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     startingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arrivingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
@@ -47,19 +47,14 @@ const TrainScreen = () => {
 
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
   const addTrainResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
-  const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
+  const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.getDetailsById);
 
   useEffect(() => {
 
     GetInitialData()
-    const _mode = sessionStorage.getItem("Mode");
-    const _id = sessionStorage.getItem("id");
-
-    if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
-
-      if (_id) dispatch(TrainAction.getTrainById(_id));
-    }
+   
   }, [])
+
 
 
 
@@ -97,7 +92,78 @@ const GetInitialData =()=>{
     if (_mode !== null) setScreenMode(_mode);
     dispatch(StationAction.getAllStations());
 
+    const _id = sessionStorage.getItem("id");
+
+    if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
+
+      if (_id) dispatch(TrainAction.getTrainById(_id));
+    }
+
 }
+useEffect(() => {
+  if(RequestByIdResponse.status===APP_ACTION_STATUS.SUCCESS){
+    console.log("sssssssssssssssssss",RequestByIdResponse.data)
+    const _mode = sessionStorage.getItem("Mode");
+    const _data:traindetailsDto =RequestByIdResponse.data
+    const _shedule= _data.trainShedule
+
+    setSheduleData(_shedule)
+
+    console.log("_data",_data)
+    const _isDisable = _mode === TRAIN_SCREEN_MODES.VIEW;
+
+    setTrainInfomationForm({...TrainInfomationForm,
+      trainType:{
+        ...TrainInfomationForm.arrivingStation,
+        value:{label:_data.trainType.typeName ,value:_data.trainType.typeID }as OptionsDto,
+        readonly:_isDisable
+      },
+      trainLength:{
+        ...TrainInfomationForm.trainLength,
+        value:_data.trainLength,
+        readonly:_isDisable
+      },
+                  arrivingStation:{
+                    ...TrainInfomationForm.arrivingStation,
+                    value:{label:_data.arrivalStation.stationName ,value:_data.arrivalStation.stationId }as OptionsDto,
+                    readonly:_isDisable
+                  },
+                  isActive:{
+                    ...TrainInfomationForm.isActive,
+                  value:_data.isActive,
+                  readonly:_isDisable
+                  },
+                  trainName:{
+                    ...TrainInfomationForm.trainName,
+                  value:_data.trainName,
+                  readonly:_isDisable
+                  },
+                  firstClassSeatCount:{
+                    ...TrainInfomationForm.firstClassSeatCount,
+                  value:Number(_data.firstClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  secondClassSeatCount:{
+                    ...TrainInfomationForm.secondClassSeatCount,
+                  value:Number(_data.secondClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  startingStation :{
+                    ...TrainInfomationForm.startingStation,
+                  value:{label:_data.departureStation.stationName  ,value:_data.departureStation.stationId }as OptionsDto,
+                  readonly:_isDisable
+                  },
+                  thirdClassSeatCount:{
+                    ...TrainInfomationForm.thirdClassSeatCount,
+                  value:Number(_data.thirdClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  
+    })
+   
+  }
+ 
+}, [ RequestByIdResponse.status, ])
 
 
 
@@ -155,8 +221,8 @@ const GetInitialData =()=>{
     if (property === "status") {
       setTrainInfomationForm({
         ...TrainInfomationForm,
-        status: {
-          ...TrainInfomationForm.status,
+        isActive: {
+          ...TrainInfomationForm.isActive,
           value: !value,
         },
       });
@@ -282,8 +348,8 @@ const GetInitialData =()=>{
           typeID: Number(TrainInfomationForm.trainType.value.value),
           typeName: TrainInfomationForm.trainType.value.label
         },
-        traiLength: TrainInfomationForm.trainLength.value,
-        isActive: TrainInfomationForm.status.value,
+        trainLength: TrainInfomationForm.trainLength.value,
+        isActive: TrainInfomationForm.isActive.value,
         departureStation: {
           stationName: TrainInfomationForm.startingStation.value.label,
           stationId: TrainInfomationForm.startingStation.value.value.toString()

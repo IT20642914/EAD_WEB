@@ -22,6 +22,8 @@ const AppRoutes = () => {
 {/* Traine Management routes */}
 <Route path={APP_ROUTES.TRAIN_MANAGEMENT} element={<TrainManagement/>}/>
 <Route path={APP_ROUTES.ADD_TRAIN} element={<TrainScreen/>}/>
+<Route path={APP_ROUTES.ADD_TRAIN} element={<TrainScreen/>}/>
+<Route path={APP_ROUTES.ADD_TRAIN} element={<TrainScreen/>}/>
 <Route path={APP_ROUTES.CREATE_SHEDULE} element={<SheduleScreen/>}/>
 
 

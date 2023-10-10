@@ -14,7 +14,7 @@ namespace BookMySeat.Models
         [BsonElement("trainType")]// mongo db Accept only trainName this and .net Name Fist letter should capital
         public TrainType TrainType { get; set; } = new TrainType();
         [BsonElement("trainLength")]
-        public string TraiLength { get; set; } = String.Empty;
+        public string trainLength { get; set; } = String.Empty;
         [BsonElement("isActive")]
         public bool IsActive { get; set; }
         [BsonElement("departureStation")]

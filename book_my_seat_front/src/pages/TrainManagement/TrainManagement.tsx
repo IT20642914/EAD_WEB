@@ -341,7 +341,7 @@ const handleAction =(id:string,type:string)=>{
         rowsPerPage={rowsPerPage}
         onHandleChangePage={handleChangePage}
         onHandleChangeRowsPerPage={handleChangeRowsPerPage}
-        requestDataIsLoading={false}
+        requestDataIsLoading={GetTrainResponse.isLoading}
         filteredList={filteredList || []}
         sortMeta={sortMeta}
         onSortHandle={onSortHandle}
@@ -360,7 +360,7 @@ const handleAction =(id:string,type:string)=>{
      rowsPerPage={rowsPerPage2}
      onHandleChangePage={handleChangePage2}
      onHandleChangeRowsPerPage={handleChangeRowsPerPage2}
-     requestDataIsLoading={false}
+     requestDataIsLoading={GetTrainResponse.isLoading}
      filteredList={filteredList2 || []}
      sortMeta={sortMeta2}
      onSortHandle={onSortHandle2}

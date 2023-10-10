@@ -54,7 +54,7 @@ export interface trainDetailsGridFormDto {
   thirdClassSeatCount: FormFieldDto<number>;
   startingStation: FormFieldDto<OptionsDto>;
   arrivingStation: FormFieldDto<OptionsDto>;
-  status: FormFieldDto<boolean>;
+  isActive: FormFieldDto<boolean>;
   totalCount: FormFieldDto<number>;
 }
 export interface SheduleListFormDto {
@@ -74,7 +74,7 @@ export interface traindetailsDto {
   trainId:string;
   trainName:string;
   trainType:trainTypeDto;
-  traiLength:string;
+  trainLength:string;
   isActive: boolean;
   departureStation:station
   arrivalStation: station
