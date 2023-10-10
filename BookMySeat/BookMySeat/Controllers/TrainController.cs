@@ -46,7 +46,7 @@ namespace BookMySeat.Controllers
         }
 
         // PUT api/<TrainController>/5
-        [HttpPut("UpdateTrainDetails")]
+        [HttpPut("UpdateTrainDetailsById")]
         public ActionResult UpdateTrainDetails(string id, [FromBody] Train train)
         {
             var exisitingStaion = trainService.GetTrainByID(id);
@@ -60,7 +60,7 @@ namespace BookMySeat.Controllers
         }
 
         // DELETE api/<TrainController>/5
-        [HttpDelete("Delete")]
+        [HttpDelete("DeleteById")]
         public ActionResult Delete(string id)
         {
             var exisitingTrain = trainService.GetTrainByID(id);
