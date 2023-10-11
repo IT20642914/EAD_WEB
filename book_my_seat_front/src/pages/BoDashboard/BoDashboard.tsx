@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import { BoDashboardGrid } from '../../components/BoDashboard'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_TABLE_CONFIGS, travellerData } from '../../utilities/constants'
-import { SortMetaDto } from '../../utilities/models'
-import { travellerDto } from '../../utilities/models/travellor.model'
+import { APP_ACTION_STATUS, APP_TABLE_CONFIGS } from '../../utilities/constants'
+import { ApplicationStateDto, SortMetaDto } from '../../utilities/models'
+import { travelerDto } from '../../utilities/models/travellor.model'
 import dayjs from 'dayjs'
 import moment from 'moment'
 import SummaryChart from '../../components/Shared/RequestSummaryChart/SummaryChart'
 import { Grid } from '@mui/material'
 import BudgetGraph from '../../components/Shared/RequestBudgetGraph/BudgetGraph'
+import { TravelersAction } from '../../redux/action/traveler'
 
 const BoDashboard = () => {
   const INITIAL_SORT_META: SortMetaDto = {
@@ -22,10 +23,10 @@ const BoDashboard = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-  const [filteredList, setFilteredList] = useState<travellerDto[]>(travellerData)
+  const [filteredList, setFilteredList] = useState<travelerDto[]>([])
   const [isFiltered, setIsFiltered] = useState(false)
   
-
+  const GetTravelerDetails = useSelector((state: ApplicationStateDto) => state.traveler.getAllTravelers);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     // getRequestList(rowsPerPage, newPage + 1)
@@ -37,6 +38,19 @@ const BoDashboard = () => {
     setPage(0)
   }
 
+
+  useEffect(() => {
+    dispatch(TravelersAction.getAllTravelers())
+  }, [])
+  
+
+  useEffect(() => {
+    
+    if(GetTravelerDetails.status===APP_ACTION_STATUS.SUCCESS){
+       setFilteredList(GetTravelerDetails.data)
+    }
+  }, [GetTravelerDetails.status])
+  
 
   const onSortHandle = (col: string) => {
     const sorted = filteredList.sort((_prev: any, _next: any) => {
@@ -69,7 +83,7 @@ const BoDashboard = () => {
 
   const onFilterHandle = (col: string, value: any) => {
     setIsFiltered(true)
-    const filtered = travellerData.filter((item) => {
+    const filtered = filteredList.filter((item) => {
       const _value = (item as any)[col];
       if (typeof _value === "boolean") {
         return _value ? value === "Yes" : value === "No";
@@ -96,7 +110,7 @@ const BoDashboard = () => {
   };
   const getFilterList = (col: string): string[] => {
     if (true)
-      return travellerData
+      return filteredList
         .map((item) => {
           const value = (item as any)[col];
           if (typeof value === "boolean") {
@@ -115,7 +129,7 @@ const BoDashboard = () => {
   }
   const onClearFilter = () => {
     setIsFiltered(false)
-    setFilteredList(travellerData)
+    setFilteredList(filteredList)
   }
   return (    
   <React.Fragment>

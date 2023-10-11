@@ -5,115 +5,114 @@ import {
   trainDetailsDto,
   trainDetailsGridDto,
 } from "../models/trains.model";
-import { travellerDto } from "../models/travellor.model";
+import { travelerDto } from "../models/travellor.model";
 
-export const travellerData: travellerDto[] = [
-  {
-    travellerId: "1",
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@example.com",
-    userName: "johndoe123",
-    status: true,
-    contactHome: "123-456-7890",
-    contactMobile: "987-654-3210",
-    address: "123 Main Street, City",
-    reservationCount: "3",
-    createdDate: "2023-09-29",
-  },
-  {
-    travellerId: "2",
-    firstName: "Alice",
-    lastName: "Smith",
-    email: "alicesmith@example.com",
-    userName: "alicesmith456",
-    status: false,
-    contactHome: "111-222-3333",
-    contactMobile: "999-888-7777",
-    address: "456 Elm Street, Town",
-    reservationCount: "1",
-    createdDate: "2023-09-30",
-  },
-  {
-    travellerId: "3",
-    firstName: "Ella",
-    lastName: "Johnson",
-    email: "ellaj@example.com",
-    userName: "ellaj567",
-    status: true,
-    contactHome: "555-555-5555",
-    contactMobile: "444-444-4444",
-    address: "789 Oak Avenue, Village",
-    reservationCount: "5",
-    createdDate: "2023-10-01",
-  },
-  {
-    travellerId: "4",
-    firstName: "Michael",
-    lastName: "Brown",
-    email: "michaelbrown@example.com",
-    userName: "mbrown789",
-    status: true,
-    contactHome: "777-888-9999",
-    contactMobile: "666-555-4444",
-    address: "101 Pine Road, Suburb",
-    reservationCount: "2",
-    createdDate: "2023-10-02",
-  },
-  {
-    travellerId: "5",
-    firstName: "Sophia",
-    lastName: "Wilson",
-    email: "sophiaw@example.com",
-    userName: "swilson123",
-    status: false,
-    contactHome: "222-333-4444",
-    contactMobile: "333-222-1111",
-    address: "222 Cedar Lane, County",
-    reservationCount: "4",
-    createdDate: "2023-10-03",
-  },
-  {
-    travellerId: "6",
-    firstName: "David",
-    lastName: "Lee",
-    email: "davidlee@example.com",
-    userName: "dlee456",
-    status: true,
-    contactHome: "555-888-7777",
-    contactMobile: "777-999-3333",
-    address: "555 Maple Drive, Suburb",
-    reservationCount: "3",
-    createdDate: "2023-10-04",
-  },
-  {
-    travellerId: "7",
-    firstName: "Olivia",
-    lastName: "Martinez",
-    email: "oliviam@example.com",
-    userName: "omartinez789",
-    status: false,
-    contactHome: "333-666-2222",
-    contactMobile: "555-444-1111",
-    address: "789 Pine Lane, County",
-    reservationCount: "2",
-    createdDate: "2023-10-05",
-  },
-  {
-    travellerId: "8",
-    firstName: "James",
-    lastName: "Taylor",
-    email: "jamestaylor@example.com",
-    userName: "jtaylor123",
-    status: true,
-    contactHome: "111-555-3333",
-    contactMobile: "999-222-7777",
-    address: "888 Cedar Road, Village",
-    reservationCount: "6",
-    createdDate: "2023-10-06",
-  },
-  // Add more sample data objects as needed
-];
+// export const travellerData: travelerDto[] = [
+//   {
+//     travelerId: "1",
+//     firstName: "John",
+//     lastName: "Doe",
+//     email: "johndoe@example.com",
+  
+//     isActive: true,
+//     contactHome: "123-456-7890",
+//     contactMobile: "987-654-3210",
+//     address: "123 Main Street, City",
+//     totalReservationCount:4,
+//     createdDate: "2023-09-29",
+//   },
+//   {
+//     travelerId: "2",
+//     firstName: "Alice",
+//     lastName: "Smith",
+//     email: "alicesmith@example.com",
+
+//     isActive: false,
+//     contactHome: "111-222-3333",
+//     contactMobile: "999-888-7777",
+//     address: "456 Elm Street, Town",
+//     totalReservationCount:4,
+//     createdDate: "2023-09-30",
+//   },
+//   {
+//     travelerId: "3",
+//     firstName: "Ella",
+//     lastName: "Johnson",
+//     email: "ellaj@example.com",
+ 
+//     isActive: true,
+//     contactHome: "555-555-5555",
+//     contactMobile: "444-444-4444",
+//     address: "789 Oak Avenue, Village",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-01",
+//   },
+//   {
+//     travelerId: "4",
+//     firstName: "Michael",
+//     lastName: "Brown",
+//     email: "michaelbrown@example.com",
+ 
+//     isActive: true,
+//     contactHome: "777-888-9999",
+//     contactMobile: "666-555-4444",
+//     address: "101 Pine Road, Suburb",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-02",
+//   },
+//   {
+//     travelerId: "5",
+//     firstName: "Sophia",
+//     lastName: "Wilson",
+//     email: "sophiaw@example.com",
+
+//     isActive: false,
+//     contactHome: "222-333-4444",
+//     contactMobile: "333-222-1111",
+//     address: "222 Cedar Lane, County",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-03",
+//   },
+//   {
+//     travelerId: "6",
+//     firstName: "David",
+//     lastName: "Lee",
+//     email: "davidlee@example.com",
+
+//     isActive: true,
+//     contactHome: "555-888-7777",
+//     contactMobile: "777-999-3333",
+//     address: "555 Maple Drive, Suburb",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-04",
+//   },
+//   {
+//     travelerId: "7",
+//     firstName: "Olivia",
+//     lastName: "Martinez",
+//     email: "oliviam@example.com",
+   
+//     isActive: false,
+//     contactHome: "333-666-2222",
+//     contactMobile: "555-444-1111",
+//     address: "789 Pine Lane, County",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-05",
+//   },
+//   {
+//     travelerId: "8",
+//     firstName: "James",
+//     lastName: "Taylor",
+//     email: "jamestaylor@example.com",
+//     isActive: true,
+//     contactHome: "111-555-3333",
+//     contactMobile: "999-222-7777",
+//     address: "888 Cedar Road, Village",
+//     totalReservationCount:4,
+//     createdDate: "2023-10-06",
+//   },
+//   // Add more sample data objects as needed
+// ];
 
 export const ticketReservations: TicketReservationDetailsDto[] = [
   {
@@ -251,196 +250,121 @@ export const TrainDataset: trainDetailsDto[] = [
   {
     id: 1,
     name: "Train A",
-    schedule: [
+    schedule: [],
+  stations: [
       {
         stationId: "station1",
-        station: "Station X",
-        arrivalTime: "08:00 AM",
-        departureTime: "08:15 AM",
-        distanceFromStartPoint: 40,
-      },
-      {
-        stationId: "station2",
-        station: "Station Y",
-        arrivalTime: "09:00 AM",
-        departureTime: "09:15 AM",
-        distanceFromStartPoint: 10,
-      },
-    ],
-    stations: [
-      {
-        stationId: "station1",
-        station: "Station X",
-      },
-      {
-        stationId: "station2",
-        station: "Station Y",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Train B",
-    schedule: [
-      {
-        stationId: "station1",
-        station: "Station X",
-        arrivalTime: "10:00 AM",
-        departureTime: "10:15 AM",
-        distanceFromStartPoint: 20,
+        stationName: "Station X",
       },
       {
         stationId: "station3",
-        station: "Station Z",
-        arrivalTime: "11:00 AM",
-        departureTime: "11:15 AM",
-        distanceFromStartPoint: 10,
-      },
-    ],
-    stations: [
-      {
-        stationId: "station1",
-        station: "Station X",
-      },
-      {
-        stationId: "station3",
-        station: "Station Z",
+        stationName: "Station Z",
       },
     ],
   },
   {
     id: 3,
     name: "Train C",
-    schedule: [
-      {
-        stationId: "station2",
-        station: "Station Y",
-        arrivalTime: "12:00 PM",
-        departureTime: "12:15 PM",
-        distanceFromStartPoint: 30,
-      },
-      {
-        stationId: "station4",
-        station: "Station W",
-        arrivalTime: "01:00 PM",
-        departureTime: "01:15 PM",
-        distanceFromStartPoint: 60,
-      },
-    ],
+    schedule: [],
     stations: [
       {
         stationId: "station2",
-        station: "Station Y",
+        stationName: "Station Y",
       },
       {
         stationId: "station4",
-        station: "Station W",
+        stationName: "Station W",
       },
     ],
   },
   {
     id: 4,
     name: "Train D",
-    schedule: [
-      {
-        stationId: "station3",
-        station: "Station Z",
-        arrivalTime: "02:00 PM",
-        departureTime: "02:15 PM",
-        distanceFromStartPoint: 70,
-      },
-      {
-        stationId: "station5",
-        station: "Station V",
-        arrivalTime: "03:00 PM",
-        departureTime: "03:15 PM",
-        distanceFromStartPoint: 80,
-      },
-    ],
+    schedule: [],
     stations: [
       {
         stationId: "station3",
-        station: "Station Z",
+        stationName: "Station Z",
       },
       {
         stationId: "station5",
-        station: "Station V",
+        stationName: "Station V",
       },
     ],
   },
 ];
 
-export const TrainDetailsList: trainDetailsGridDto[] = [
-  {
-    id: 1,
-    name: "Train 101",
-    firstClassSeatCount: 20,
-    secondClassSeatCount: 50,
-    thirdClassSeatCount: 100,
-    status: true,
-  },
-  {
-    id: 2,
-    name: "Train 102",
-    firstClassSeatCount: 18,
-    secondClassSeatCount: 45,
-    status: true,
-    thirdClassSeatCount: 90,
-  },
-  {
-    id: 3,
-    name: "Train 103",
-    firstClassSeatCount: 22,
-    secondClassSeatCount: 55,
-    thirdClassSeatCount: 110,
-    status: false,
-  },
-  {
-    id: 4,
-    name: "Train 104",
-    firstClassSeatCount: 16,
-    secondClassSeatCount: 40,
-    status: true,
-    thirdClassSeatCount: 80,
-  },
-];
+// export const TrainDetailsList: trainDetailsGridDto[] = [
+//   {
+//     id: 1,
+//     name: "Train 101",
+//     firstClassSeatCount: 20,
+//     secondClassSeatCount: 50,
+//     thirdClassSeatCount: 100,
+//     isActive: true,
+//   },
+//   {
+//     id: 2,
+//     name: "Train 102",
+//     firstClassSeatCount: 18,
+//     secondClassSeatCount: 45,
+//     status: true,
+//     thirdClassSeatCount: 90,
+//   },
+//   {
+//     id: 3,
+//     name: "Train 103",
+//     firstClassSeatCount: 22,
+//     secondClassSeatCount: 55,
+//     thirdClassSeatCount: 110,
+//     status: false,
+//   },
+//   {
+//     id: 4,
+//     name: "Train 104",
+//     firstClassSeatCount: 16,
+//     secondClassSeatCount: 40,
+//     status: true,
+//     thirdClassSeatCount: 80,
+//   },
+// ];
 
-export const SheduleList: sheduleTrainDetailsGridDto[] = [
-  {
-    trainId: "1",
-    status: true,
-    trainName: "Train 1",
-    startingStation: "Station A",
-    arrivingStation: "Station B",
-    schedule: [
-      {
-        stationId: "1",
-        station: "Station A",
-        arrivalTime: "08:00 AM",
-        departureTime: "08:15 AM",
-        distanceFromStartPoint: 0,
-      },
-      {
-        stationId: "2",
-        station: "Station B",
-        arrivalTime: "09:30 AM",
-        departureTime: "09:45 AM",
-        distanceFromStartPoint: 50,
-      },
-    ],
-    stations: [
-      {
-        stationId: "1",
-        station: "Station A",
-      },
-      {
-        stationId: "2",
-        station: "Station B",
-      },
-      // Add more station data here...
-    ],
-  },
-];
+// export const SheduleList: sheduleTrainDetailsGridDto[] = [
+//   {
+//     trainId: "1",
+//     status: true,
+//     trainName: "Train 1",
+//     startingStation: "Station A",
+//     arrivingStation: "Station B",
+//     schedule: [
+//       {
+//         stationId: "1",
+//         stationName: "stationName A",
+//         arrivalAt: "08:00 AM",
+//         departureAt: "08:15 AM",
+//         distanceFromStartPoint: 0,
+//       },
+//       {
+//         stationId: "2",
+//         stationName: "Station B",
+//         arrivalAt: "09:30 AM",
+//         departureAt: "09:45 AM",
+//         distanceFromStartPoint: 50,
+//       },
+//     ],
+//     stations: [
+//       {
+//         stationId: "1",
+//         stationName: "Station A",
+//       },
+//       {
+//         stationId: "2",
+//         stationName: "Station B",
+//       },
+//       // Add more station data here...
+//     ],
+//   },
+// ];
 
 export const SeatList: SeatNumber[] = [
   { id: 1, name: "Seat 1" },

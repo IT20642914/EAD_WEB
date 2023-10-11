@@ -35,6 +35,59 @@ Shedules:schedule[];
   return (
     <Stepper stepNumber={2} stepTitle={"Detailed Information"}>
       <Grid container spacing={4}>
+       
+        <Grid item xs={12} md={6}>
+          <CustomAutocomplete
+            freeSolo={true}
+            label="Depature From"
+            placeholder="Select Depature From"
+            onFocus={() => props.handleInputFocus("depatureFrom", "GI")}
+            options={
+              props.stationList &&
+              props.stationList.map((l: station) => {
+                return { label: l.stationName, value: l.stationId };
+              })
+            }
+            value={{
+              label: depatureFrom.value.label,
+              value: depatureFrom.value.value,
+            }}
+            error={!!depatureFrom.error}
+            disabled={depatureFrom.disable}
+            readonly={depatureFrom.readonly}
+            required={depatureFrom.isRequired}
+            helperText={props.helperText && depatureFrom.error}
+            onChange={(event: any, value: any) =>
+              props.onInputHandleChange("depatureFrom", value)
+            }
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomAutocomplete
+            freeSolo={true}
+            label="ArriveTo"
+            placeholder="Select Arrive To"
+            onFocus={() => props.handleInputFocus("arriveTo", "GI")}
+            options={
+              props.stationList &&
+              props.stationList.map((l: station) => {
+                return { label: l.stationName, value: l.stationId };
+              })
+            }
+            value={{
+              label: arriveTo.value.label,
+              value: arriveTo.value.value,
+            }}
+            error={!!arriveTo.error}
+            disabled={arriveTo.disable}
+            readonly={arriveTo.readonly}
+            required={arriveTo.isRequired}
+            helperText={props.helperText && arriveTo.error}
+            onChange={(event: any, value: any) =>
+              props.onInputHandleChange("arriveTo", value)
+            }
+          />
+        </Grid>
         <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
@@ -64,65 +117,13 @@ Shedules:schedule[];
         <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
-            label="Depature From"
-            placeholder="Select Depature From"
-            onFocus={() => props.handleInputFocus("depatureFrom", "GI")}
-            options={
-              props.stationList &&
-              props.stationList.map((l: station) => {
-                return { label: l.station, value: l.stationId };
-              })
-            }
-            value={{
-              label: depatureFrom.value.label,
-              value: depatureFrom.value.value,
-            }}
-            error={!!depatureFrom.error}
-            disabled={depatureFrom.disable}
-            readonly={depatureFrom.readonly}
-            required={depatureFrom.isRequired}
-            helperText={props.helperText && depatureFrom.error}
-            onChange={(event: any, value: any) =>
-              props.onInputHandleChange("depatureFrom", value)
-            }
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <CustomAutocomplete
-            freeSolo={true}
-            label="ArriveTo"
-            placeholder="Select Arrive To"
-            onFocus={() => props.handleInputFocus("arriveTo", "GI")}
-            options={
-              props.stationList &&
-              props.stationList.map((l: station) => {
-                return { label: l.station, value: l.stationId };
-              })
-            }
-            value={{
-              label: arriveTo.value.label,
-              value: arriveTo.value.value,
-            }}
-            error={!!arriveTo.error}
-            disabled={arriveTo.disable}
-            readonly={arriveTo.readonly}
-            required={arriveTo.isRequired}
-            helperText={props.helperText && arriveTo.error}
-            onChange={(event: any, value: any) =>
-              props.onInputHandleChange("arriveTo", value)
-            }
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <CustomAutocomplete
-            freeSolo={true}
             label="Depature Time"
             placeholder="Select Depature Time"
             onFocus={() => props.handleInputFocus("depatureTime", "GI")}
             options={
               props.Shedules &&
               props.Shedules.map((l: schedule) => {
-                return { label: l.departureTime, value: l.stationId };
+                return { label: l.departureAt, value: l.stationId };
               })
             }
             value={{

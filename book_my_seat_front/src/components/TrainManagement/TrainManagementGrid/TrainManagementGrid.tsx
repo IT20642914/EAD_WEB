@@ -7,7 +7,7 @@ import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { travellerDto } from '../../../utilities/models/travellor.model';
+import { travelerDto } from '../../../utilities/models/travellor.model';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { EditOutlined } from '@mui/icons-material';
@@ -22,6 +22,7 @@ const TrainManagementGrid :React.FC<{
     requestDataIsLoading: boolean,
     filteredList: trainDetailsGridDto[],
     sortMeta: SortMetaDto,
+    handleAction(id:string,type:string):void
     onSortHandle(col: string): void
     // onShowStatus(id: string): void
     onFilterHandle(col: string, value: any): void;
@@ -71,12 +72,12 @@ const TrainManagementGrid :React.FC<{
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
             {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: trainDetailsGridDto) => (
-              <TableRow key={req.id}>
-                   <StyledTableCell >{req.id}</StyledTableCell>
-                   <StyledTableCell >{req.name}</StyledTableCell>
+              <TableRow key={req.trainId}>
+                   <StyledTableCell >{req.trainId}</StyledTableCell>
+                   <StyledTableCell >{req.trainName}</StyledTableCell>
                    <StyledTableCell >
                    <StyledSwitch
-                           checked={req.status}
+                           checked={req.isActive}
                            disabled={false}
                            onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
                    </StyledTableCell>
@@ -88,21 +89,21 @@ const TrainManagementGrid :React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                        <IconButton size='small' onClick={() => { props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
                           <Tooltip title="Delete">
                             <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>

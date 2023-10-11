@@ -40,9 +40,9 @@ const ViewShedulePopup: React.FC<{
 
                                                 {props.schedule.map((scheduleItem, index) => (
                                                     <TableRow key={index}>
-                                                        <StyledTableCell>{scheduleItem.station}</StyledTableCell>
-                                                        <StyledTableCell>{scheduleItem.arrivalTime}</StyledTableCell>
-                                                        <StyledTableCell>{scheduleItem.departureTime}</StyledTableCell>
+                                                        <StyledTableCell>{scheduleItem.stationName}</StyledTableCell>
+                                                        <StyledTableCell>{scheduleItem.arrivalAt}</StyledTableCell>
+                                                        <StyledTableCell>{scheduleItem.departureAt}</StyledTableCell>
                                                         <StyledTableCell>
                                                             {scheduleItem.distanceFromStartPoint} km
                                                         </StyledTableCell>

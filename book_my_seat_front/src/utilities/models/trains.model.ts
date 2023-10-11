@@ -8,13 +8,13 @@ export interface trainDetailsDto {
 }
 export interface station {
   stationId: string;
-  station: string;
+  stationName: string;
 }
 export interface schedule {
   stationId: string;
-  station: string;
-  arrivalTime: string;
-  departureTime: string;
+  stationName: string;
+  arrivalAt: string;
+  departureAt: string;
   distanceFromStartPoint: number;
 }
 
@@ -28,20 +28,20 @@ export interface SeatNumber {
   name: string;
 }
 export interface trainDetailsGridDto {
-  id: number;
-  name: string;
+  trainId: number;
+  trainName: string;
   firstClassSeatCount: number;
   secondClassSeatCount: number;
   thirdClassSeatCount: number;
-  status: boolean;
+  isActive: boolean;
 }
 export interface sheduleTrainDetailsGridDto {
   trainId: string;
   trainName: string;
-  status: boolean;
-  startingStation: string;
-  arrivingStation: string;
-  schedule: schedule[];
+  isActive: boolean;
+  departureStation: station;
+  arrivalStation: station;
+  trainShedule: schedule[];
   stations: station[];
 }
 export interface trainDetailsGridFormDto {
@@ -54,7 +54,7 @@ export interface trainDetailsGridFormDto {
   thirdClassSeatCount: FormFieldDto<number>;
   startingStation: FormFieldDto<OptionsDto>;
   arrivingStation: FormFieldDto<OptionsDto>;
-  status: FormFieldDto<boolean>;
+  isActive: FormFieldDto<boolean>;
   totalCount: FormFieldDto<number>;
 }
 export interface SheduleListFormDto {
@@ -72,8 +72,9 @@ export interface trainTypeDto {
 
 export interface traindetailsDto {
   trainId:string;
-  trainType:trainTypeDto
-  traiLength:string;
+  trainName:string;
+  trainType:trainTypeDto;
+  trainLength:string;
   isActive: boolean;
   departureStation:station
   arrivalStation: station

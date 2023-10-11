@@ -1,23 +1,26 @@
 import React from 'react'
-import { TravellerInformationFormDto } from '../../../utilities/models/travellor.model'
+import { TravelerInformationFormDto } from '../../../utilities/models/travellor.model'
 import Stepper from '../../Shared/Stepper/Stepper'
 import { Grid, Typography } from '@mui/material'
 import { StyledSwitch, StyledTextField } from '../../../assets/theme/theme'
 import style from './GeneralInformation.module.scss'
+import CustomAutocomplete from '../../Shared/CustomAutocomplete/CustomAutocomplete'
+import { userRole } from '../../../utilities/models'
+import { UserRoles } from '../../../utilities/constants/app.constants'
+
 const GeneralInformation:React.FC<{
     helperText: boolean
     screenMode: string
-    TravelloerInfomationForm:TravellerInformationFormDto 
+    TravelloerInfomationForm:TravelerInformationFormDto 
     onInputHandleChange(property: string, value: any): void;
     handleInputFocus(property: string, section: string): void;
 }> = (props) => {
   const firstName = props.TravelloerInfomationForm.firstName
   const lastName = props.TravelloerInfomationForm.lastName
-  const userName = props.TravelloerInfomationForm.userName
-  const status = props.TravelloerInfomationForm.status
+ 
+  const status = props.TravelloerInfomationForm.isActive
   const identificationCard = props.TravelloerInfomationForm.identificationCard
-
-
+  const userRole = props.TravelloerInfomationForm.userRole
   return (
      <Stepper stepNumber={1} stepTitle={"General Information"}>
         
@@ -69,20 +72,31 @@ const GeneralInformation:React.FC<{
                     />
            </Grid>
            <Grid item xs={12} md={6}>
-           <StyledTextField
-                      fullWidth
-                      label="User Name"
-                      placeholder='Enter User Name'
-                      size='small'
-                      value={userName.value}
-                      error={!!userName.error}
-                      disabled={userName.disable}
-                      required={userName.isRequired}
-                      helperText={props.helperText && userName.error}
-                      onFocus={() => props.handleInputFocus('userName', 'GI')}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('userName', event.target.value)}
-                    />
-           </Grid>
+          <CustomAutocomplete
+            freeSolo={true}
+            label="UserRole"
+            placeholder="Select User Role"
+            onFocus={() => props.handleInputFocus("userRole", "GI")}
+            options={
+            UserRoles &&
+             UserRoles.map((l: userRole) => {
+                return { label: l.roleName, value: l.roleId };
+              })
+            }
+            value={{
+              label: userRole.value.label,
+              value: userRole.value.value,
+            }}
+            error={!!userRole.error}
+            disabled={userRole.disable}
+            readonly={userRole.readonly}
+            required={userRole.isRequired}
+            helperText={props.helperText && userRole.error}
+            onChange={(event: any, value: any) =>
+              props.onInputHandleChange("userRole", value)
+            }
+          />
+        </Grid>
            <Grid item xs={12} md={6}>
            <div className={style.switchField}>
           <Typography className={style.label}>Set Travellor Active</Typography>

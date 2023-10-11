@@ -8,7 +8,7 @@ import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { travellerDto } from '../../../utilities/models/travellor.model';
+import { travelerDto } from '../../../utilities/models/travellor.model';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { EditOutlined } from '@mui/icons-material';
@@ -58,7 +58,7 @@ const BoDashboardGrid:React.FC<{
             <CustomHeaderCell width={220} id='firstName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Frist Name</CustomHeaderCell>
             <CustomHeaderCell width={220} id='lastName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Last Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='email' sortable onSort={props.onSortHandle} >Email</CustomHeaderCell>
-            <CustomHeaderCell width={180} id='userName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >User Name</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='roleName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Role Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='status' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Status</CustomHeaderCell>
             <CustomHeaderCell width={300} id='contactHome' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >contact Home</CustomHeaderCell>
             <CustomHeaderCell width={220} id='contactMobile' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Contact Mobile</CustomHeaderCell>
@@ -73,16 +73,16 @@ const BoDashboardGrid:React.FC<{
         )}
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
-            {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: travellerDto) => (
-              <TableRow key={req.travellerId}>
-                  <StyledTableCell >{req.travellerId}</StyledTableCell>
+            {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: travelerDto) => (
+              <TableRow key={req.travelerId}>
+                  <StyledTableCell >{req.travelerId}</StyledTableCell>
                    <StyledTableCell >{req.firstName}</StyledTableCell>
                    <StyledTableCell >{req.lastName}</StyledTableCell>
                    <StyledTableCell >{req.email}</StyledTableCell>
-                   <StyledTableCell >{req.userName}</StyledTableCell>
+                   <StyledTableCell >{req.roleType.roleName}</StyledTableCell>
                    <StyledTableCell >
                    <StyledSwitch
-                           checked={req.status}
+                           checked={req.isActive}
                            disabled={false}
                            onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
                    
@@ -90,7 +90,7 @@ const BoDashboardGrid:React.FC<{
                    <StyledTableCell >{req.contactHome}</StyledTableCell>
                    <StyledTableCell >{req.contactMobile}</StyledTableCell>
                    <StyledTableCell >{req.address}</StyledTableCell>
-                   <StyledTableCell >{req.reservationCount}</StyledTableCell>
+                   <StyledTableCell >{req.totalReservationCount}</StyledTableCell>
                    <StyledTableCell >{req.createdDate}</StyledTableCell>
                   <StyledTableCell style={{ backgroundColor: '#282828' }}>
 

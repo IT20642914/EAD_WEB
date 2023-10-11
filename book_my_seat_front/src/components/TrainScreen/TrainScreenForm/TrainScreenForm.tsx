@@ -27,7 +27,7 @@ const TrainScreenForm :React.FC<{
 
   const trainName = props.TrainInfomationForm.trainName
   const trainType = props.TrainInfomationForm.trainType
-  const status = props.TrainInfomationForm.status
+  const status = props.TrainInfomationForm.isActive
   const firstClassSeatCount = props.TrainInfomationForm.firstClassSeatCount
   const secondClassSeatCount = props.TrainInfomationForm.secondClassSeatCount
   const thirdClassSeatCount = props.TrainInfomationForm.thirdClassSeatCount
@@ -341,9 +341,9 @@ const TrainScreenForm :React.FC<{
                 {props.SheduleData.map((p,index) => (
                   <TableRow key={p.stationId}>
                     <StyledTableCell >{p.stationId}</StyledTableCell>
-                    <StyledTableCell >{p.station}</StyledTableCell>
-                    <StyledTableCell >{p.arrivalTime}</StyledTableCell>
-                    <StyledTableCell >{p.departureTime}</StyledTableCell>
+                    <StyledTableCell >{p.stationName}</StyledTableCell>
+                    <StyledTableCell >{p.arrivalAt}</StyledTableCell>
+                    <StyledTableCell >{p.departureAt}</StyledTableCell>
                     <StyledTableCell >{p.distanceFromStartPoint}</StyledTableCell>
                     {props.screenMode !== TRAIN_SCREEN_MODES.VIEW &&
                       <StyledTableCell style={{ backgroundColor: '#282828' }}>

@@ -12,6 +12,7 @@ import { CustomButton } from '../../components/Shared';
 import { StationAction } from '../../redux/action/station.Action';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
+import { TrainAction } from '../../redux/action/train.Action';
 const TrainScreen = () => {
   const TRAIN_INFORMATION_FORM_INITIAL_STATE: trainDetailsGridFormDto = {
     trainId: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
@@ -19,7 +20,7 @@ const TrainScreen = () => {
     firstClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     secondClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     thirdClassSeatCount: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     trainType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     startingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arrivingStation: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
@@ -45,14 +46,25 @@ const TrainScreen = () => {
   const dispatch = useDispatch()
 
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
+  const addTrainResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
+  const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.getDetailsById);
 
   useEffect(() => {
-    dispatch(StationAction.getAllStations());
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    GetInitialData()
+   
   }, [])
 
 
+
+
+  useEffect(() => {
+   if(addTrainResponse.status===APP_ACTION_STATUS.SUCCESS){
+    navigate(APP_ROUTES.TRAIN_MANAGEMENT)
+
+   }
+  }, [addTrainResponse.status])
+  
   useEffect(() => {
     if (APP_ACTION_STATUS.SUCCESS === StationList.status) {
       setStations(StationList.data)
@@ -73,6 +85,87 @@ const TrainScreen = () => {
     });
 
   }, [TrainInfomationForm.firstClassSeatCount, TrainInfomationForm.secondClassSeatCount, TrainInfomationForm.thirdClassSeatCount])
+
+
+const GetInitialData =()=>{
+  const _mode = sessionStorage.getItem("Mode");
+    if (_mode !== null) setScreenMode(_mode);
+    dispatch(StationAction.getAllStations());
+
+    const _id = sessionStorage.getItem("id");
+
+    if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
+
+      if (_id) dispatch(TrainAction.getTrainById(_id));
+    }
+
+}
+useEffect(() => {
+  if(RequestByIdResponse.status===APP_ACTION_STATUS.SUCCESS){
+    console.log("sssssssssssssssssss",RequestByIdResponse.data)
+    const _mode = sessionStorage.getItem("Mode");
+    const _data:traindetailsDto =RequestByIdResponse.data
+    const _shedule= _data.trainShedule
+
+    setSheduleData(_shedule)
+
+    console.log("_data",_data)
+    const _isDisable = _mode === TRAIN_SCREEN_MODES.VIEW;
+
+    setTrainInfomationForm({...TrainInfomationForm,
+      trainType:{
+        ...TrainInfomationForm.arrivingStation,
+        value:{label:_data.trainType.typeName ,value:_data.trainType.typeID }as OptionsDto,
+        readonly:_isDisable
+      },
+      trainLength:{
+        ...TrainInfomationForm.trainLength,
+        value:_data.trainLength,
+        readonly:_isDisable
+      },
+                  arrivingStation:{
+                    ...TrainInfomationForm.arrivingStation,
+                    value:{label:_data.arrivalStation.stationName ,value:_data.arrivalStation.stationId }as OptionsDto,
+                    readonly:_isDisable
+                  },
+                  isActive:{
+                    ...TrainInfomationForm.isActive,
+                  value:_data.isActive,
+                  readonly:_isDisable
+                  },
+                  trainName:{
+                    ...TrainInfomationForm.trainName,
+                  value:_data.trainName,
+                  readonly:_isDisable
+                  },
+                  firstClassSeatCount:{
+                    ...TrainInfomationForm.firstClassSeatCount,
+                  value:Number(_data.firstClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  secondClassSeatCount:{
+                    ...TrainInfomationForm.secondClassSeatCount,
+                  value:Number(_data.secondClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  startingStation :{
+                    ...TrainInfomationForm.startingStation,
+                  value:{label:_data.departureStation.stationName  ,value:_data.departureStation.stationId }as OptionsDto,
+                  readonly:_isDisable
+                  },
+                  thirdClassSeatCount:{
+                    ...TrainInfomationForm.thirdClassSeatCount,
+                  value:Number(_data.thirdClassSeatCount),
+                  readonly:_isDisable
+                  },
+                  
+    })
+   
+  }
+ 
+}, [ RequestByIdResponse.status, ])
+
+
 
 
   const handleInputFocus = (property: string, section: string) => {
@@ -128,8 +221,8 @@ const TrainScreen = () => {
     if (property === "status") {
       setTrainInfomationForm({
         ...TrainInfomationForm,
-        status: {
-          ...TrainInfomationForm.status,
+        isActive: {
+          ...TrainInfomationForm.isActive,
           value: !value,
         },
       });
@@ -255,22 +348,25 @@ const TrainScreen = () => {
           typeID: Number(TrainInfomationForm.trainType.value.value),
           typeName: TrainInfomationForm.trainType.value.label
         },
-        traiLength: TrainInfomationForm.trainLength.value,
-        isActive: TrainInfomationForm.status.value,
+        trainLength: TrainInfomationForm.trainLength.value,
+        isActive: TrainInfomationForm.isActive.value,
         departureStation: {
-          station: TrainInfomationForm.startingStation.value.label,
+          stationName: TrainInfomationForm.startingStation.value.label,
           stationId: TrainInfomationForm.startingStation.value.value.toString()
         },
         arrivalStation: {
-          station: TrainInfomationForm.arrivingStation.value.label,
+          stationName: TrainInfomationForm.arrivingStation.value.label,
           stationId: TrainInfomationForm.arrivingStation.value.value.toString()
         },
         firstClassSeatCount: TrainInfomationForm.firstClassSeatCount.value.toString(),
         secondClassSeatCount: TrainInfomationForm.secondClassSeatCount.value.toString(),
         thirdClassSeatCount: TrainInfomationForm.thirdClassSeatCount.value.toString(),
-        trainShedule: SheduleData
+        trainShedule: SheduleData,
+        trainName: TrainInfomationForm.trainName.value
       }
 console.log("[payload]",_payload)
+
+dispatch(TrainAction.addTrainDetails(_payload));
 
     }
 
@@ -295,25 +391,30 @@ if(property==="Delete"){
 } 
 if(property==="Edite"){
   const filteredSchedule:schedule[] = SheduleData.filter((item,index) => {return index === indexValue});
-  // setSheduleData(filteredSchedule)
+  // setSheduleData(filteredSchedule) 
+
+  const parsedDepartureTime = dayjs(filteredSchedule[0].departureAt, "HH:mm A");
+  const parsedArrivalTime = dayjs(filteredSchedule[0].arrivalAt, "HH:mm A");
+  const Station =Stations.filter(item => item.stationId===filteredSchedule[0].stationId)
+  console.log("Station",Station)
   setSheduleInfomationForm({
     ...SheduleInfomationForm,
     arrivalTime:{
       ...SheduleInfomationForm.arrivalTime,
-      value:filteredSchedule[0].arrivalTime,
+      value:parsedArrivalTime.toString(),
 
     },departureTime:{
       ...SheduleInfomationForm.departureTime,
-      value:filteredSchedule[0].departureTime,
+      value:parsedDepartureTime.toString(),
     },
     stationId:{
       ...SheduleInfomationForm.stationId,
       value:filteredSchedule[0].stationId,
     },
-    // station:{
-    //   ...SheduleInfomationForm.station,
-    //   value:filteredSchedule[0].station.,
-    // },
+    station:{
+      ...SheduleInfomationForm.station,
+      value:{ label:Station[0].stationName,value:Station[0].stationId} as OptionsDto
+    },
     distanceFromStartPoint:{
       ...SheduleInfomationForm.distanceFromStartPoint,
       value:filteredSchedule[0].distanceFromStartPoint,
@@ -335,9 +436,9 @@ console.log("isValid" ,isValid,validateData)
       const _arrvalAtAt = dayjs(SheduleInfomationForm.arrivalTime.value).add(5, 'hour').add(30, 'minute').format("HH:mm A" ).toString();
       const tableData: schedule = {
         stationId: SheduleInfomationForm.station.value.value.toString(),
-        station: SheduleInfomationForm.station.value.label,
-        arrivalTime: _arrvalAtAt,
-        departureTime: _depatureAt,
+        stationName: SheduleInfomationForm.station.value.label,
+        arrivalAt: _arrvalAtAt,
+        departureAt: _depatureAt,
         distanceFromStartPoint:SheduleInfomationForm.distanceFromStartPoint.value
       }
       setSheduleData([...SheduleData, tableData]);

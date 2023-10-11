@@ -1,13 +1,13 @@
 import React from 'react'
 import Stepper from '../../Shared/Stepper/Stepper'
-import { TravellerInformationFormDto } from '../../../utilities/models/travellor.model'
+import { TravelerInformationFormDto } from '../../../utilities/models/travellor.model'
 import { Grid } from '@mui/material'
 import { StyledTextField } from '../../../assets/theme/theme'
 
 const ContactInformation:React.FC<{
     helperText: boolean
     screenMode: string
-    TravelloerInfomationForm:TravellerInformationFormDto 
+    TravelloerInfomationForm:TravelerInformationFormDto 
     onInputHandleChange(property: string, value: any): void;
     handleInputFocus(property: string, section: string): void;
 }> = (props)=> {
