@@ -42,12 +42,17 @@ export const ALERT_CONFIGS = {
     { id: 2, name: "Inter-City" },
     { id: 3, name: "Slow" },
   ];
+  export const UserRoles = [
+    { roleId: 1, roleName: "user" },
+    { roleId: 2, roleName: "Travel Agent" },
+    { roleId: 3, roleName: "Back Office" },
+  ];
   
   export const Ticket_Counts = [
     { id: 1, name: "1 Ticket" },
-    { id: 2, name: "2 Ticket" },
-    { id: 3, name: "3 Ticket" },
-    { id: 4, name: "4 Ticket" },
+    { id: 2, name: "2 Tickets" },
+    { id: 3, name: "3 Tickets" },
+    { id: 4, name: "4 Tickets" },
   ];
   export const stations = [
     {

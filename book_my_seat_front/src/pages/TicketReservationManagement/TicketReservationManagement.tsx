@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { APP_TABLE_CONFIGS, ticketReservations } from '../../utilities/constants'
 import { SortMetaDto, TicketReservationDetailsDto } from '../../utilities/models'
-import { travellerDto } from '../../utilities/models/travellor.model'
+import { travelerDto } from '../../utilities/models/travellor.model'
 
 const TicketReservationManagement = () => {
   const INITIAL_SORT_META: SortMetaDto = {

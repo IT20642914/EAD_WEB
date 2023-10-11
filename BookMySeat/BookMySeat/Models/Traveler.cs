@@ -15,10 +15,8 @@ namespace BookMySeat.Models
         public string LastName { get; set; } = String.Empty;
         [BsonElement("email")]
         public string Email { get; set; } = String.Empty;
-        [BsonElement("userName")]
-        public string UserName { get; set; } = String.Empty;
         [BsonElement("isActive")]
-        public Boolean IsActive { get; set; }
+        public bool IsActive { get; set; } 
         [BsonElement("contactHome")]
         public string ContactHome { get; set; } = String.Empty;
         [BsonElement("contactMobile")]
@@ -28,6 +26,8 @@ namespace BookMySeat.Models
         [BsonElement("totalReservationCount")]
         public int TotalReservationCount { get; set; }
         [BsonElement("createdDate")]
-        public DateTime CreatedDate { get; set; }
+        public string CreatedDate { get; set; }
+        [BsonElement("roleType")]
+        public RoleType RoleType { get; set; } = new RoleType();
     }
 }

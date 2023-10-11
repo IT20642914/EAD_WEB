@@ -4,7 +4,7 @@ import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
 import { SortMetaDto, TicketReservationDetailsDto } from '../../../utilities/models';
 import style from './TicketReservationManagementGrid.module.scss'
 import { StyledTableCell, StyledSwitch } from '../../../assets/theme/theme';
-import { travellerDto } from '../../../utilities/models/travellor.model';
+import { travelerDto } from '../../../utilities/models/travellor.model';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';

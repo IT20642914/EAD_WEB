@@ -7,7 +7,7 @@ import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { travellerDto } from '../../../utilities/models/travellor.model';
+import { travelerDto } from '../../../utilities/models/travellor.model';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { EditOutlined } from '@mui/icons-material';

@@ -1,0 +1,17 @@
+import { AxiosResponse } from "axios"
+import { axiosPrivateInstance, axiosPublicInstance } from "."
+import { travelerDto } from "../utilities/models/travellor.model";
+
+
+const getTravelerList = ():Promise<AxiosResponse<travelerDto[]>> => {
+    return axiosPrivateInstance.get(`/api/Traveler`);
+}
+const addTraveler = (payload:travelerDto):Promise<AxiosResponse<travelerDto[]>> => {
+    return axiosPrivateInstance.post(`/api/Traveler`,payload);
+}
+
+
+export const travelerService = {
+    getTravelerList,
+    addTraveler
+}

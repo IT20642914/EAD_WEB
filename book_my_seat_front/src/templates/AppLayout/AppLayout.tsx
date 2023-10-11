@@ -23,9 +23,6 @@ const AppLayout: React.FC<{
     nic: "123456789",
     contactNumber: "+1234567890",
     homeContactNumber: "+9876543210",
-    hierarchy: [
-    
-    ],
     permissions: [
   
     ],

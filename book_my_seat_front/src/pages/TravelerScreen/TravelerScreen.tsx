@@ -7,16 +7,21 @@ import ContactInformation from '../../components/TravelerScreen/ContactInformati
 import { CustomButton } from '../../components/Shared'
 import { useNavigate } from 'react-router-dom'
 import { APP_ROUTES } from '../../utilities/constants'
-import { TravellerInformationFormDto } from '../../utilities/models/travellor.model'
+import { TravelerInformationFormDto, travelerDto } from '../../utilities/models/travellor.model'
 import { SheduleListFormDto, schedule } from '../../utilities/models/trains.model'
+import { OptionsDto } from '../../utilities/models'
+import { validateFormData } from '../../utilities/helpers'
+import { TravelersAction } from '../../redux/action/traveler'
+import { useDispatch } from 'react-redux'
 const TravelerScreen = () => {
 
-    const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravellerInformationFormDto = {
+    const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravelerInformationFormDto = {
+        userRole :{ value: {}as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
         firstName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        userName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        status: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        
+        isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         contactHome: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
@@ -25,7 +30,7 @@ const TravelerScreen = () => {
  
     
         const navigate = useNavigate()
-
+        const dispatch = useDispatch()
         const [screenMode, setScreenMode] = useState("");
         const [helperText, setHelperText] = useState(true);
         const [TravelloerInfomationForm, setTravelloerInfomationForm] = useState(TRAVELLER_INFORMATION_FORM_INITIAL_STATE);
@@ -45,7 +50,26 @@ const TravelerScreen = () => {
 
   const onInputHandleChange = (property: string, value: any) => {
     setHelperText(true);
-    
+    console.log("property",property,value)
+    if (property === "userRole") {
+      if (value == null) {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          userRole: {
+            ...TravelloerInfomationForm.userRole,
+            value: {} as OptionsDto,
+          },
+        });
+      } else {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          userRole: {
+            ...TravelloerInfomationForm.userRole,
+            value: value,
+          },
+        });
+      }
+    }
     if (property === "identificationCard") {
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
@@ -75,15 +99,7 @@ const TravelerScreen = () => {
         });
       }
       
-    if (property === "userName") {
-        setTravelloerInfomationForm({
-          ...TravelloerInfomationForm,
-          userName: {
-            ...TravelloerInfomationForm.userName,
-            value: value,
-          },
-        });
-      }
+   
       
     if (property === "email") {
         setTravelloerInfomationForm({
@@ -119,8 +135,8 @@ const TravelerScreen = () => {
         
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
-           status: {
-            ...TravelloerInfomationForm. status,
+           isActive: {
+            ...TravelloerInfomationForm. isActive,
             value: !value,
           },
         });
@@ -139,8 +155,29 @@ const TravelerScreen = () => {
 
 
 
-const  createNewRequest=() => {
-    
+const  createNewRequest=async () => {
+  const [validateData, isValid] = await validateFormData(TravelloerInfomationForm);
+  setTravelloerInfomationForm(validateData);
+  console.log(validateData,isValid)
+  if (isValid) {
+const payload:travelerDto={
+  travelerId: '',
+  firstName:TravelloerInfomationForm.firstName.value,
+  lastName: TravelloerInfomationForm.lastName.value,
+  email: TravelloerInfomationForm.email.value,
+  isActive:TravelloerInfomationForm.isActive.value,
+  contactHome: TravelloerInfomationForm.contactHome.value,
+  contactMobile: TravelloerInfomationForm.contactMobile.value,
+  address: TravelloerInfomationForm.address.value,
+  totalReservationCount:0,
+  createdDate: Date.now().toString(),
+  roleType:{roleId:Number(TravelloerInfomationForm.userRole.value.value),roleName:TravelloerInfomationForm.userRole.value.label},
+}
+console.log(payload)
+
+dispatch(TravelersAction.addTravelers(payload))
+}
+
 }
 const  editRequest=() => {
     
@@ -234,3 +271,7 @@ const  setAsInitialState=() => {
 }
 
 export default TravelerScreen
+function dispatch() {
+  throw new Error('Function not implemented.')
+}
+
