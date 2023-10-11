@@ -26,7 +26,7 @@ namespace BookMySeat.Models
         [BsonElement("totalReservationCount")]
         public int TotalReservationCount { get; set; }
         [BsonElement("createdDate")]
-        public string CreatedDate { get; set; }
+        public string CreatedDate { get; set; }= String.Empty;
         [BsonElement("roleType")]
         public RoleType RoleType { get; set; } = new RoleType();
     }
