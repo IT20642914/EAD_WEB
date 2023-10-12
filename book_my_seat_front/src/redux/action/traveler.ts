@@ -16,9 +16,32 @@ const addTravelers = (payload:travelerDto) => {
         payload:payload
     }
 }
+
+const travelerByID = (payload:string) => {
+    return {
+        type: TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+    }
+}
+const UpdateTraveler = (payload:travelerDto) => {
+    return {
+        type: TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+    }
+}
+const DeleteTraveler = (payload:travelerDto) => {
+    return {
+        type: TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+    }
+}
 export const TravelersAction = {
     getAllTravelers,
-    addTravelers
+    addTravelers,
+    travelerByID,
+    UpdateTraveler,
+    DeleteTraveler,
+    
 
 }
 

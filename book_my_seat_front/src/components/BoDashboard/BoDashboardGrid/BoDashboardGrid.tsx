@@ -3,7 +3,7 @@ import style from './BoDashboard.module.scss'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
 import moment from 'moment';
 import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
-import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
+import { APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
@@ -46,7 +46,8 @@ const BoDashboardGrid:React.FC<{
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Create Traveller' onClick={() => navigate(APP_ROUTES.CREATE_TRAVELLER)} />
+        <CustomButton text='Create Traveller' onClick={() =>{  sessionStorage.setItem("Mode",TRAIN_SCREEN_MODES.CREATE);
+        sessionStorage.setItem("id", ""); navigate(APP_ROUTES.CREATE_TRAVELLER)}} />
       </div>
     </div>
 

@@ -364,7 +364,7 @@ useEffect(() => {
         trainShedule: SheduleData,
         trainName: TrainInfomationForm.trainName.value
       }
-console.log("[payload]",_payload)
+    
 
 dispatch(TrainAction.addTrainDetails(_payload));
 

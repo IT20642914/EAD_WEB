@@ -26,6 +26,13 @@ const getTrainById = (payload:string) => {
       
     }
 }
+const UpdateTainByID = (payload:string) => {
+    return {
+        type: TRAIN_ACTION_TYPES.GET_TRAIN_DETAILS_BY_ID + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+      
+    }
+}
 export const TrainAction = {
     getAllTrainList,
     addTrainDetails,

@@ -16,7 +16,9 @@ export interface travelerDto {
 }
 
 export interface TravelerInformationFormDto {
-  identificationCard: FormFieldDto<string>;
+  travelerId:FormFieldDto<string>;
+  nICNumber: FormFieldDto<string>;
+  password: FormFieldDto<string>;
   firstName: FormFieldDto<string>;
   lastName: FormFieldDto<string>;
   email: FormFieldDto<string>;
@@ -24,5 +26,9 @@ export interface TravelerInformationFormDto {
   contactHome: FormFieldDto<string>;
   contactMobile: FormFieldDto<string>;
   address: FormFieldDto<string>;
-  userRole: FormFieldDto<OptionsDto>;
+  roleType: FormFieldDto<OptionsDto>;
+  createdDate: FormFieldDto<string>;
+  totalReservationCount:FormFieldDto<number>;
+
+  
 }

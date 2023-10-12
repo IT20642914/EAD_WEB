@@ -29,5 +29,9 @@ namespace BookMySeat.Models
         public string CreatedDate { get; set; }= String.Empty;
         [BsonElement("roleType")]
         public RoleType RoleType { get; set; } = new RoleType();
+        [BsonElement("nICNumber")]
+        public string NICNumber { get; set; } = String.Empty;
+        [BsonElement("passWord")]
+        public string PassWord { get; set; } = String.Empty;
     }
 }

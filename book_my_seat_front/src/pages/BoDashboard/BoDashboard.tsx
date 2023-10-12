@@ -129,7 +129,7 @@ const BoDashboard = () => {
   }
   const onClearFilter = () => {
     setIsFiltered(false)
-    setFilteredList(filteredList)
+    setFilteredList(GetTravelerDetails.data)
   }
   return (    
   <React.Fragment>

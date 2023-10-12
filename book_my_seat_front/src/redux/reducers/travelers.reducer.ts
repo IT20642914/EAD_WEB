@@ -14,7 +14,26 @@ const INITIAL_STATE: TravelerStateDto = {
     error: null,
     isLoading: false,
     status: null
-   }
+   },
+   getTravelerByID:{
+  data: {},
+   error: null,
+   isLoading: false,
+   status: null
+
+   },
+   deleteTravelerByID:{
+    data: {},
+    error: null,
+    isLoading: false,
+    status: null
+   },
+updateTravelerByID:{
+  data: {},
+  error: null,
+  isLoading: false,
+  status: null
+}
 }
 const travelerReducer = (state = INITIAL_STATE, action: any) => {
     console.log("first action",action)
@@ -108,6 +127,138 @@ const travelerReducer = (state = INITIAL_STATE, action: any) => {
                 data: null,
               },
             };
+            case TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST:
+              return {
+                ...state,
+                getTravelerByID: {
+                  ...state.getTravelerByID,
+                  isLoading: true,
+                  status: APP_ACTION_STATUS.LOADING,
+                  error: null,
+                  data: null,
+                },
+              };
+            case TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS:
+              return {
+                ...state,
+                getTravelerByID: {
+                  ...state.getTravelerByID,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.SUCCESS,
+                  error: null,
+                  data: action.data,
+                },
+              };
+            case TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR:
+              return {
+                ...state,
+                getTravelerByID: {
+                  ...state.getTravelerByID,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.ERROR,
+                  error: action.error,
+                  data: null,
+                },
+              };
+            case TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.CLEAR:
+              return {
+                ...state,
+                getTravelerByID: {
+                  ...state.getTravelerByID,
+                  isLoading: false,
+                  status: APP_ACTION_STATUS.INITIAL,
+                  error: null,
+                  data: null,
+                },
+              };
+              case TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST:
+                return {
+                  ...state,
+                  updateTravelerByID: {
+                    ...state.updateTravelerByID,
+                    isLoading: true,
+                    status: APP_ACTION_STATUS.LOADING,
+                    error: null,
+                    data: null,
+                  },
+                };
+              case TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS:
+                return {
+                  ...state,
+                  updateTravelerByID: {
+                    ...state.updateTravelerByID,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.SUCCESS,
+                    error: null,
+                    data: action.data,
+                  },
+                };
+              case TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR:
+                return {
+                  ...state,
+                  updateTravelerByID: {
+                    ...state.updateTravelerByID,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.ERROR,
+                    error: action.error,
+                    data: null,
+                  },
+                };
+              case TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.CLEAR:
+                return {
+                  ...state,
+                  updateTravelerByID: {
+                    ...state.updateTravelerByID,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.INITIAL,
+                    error: null,
+                    data: null,
+                  },
+                };
+                case TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST:
+                  return {
+                    ...state,
+                    deleteTravelerByID: {
+                      ...state.deleteTravelerByID,
+                      isLoading: true,
+                      status: APP_ACTION_STATUS.LOADING,
+                      error: null,
+                      data: null,
+                    },
+                  };
+                case TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS:
+                  return {
+                    ...state,
+                    deleteTravelerByID: {
+                      ...state.deleteTravelerByID,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.SUCCESS,
+                      error: null,
+                      data: action.data,
+                    },
+                  };
+                case TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR:
+                  return {
+                    ...state,
+                    deleteTravelerByID: {
+                      ...state.deleteTravelerByID,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.ERROR,
+                      error: action.error,
+                      data: null,
+                    },
+                  };
+                case TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.CLEAR:
+                  return {
+                    ...state,
+                    deleteTravelerByID: {
+                      ...state.deleteTravelerByID,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.INITIAL,
+                      error: null,
+                      data: null,
+                    },
+                  };
           default:
             return state;
         }

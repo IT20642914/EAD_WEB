@@ -6,27 +6,31 @@ import GeneralInformation from '../../components/TravelerScreen/GeneralInformati
 import ContactInformation from '../../components/TravelerScreen/ContactInformation/ContactInformation'
 import { CustomButton } from '../../components/Shared'
 import { useNavigate } from 'react-router-dom'
-import { APP_ROUTES } from '../../utilities/constants'
+import { APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants'
 import { TravelerInformationFormDto, travelerDto } from '../../utilities/models/travellor.model'
 import { SheduleListFormDto, schedule } from '../../utilities/models/trains.model'
 import { OptionsDto } from '../../utilities/models'
 import { validateFormData } from '../../utilities/helpers'
 import { TravelersAction } from '../../redux/action/traveler'
 import { useDispatch } from 'react-redux'
+import dayjs from 'dayjs'
 const TravelerScreen = () => {
 
     const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravelerInformationFormDto = {
-        userRole :{ value: {}as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+      roleType :{ value: {}as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
         firstName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        
+        createdDate:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         contactHome: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        identificationCard: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    }; 
+        nICNumber: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        password:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        travelerId:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        totalReservationCount:{ value:0, isRequired: true, disable: false, readonly: false, validator: "number", error: "", },
+      }; 
  
     
         const navigate = useNavigate()
@@ -55,16 +59,16 @@ const TravelerScreen = () => {
       if (value == null) {
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
-          userRole: {
-            ...TravelloerInfomationForm.userRole,
+          roleType: {
+            ...TravelloerInfomationForm.roleType,
             value: {} as OptionsDto,
           },
         });
       } else {
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
-          userRole: {
-            ...TravelloerInfomationForm.userRole,
+          roleType: {
+            ...TravelloerInfomationForm.roleType,
             value: value,
           },
         });
@@ -73,8 +77,8 @@ const TravelerScreen = () => {
     if (property === "identificationCard") {
         setTravelloerInfomationForm({
           ...TravelloerInfomationForm,
-          identificationCard: {
-            ...TravelloerInfomationForm.identificationCard,
+          nICNumber: {
+            ...TravelloerInfomationForm.nICNumber,
             value: value,
           },
         });
@@ -148,17 +152,21 @@ const TravelerScreen = () => {
             value: value,
           },
         });
+      }if (property === "password") {
+        setTravelloerInfomationForm({
+          ...TravelloerInfomationForm,
+          password: {
+            ...TravelloerInfomationForm.password,
+            value: value,
+          },
+        });
       }
  
   }
-
-
-
-
 const  createNewRequest=async () => {
   const [validateData, isValid] = await validateFormData(TravelloerInfomationForm);
   setTravelloerInfomationForm(validateData);
-  console.log(validateData,isValid)
+
   if (isValid) {
 const payload:travelerDto={
   travelerId: '',
@@ -170,17 +178,35 @@ const payload:travelerDto={
   contactMobile: TravelloerInfomationForm.contactMobile.value,
   address: TravelloerInfomationForm.address.value,
   totalReservationCount:0,
-  createdDate: Date.now().toString(),
-  roleType:{roleId:Number(TravelloerInfomationForm.userRole.value.value),roleName:TravelloerInfomationForm.userRole.value.label},
+  createdDate: dayjs().toString(),
+  roleType:{roleId:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
 }
-console.log(payload)
+
 
 dispatch(TravelersAction.addTravelers(payload))
 }
 
 }
-const  editRequest=() => {
-    
+const  editRequest=async () => {
+  const [validateData, isValid] = await validateFormData(TravelloerInfomationForm);
+  setTravelloerInfomationForm(validateData);
+
+  if(isValid){
+    const payload:travelerDto={
+      travelerId: TravelloerInfomationForm.travelerId.value,
+      firstName:TravelloerInfomationForm.firstName.value,
+      lastName: TravelloerInfomationForm.lastName.value,
+      email: TravelloerInfomationForm.email.value,
+      isActive:TravelloerInfomationForm.isActive.value,
+      contactHome: TravelloerInfomationForm.contactHome.value,
+      contactMobile: TravelloerInfomationForm.contactMobile.value,
+      address: TravelloerInfomationForm.address.value,
+      totalReservationCount:Number(TravelloerInfomationForm.address.value),
+      createdDate: TravelloerInfomationForm.createdDate.value,
+      roleType:{roleId:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
+    }
+    dispatch(TravelersAction.addTravelers(payload))
+  }
 }
 const  onClose=() => {
     navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
@@ -229,10 +255,11 @@ const  setAsInitialState=() => {
                   bgColor="#bfbfbf"
                   onClick={onClose}
                 />
-                
+                   {screenMode !== TRAIN_SCREEN_MODES.VIEW && (
                   <>
             
-                        <>
+            {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.CREATE && (<>
                           <CustomButton
                             text="Clear"
                             border="1px solid #6e6e6e"
@@ -248,19 +275,23 @@ const  setAsInitialState=() => {
                             }
                             onClick={() => createNewRequest()}
                           />
-                        </>
+                        </>)}
                  
                 
                     
+                        {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.EDIT && (
                         <CustomButton
                           text="Edit Traveller"
                           disabled={false}
                           isLoading={false}
                           onClick={editRequest}
                         />
-                    
+                        )}
+
                   </>
-            
+               )}
+
               </section>
          </section>
           </section>
