@@ -51,21 +51,6 @@ const ContactInformation:React.FC<{
             <Grid item xs={12} md={6}>
            <StyledTextField
                       fullWidth
-                      label="Contact Home Number"
-                      placeholder='Enter Contact Home Number'
-                      size='small'
-                      value={contactHome.value}
-                      error={!!contactHome.error}
-                      disabled={contactHome.disable}
-                      required={contactHome.isRequired}
-                      helperText={props.helperText && contactHome.error}
-                      onFocus={() => props.handleInputFocus('contactHome', 'GI')}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('contactHome', event.target.value)}
-                    />
-            </Grid>
-            <Grid item xs={12} md={6}>
-           <StyledTextField
-                      fullWidth
                       label="Contact Mobile Number"
                       placeholder='Enter Contact Mobile Number'
                       size='small'
@@ -78,6 +63,22 @@ const ContactInformation:React.FC<{
                       onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('contactMobile', event.target.value)}
                     />
             </Grid>
+            <Grid item xs={12} md={6}>
+           <StyledTextField
+                      fullWidth
+                      label="Contact Home Number"
+                      placeholder='Enter Contact Home Number'
+                      size='small'
+                      value={contactHome.value}
+                      error={!!contactHome.error}
+                      disabled={contactHome.disable}
+                      required={contactHome.isRequired}
+                      helperText={props.helperText && contactHome.error}
+                      onFocus={() => props.handleInputFocus('contactHome', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('contactHome', event.target.value)}
+                    />
+            </Grid>
+          
            </Grid>
     </Stepper>
   )

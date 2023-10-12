@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import style from './TravelerScreen.module.scss'
 import { Typography } from '@mui/material'
@@ -6,13 +6,13 @@ import GeneralInformation from '../../components/TravelerScreen/GeneralInformati
 import ContactInformation from '../../components/TravelerScreen/ContactInformation/ContactInformation'
 import { CustomButton } from '../../components/Shared'
 import { useNavigate } from 'react-router-dom'
-import { APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants'
+import { APP_ACTION_STATUS, APP_ROUTES, TRAIN_SCREEN_MODES } from '../../utilities/constants'
 import { TravelerInformationFormDto, travelerDto } from '../../utilities/models/travellor.model'
 import { SheduleListFormDto, schedule } from '../../utilities/models/trains.model'
-import { OptionsDto } from '../../utilities/models'
+import { ApplicationStateDto, OptionsDto } from '../../utilities/models'
 import { validateFormData } from '../../utilities/helpers'
 import { TravelersAction } from '../../redux/action/traveler'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 const TravelerScreen = () => {
 
@@ -21,15 +21,15 @@ const TravelerScreen = () => {
         firstName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        createdDate:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        createdDate:{ value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
         isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        contactHome: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        contactHome: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
         contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         nICNumber: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         password:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        travelerId:{ value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-        totalReservationCount:{ value:0, isRequired: true, disable: false, readonly: false, validator: "number", error: "", },
+        travelerId:{ value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+        totalReservationCount:{ value:0, isRequired: false, disable: false, readonly: false, validator: "number", error: "", },
       }; 
  
     
@@ -39,6 +39,9 @@ const TravelerScreen = () => {
         const [helperText, setHelperText] = useState(true);
         const [TravelloerInfomationForm, setTravelloerInfomationForm] = useState(TRAVELLER_INFORMATION_FORM_INITIAL_STATE);
    
+        const travelerAddResponse = useSelector((state: ApplicationStateDto) => state.traveler.addTravelers);
+
+
         const handleInputFocus = (property: string, section: string) => {
             if (section === "GI")
             setTravelloerInfomationForm({
@@ -48,13 +51,19 @@ const TravelerScreen = () => {
                 error: null,
               },
             });
-            
-
+      
         }
 
+        useEffect(() => {
+          if(travelerAddResponse.status==APP_ACTION_STATUS.SUCCESS){
+            navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+          }
+         }, [travelerAddResponse.status])
+         
+    
   const onInputHandleChange = (property: string, value: any) => {
     setHelperText(true);
-    console.log("property",property,value)
+
     if (property === "userRole") {
       if (value == null) {
         setTravelloerInfomationForm({
@@ -167,6 +176,7 @@ const  createNewRequest=async () => {
   const [validateData, isValid] = await validateFormData(TravelloerInfomationForm);
   setTravelloerInfomationForm(validateData);
 
+  console.log("isValid",isValid,validateData)
   if (isValid) {
 const payload:travelerDto={
   travelerId: '',

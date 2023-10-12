@@ -23,5 +23,5 @@ const DeleteTravelerByID = (payload:string):Promise<AxiosResponse<travelerDto>> 
 export const travelerService = {
     getTravelerList,
     addTraveler,
-    getTravelerByID
+    getTravelerByID,
 }

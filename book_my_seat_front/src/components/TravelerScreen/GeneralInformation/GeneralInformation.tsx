@@ -99,6 +99,7 @@ const GeneralInformation:React.FC<{
           />
         </Grid>  <Grid item xs={12} md={6}>
            <StyledTextField
+                  type="password"
                       fullWidth
                       label="PassWord"
                       placeholder='Enter PassWord'

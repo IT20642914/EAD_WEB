@@ -35,12 +35,20 @@ const DeleteTraveler = (payload:travelerDto) => {
         payload:payload
     }
 }
+const addTravelersClear = () => {
+    return {
+        type: TRAVELER_ACTION_TYPES.ADD_TRAVELER + COMMON_ACTION_TYPES.CLEAR,
+     
+    }
+}
+
 export const TravelersAction = {
     getAllTravelers,
     addTravelers,
     travelerByID,
     UpdateTraveler,
     DeleteTraveler,
+    addTravelersClear
     
 
 }

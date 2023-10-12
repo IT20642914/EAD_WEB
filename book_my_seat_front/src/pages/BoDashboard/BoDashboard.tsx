@@ -41,6 +41,8 @@ const BoDashboard = () => {
 
   useEffect(() => {
     dispatch(TravelersAction.getAllTravelers())
+    dispatch(TravelersAction.addTravelersClear())
+    
   }, [])
   
 
