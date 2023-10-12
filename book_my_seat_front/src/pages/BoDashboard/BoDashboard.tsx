@@ -3,7 +3,7 @@ import { AppLayout } from '../../templates'
 import { BoDashboardGrid } from '../../components/BoDashboard'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_ACTION_STATUS, APP_TABLE_CONFIGS } from '../../utilities/constants'
+import { APP_ACTION_STATUS, APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES } from '../../utilities/constants'
 import { ApplicationStateDto, SortMetaDto } from '../../utilities/models'
 import { travelerDto } from '../../utilities/models/travellor.model'
 import dayjs from 'dayjs'
@@ -42,6 +42,7 @@ const BoDashboard = () => {
   useEffect(() => {
     dispatch(TravelersAction.getAllTravelers())
     dispatch(TravelersAction.addTravelersClear())
+    dispatch(TravelersAction.travelerByIDClear())
     
   }, [])
   
@@ -133,6 +134,16 @@ const BoDashboard = () => {
     setIsFiltered(false)
     setFilteredList(GetTravelerDetails.data)
   }
+
+  const handleAction=(id:string,type:string) =>{
+    if(type===TRAIN_SCREEN_MODES.DELETE){
+
+    }else{
+      sessionStorage.setItem("Mode",type);
+      sessionStorage.setItem("id", id);
+      navigate(APP_ROUTES.CREATE_TRAVELLER)
+    }
+  }
   return (    
   <React.Fragment>
     <AppLayout componentTitle="Traveler Management">
@@ -146,6 +157,7 @@ const BoDashboard = () => {
      </Grid> */}
      </Grid>
   <BoDashboardGrid
+    handleAction={handleAction}
     page={page}
     rowsPerPage={rowsPerPage}
     onHandleChangePage={handleChangePage}
@@ -159,8 +171,6 @@ const BoDashboard = () => {
     navigateTo={navigteTORequestScreen}
     onClearFilter={onClearFilter}
     isFiltered={isFiltered}
-   
-  
   />
 
 

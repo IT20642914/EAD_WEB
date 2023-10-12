@@ -16,6 +16,7 @@ import SheduleManagemetGrid from '../../components/TrainManagement/SheduleManage
 import ViewShedulePopup from '../../components/TrainManagement/ViewShedulePopup/ViewShedulePopup'
 import ViewStationsPopup from '../../components/TrainManagement/ViewStationsPopup/ViewStationsPopup'
 import { TrainAction } from '../../redux/action/train.Action'
+import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 
 const TrainManagement = () => {
 
@@ -42,8 +43,9 @@ const TrainManagement = () => {
       const [value, setValue] = React.useState(1);
       const [isOpenViewShedulePopup, setisOpenViewShedulePopup] =useState(false);
       const [isOpenViewStationsPopup, setisOpenViewStationsPopup] =useState(false);
-    
+      const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
       const GetTrainResponse = useSelector((state: ApplicationStateDto) => state.train.getAllTrainList);
+      const DeleteTrainResponse = useSelector((state: ApplicationStateDto) => state.train.deleteTrainDetailsByid);
 
 useEffect(() => {
   dispatch(TrainAction.getAllTrainList())
@@ -59,6 +61,13 @@ useEffect(() => {
   }
 }, [GetTrainResponse.status])
 
+
+useEffect(() => {
+
+  if(DeleteTrainResponse.status===APP_ACTION_STATUS.SUCCESS){
+    dispatch(TrainAction.getAllTrainList())
+  }
+}, [DeleteTrainResponse.status])
 
 
       const handleChangePage = (event: unknown, newPage: number) => {
@@ -270,17 +279,27 @@ const OnPopUPClose = (property:string) => {
 
 const handleAction =(id:string,type:string)=>{
   if(type===TRAIN_SCREEN_MODES.DELETE){
-
+    sessionStorage.setItem("id", id)
+    setisOpenConfirmationDialog(true)
   }else{
     sessionStorage.setItem("Mode",type);
     sessionStorage.setItem("id", id);
     navigate(APP_ROUTES.ADD_TRAIN)
   }
-    
- 
 }
-      const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+
+   
+const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+      };
+      const handeDelete = (con: boolean) => {
+        if(con){
+          const _id = sessionStorage.getItem("id");
+          if(_id){
+            dispatch(TrainAction.DeleteTrainById(_id));
+          }
+        }
+        setisOpenConfirmationDialog(false)
       };
   return (
     <React.Fragment>
@@ -386,7 +405,12 @@ OnPopUPClose={OnPopUPClose}
 isOpenViewStationsPopup={isOpenViewStationsPopup}
 station={stationlist}
 />
-      
+<ConfirmationDialog
+       isOpenConfirmationDialog={isOpenConfirmationDialog}
+       onCallback={handeDelete}
+       title="Remove Item"
+       content="Do you want to remove this item ?"
+        />
     </section>
     </AppLayout>
   </React.Fragment>

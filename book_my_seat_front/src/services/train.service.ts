@@ -12,8 +12,16 @@ const getAllTrainDetails = ():  Promise<AxiosResponse<traindetailsDto[]>> => {
 const getTrainDetailsById = (payload:string):  Promise<AxiosResponse<traindetailsDto>> => {
     return axiosPrivateInstance.get(`api/Train/GetTrainByID?id=${payload}`);
 }
+const updatetrainDetailsByid = (payload:traindetailsDto):  Promise<AxiosResponse<traindetailsDto>> => {
+    return axiosPrivateInstance.put(`api/Train/UpdateTrainDetailsById?id=${payload.trainId}`,payload);
+}
+const deletetrainDetailsByid = (payload:string):  Promise<AxiosResponse<traindetailsDto>> => {   
+     return axiosPrivateInstance.delete(`api/Train/DeleteById?id=${payload}`);
+}
 export const trainService = {
     addTrainDetails,
     getAllTrainDetails,
-    getTrainDetailsById
+    getTrainDetailsById,
+    updatetrainDetailsByid,
+    deletetrainDetailsByid
 }

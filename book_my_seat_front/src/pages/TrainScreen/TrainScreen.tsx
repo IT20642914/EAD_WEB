@@ -91,7 +91,8 @@ const GetInitialData =()=>{
   const _mode = sessionStorage.getItem("Mode");
     if (_mode !== null) setScreenMode(_mode);
     dispatch(StationAction.getAllStations());
-
+    dispatch(TrainAction.getTrainByIdClear());
+    
     const _id = sessionStorage.getItem("id");
 
     if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
@@ -102,14 +103,14 @@ const GetInitialData =()=>{
 }
 useEffect(() => {
   if(RequestByIdResponse.status===APP_ACTION_STATUS.SUCCESS){
-    console.log("sssssssssssssssssss",RequestByIdResponse.data)
+  
     const _mode = sessionStorage.getItem("Mode");
     const _data:traindetailsDto =RequestByIdResponse.data
     const _shedule= _data.trainShedule
 
     setSheduleData(_shedule)
 
-    console.log("_data",_data)
+   
     const _isDisable = _mode === TRAIN_SCREEN_MODES.VIEW;
 
     setTrainInfomationForm({...TrainInfomationForm,
@@ -371,7 +372,39 @@ dispatch(TrainAction.addTrainDetails(_payload));
     }
 
   }
-  const editRequest = () => {
+  const editRequest = async () => {
+    const [validateData, isValid] = await validateFormData(TrainInfomationForm);
+    setTrainInfomationForm(validateData);
+
+
+    if (isValid) {
+
+      const _payload: traindetailsDto = {
+        trainId: TrainInfomationForm.trainId.value,
+        trainType: {
+          typeID: Number(TrainInfomationForm.trainType.value.value),
+          typeName: TrainInfomationForm.trainType.value.label
+        },
+        trainLength: TrainInfomationForm.trainLength.value,
+        isActive: TrainInfomationForm.isActive.value,
+        departureStation: {
+          stationName: TrainInfomationForm.startingStation.value.label,
+          stationId: TrainInfomationForm.startingStation.value.value.toString()
+        },
+        arrivalStation: {
+          stationName: TrainInfomationForm.arrivingStation.value.label,
+          stationId: TrainInfomationForm.arrivingStation.value.value.toString()
+        },
+        firstClassSeatCount: TrainInfomationForm.firstClassSeatCount.value.toString(),
+        secondClassSeatCount: TrainInfomationForm.secondClassSeatCount.value.toString(),
+        thirdClassSeatCount: TrainInfomationForm.thirdClassSeatCount.value.toString(),
+        trainShedule: SheduleData,
+        trainName: TrainInfomationForm.trainName.value
+      }
+    
+      dispatch(TrainAction.trainEditeByid(_payload));
+
+    }
 
   }
   const onClose = () => {

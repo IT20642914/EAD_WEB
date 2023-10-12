@@ -19,6 +19,8 @@ export interface AlertStateDto {
     getAllTrainList:StateObjectDto<any[]>
     addTrainDetails:StateObjectDto<any>
     getDetailsById:StateObjectDto<any>
+    updatetrainDetailsByid:StateObjectDto<any>
+    deleteTrainDetailsByid:StateObjectDto<any>
   }
 export interface ApplicationStateDto {
     alert: AlertStateDto;

@@ -28,6 +28,7 @@ const BoDashboardGrid:React.FC<{
   getFilterList: (col: string) => string[];
   navigateTo(mode: string, id: string): void;
   onClearFilter(): void;
+  handleAction(id:string,type:string):void
 
 } >= (props) => {
   const navigate = useNavigate()
@@ -97,21 +98,21 @@ const BoDashboardGrid:React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.DELETE) }}>
                           <Tooltip title="Delete">
                             <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>

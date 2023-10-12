@@ -14,6 +14,7 @@ import { validateFormData } from '../../utilities/helpers'
 import { TravelersAction } from '../../redux/action/traveler'
 import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
+import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 const TravelerScreen = () => {
 
     const TRAVELLER_INFORMATION_FORM_INITIAL_STATE: TravelerInformationFormDto = {
@@ -38,8 +39,10 @@ const TravelerScreen = () => {
         const [screenMode, setScreenMode] = useState("");
         const [helperText, setHelperText] = useState(true);
         const [TravelloerInfomationForm, setTravelloerInfomationForm] = useState(TRAVELLER_INFORMATION_FORM_INITIAL_STATE);
+
    
         const travelerAddResponse = useSelector((state: ApplicationStateDto) => state.traveler.addTravelers);
+        const travelerByiDesponse = useSelector((state: ApplicationStateDto) => state.traveler.getTravelerByID);
 
 
         const handleInputFocus = (property: string, section: string) => {
@@ -53,6 +56,108 @@ const TravelerScreen = () => {
             });
       
         }
+        
+    
+  useEffect(() => {
+    GetInitialData()
+  }, [])
+         
+const GetInitialData =()=>{
+  const _mode = sessionStorage.getItem("Mode");
+    if (_mode !== null) setScreenMode(_mode);
+    dispatch(TravelersAction.travelerByIDClear())
+    // dispatch(StationAction.getAllStations());
+
+    const _id = sessionStorage.getItem("id");
+    console.log("_mode",_mode)
+    if ( _mode === TRAIN_SCREEN_MODES.VIEW || _mode === TRAIN_SCREEN_MODES.EDIT) {
+      if (_id) dispatch(TravelersAction.travelerByID(_id));
+    }
+
+}
+
+useEffect(() => {
+if(travelerByiDesponse.status===APP_ACTION_STATUS.SUCCESS){
+ 
+  const _mode = sessionStorage.getItem("Mode");
+
+const _data:travelerDto=travelerByiDesponse.data
+const _isDisable = _mode === TRAIN_SCREEN_MODES.VIEW
+
+setTravelloerInfomationForm({
+  ...TravelloerInfomationForm,
+  travelerId:{
+    ...TravelloerInfomationForm.travelerId,
+    value:_data.travelerId ,
+    readonly:_isDisable
+  },
+  address:{
+    ...TravelloerInfomationForm.address,
+    value:_data.address ,
+    readonly:_isDisable
+  },
+  contactHome:{
+    ...TravelloerInfomationForm.contactHome,
+    value:_data.contactHome ,
+    readonly:_isDisable
+  },
+  contactMobile:{
+    ...TravelloerInfomationForm.contactMobile,
+    value:_data.contactMobile ,
+    readonly:_isDisable
+  },
+  createdDate:{
+    ...TravelloerInfomationForm.createdDate,
+    value:_data.createdDate ,
+    readonly:_isDisable
+  },
+  email:{
+    ...TravelloerInfomationForm.email,
+    value:_data.email,
+    readonly:_isDisable
+  },
+  firstName:{
+    ...TravelloerInfomationForm.firstName,
+    value:_data.firstName ,
+    readonly:_isDisable
+  },
+  isActive:{
+    ...TravelloerInfomationForm.isActive,
+    value:_data.isActive ,
+    readonly:_isDisable
+  },
+  lastName:{
+    ...TravelloerInfomationForm.lastName,
+    value:_data.lastName ,
+    readonly:_isDisable
+  },
+  nICNumber:{
+    ...TravelloerInfomationForm.nICNumber,
+    value:_data.nICNumber,
+    readonly:_isDisable
+  },
+  password:{
+    ...TravelloerInfomationForm.password,
+    value:_data.password ,
+    readonly:_isDisable
+  },
+  totalReservationCount:{
+    ...TravelloerInfomationForm.totalReservationCount,
+    value:_data.totalReservationCount ,
+    readonly:_isDisable
+  },
+  roleType:{
+    ...TravelloerInfomationForm.roleType,
+    value:{label:_data.roleType.roleName,value:_data.roleType.roleId}  as OptionsDto,
+    readonly:_isDisable
+  },
+
+
+})
+
+}
+}, [travelerByiDesponse.status])
+
 
         useEffect(() => {
           if(travelerAddResponse.status==APP_ACTION_STATUS.SUCCESS){
@@ -180,16 +285,18 @@ const  createNewRequest=async () => {
   if (isValid) {
 const payload:travelerDto={
   travelerId: '',
-  firstName:TravelloerInfomationForm.firstName.value,
+  firstName: TravelloerInfomationForm.firstName.value,
   lastName: TravelloerInfomationForm.lastName.value,
   email: TravelloerInfomationForm.email.value,
-  isActive:TravelloerInfomationForm.isActive.value,
+  isActive: TravelloerInfomationForm.isActive.value,
   contactHome: TravelloerInfomationForm.contactHome.value,
   contactMobile: TravelloerInfomationForm.contactMobile.value,
   address: TravelloerInfomationForm.address.value,
-  totalReservationCount:0,
+  totalReservationCount: 0,
   createdDate: dayjs().toString(),
-  roleType:{roleId:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
+  roleType: { roleId: Number(TravelloerInfomationForm.roleType.value.value), roleName: TravelloerInfomationForm.roleType.value.label },
+  nICNumber: TravelloerInfomationForm.nICNumber.value,
+  password: TravelloerInfomationForm.password.value,
 }
 
 
@@ -211,19 +318,24 @@ const  editRequest=async () => {
       contactHome: TravelloerInfomationForm.contactHome.value,
       contactMobile: TravelloerInfomationForm.contactMobile.value,
       address: TravelloerInfomationForm.address.value,
-      totalReservationCount:Number(TravelloerInfomationForm.address.value),
+      totalReservationCount:Number(TravelloerInfomationForm.totalReservationCount.value),
       createdDate: TravelloerInfomationForm.createdDate.value,
+      nICNumber: TravelloerInfomationForm.nICNumber.value,
+      password: TravelloerInfomationForm.password.value,
       roleType:{roleId:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
     }
-    dispatch(TravelersAction.addTravelers(payload))
+    dispatch(TravelersAction.UpdateTraveler(payload))
   }
 }
 const  onClose=() => {
+    setTravelloerInfomationForm(TRAVELLER_INFORMATION_FORM_INITIAL_STATE)  
     navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
 }
 const  setAsInitialState=() => {
     setTravelloerInfomationForm(TRAVELLER_INFORMATION_FORM_INITIAL_STATE)  
 }
+
+
 
   return (
     <React.Fragment>
@@ -306,13 +418,11 @@ const  setAsInitialState=() => {
          </section>
           </section>
         </section>
+        
       </AppLayout>
     </React.Fragment>
   )
 }
 
 export default TravelerScreen
-function dispatch() {
-  throw new Error('Function not implemented.')
-}
 

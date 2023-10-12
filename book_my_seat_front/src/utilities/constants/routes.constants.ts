@@ -1,7 +1,7 @@
 export enum APP_ROUTES {
 ROOT = "/",
 TRAVELLER_MANAGEMENT ="/traveller-management",
-CREATE_TRAVELLER = "/traveller-management/create",
+CREATE_TRAVELLER = "/traveller-management/traveler",
 TR_MANAGEMENT="/ticket-reservation-management",
 BOOK_TICKET="/ticket-reservation-management/create",
 TRAIN_MANAGEMENT="/train-management",
