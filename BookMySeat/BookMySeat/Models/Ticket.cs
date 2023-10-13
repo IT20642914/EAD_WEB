@@ -45,7 +45,7 @@ namespace BookMySeat.Models
         /// List of individual ticket IDs associated with the reservation.
         /// </summary>
         [BsonElement("ticketIDs")]
-        public List<string> TicketIDs { get; set; }
+        public List<string> TicketIDs { get; set; } = new List<string>();
 
         /// <summary>
         /// Number of tickets reserved in this reservation.

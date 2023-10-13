@@ -14,7 +14,7 @@ namespace BookMySeat.Services
 
         public TravelerService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase(settings.DatabseName);
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
             _travelers = database.GetCollection<Traveler>(settings.TravelerCollectionName);
         }
 

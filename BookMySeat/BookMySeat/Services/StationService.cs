@@ -10,7 +10,7 @@ namespace BookMySeat.Services
 
         public StationService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase(settings.DatabseName);
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
             _stations = database.GetCollection<Station>(settings.StationCollectionName);
         }
         public Station Create(Station station)

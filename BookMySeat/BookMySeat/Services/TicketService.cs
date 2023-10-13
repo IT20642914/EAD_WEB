@@ -10,7 +10,7 @@ namespace BookMySeat.Services
 
         public TicketService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient)
         {
-            var database = mongoClient.GetDatabase(settings.DatabseName);
+            var database = mongoClient.GetDatabase(settings.DatabaseName);
             _ticket = database.GetCollection<Ticket>(settings.TicketCollectionName);
         }
 
