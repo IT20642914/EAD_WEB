@@ -15,7 +15,6 @@ namespace BookMySeat.Services
         }
         public Train Create(Train train)
         {
-            Console.WriteLine(train);
             _train.InsertOne(train);
             return train;
         }
