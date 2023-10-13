@@ -3,10 +3,11 @@ using BookMySeat.Models;
 using BookMySeat.Services;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BookMySeat.Controllers
 {
+    /// <summary>
+    /// Controller for managing ticket-related operations in the BookMySeat application.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TicketController : ControllerBase
@@ -17,26 +18,33 @@ namespace BookMySeat.Controllers
         {
             this.ticketService = ticketService;
         }
-        // GET: api/<TicketController>
+
+        /// <summary>
+        /// Retrieves a list of all ticket bookings.
+        /// </summary>
         [HttpGet("GetTicketbookings")]
         public ActionResult<List<Ticket>> Get()
         {
             return ticketService.GetTicketList();
         }
 
-        // GET api/<TicketController>/5
+        /// <summary>
+        /// Retrieves ticket details by its unique identifier.
+        /// </summary>
         [HttpGet("GetTicketById")]
         public ActionResult<Ticket> GetTicketDetailsByID(string id)
         {
             var ticket = ticketService.GetTicketDetailsByID(id);
             if (ticket == null)
             {
-                return NotFound($" reservaion  with ID={id} not found");
+                return NotFound($"Reservation with ID={id} not found");
             }
             return ticket;
         }
 
-        // POST api/<TicketController>
+        /// <summary>
+        /// Creates a new ticket booking.
+        /// </summary>
         [HttpPost]
         public ActionResult<Ticket> Post([FromBody] Ticket ticket)
         {
@@ -44,31 +52,33 @@ namespace BookMySeat.Controllers
             return CreatedAtAction(nameof(GetTicketDetailsByID), new { id = ticket.ReservationID }, ticket);
         }
 
-       
-
-        // PUT api/<TicketController>/5
+        /// <summary>
+        /// Updates an existing ticket booking by its ID.
+        /// </summary>
         [HttpPut("updateTicketById")]
         public ActionResult Put(string id, [FromBody] Ticket ticket)
         {
-            var exisitingStaion = ticketService.GetTicketDetailsByID(id);
+            var existingTicket = ticketService.GetTicketDetailsByID(id);
 
-            if (exisitingStaion == null)
+            if (existingTicket == null)
             {
-                return NotFound($" Ticket with ID={id} not found");
+                return NotFound($"Ticket with ID={id} not found");
             }
             ticketService.Update(id, ticket);
             return NoContent();
         }
 
-        // DELETE api/<TicketController>/5
-        [HttpDelete("RemeveTicketBooking")]
+        /// <summary>
+        /// Removes a ticket booking by its ID.
+        /// </summary>
+        [HttpDelete("RemoveTicketBooking")]
         public ActionResult Delete(string id)
         {
-            var exisitingTrain = ticketService.GetTicketDetailsByID(id);
+            var existingTicket = ticketService.GetTicketDetailsByID(id);
 
-            if (exisitingTrain == null)
+            if (existingTicket == null)
             {
-                return NotFound($" Ticket with ID={id} not found");
+                return NotFound($"Ticket with ID={id} not found");
             }
             ticketService.Remove(id);
             return NoContent();

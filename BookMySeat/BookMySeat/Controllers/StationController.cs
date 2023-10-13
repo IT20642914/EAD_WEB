@@ -2,10 +2,11 @@
 using BookMySeat.Models;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BookMySeat.Controllers
 {
+    /// <summary>
+    /// Controller for managing station-related operations in the BookMySeat application.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class StationController : ControllerBase
@@ -17,27 +18,32 @@ namespace BookMySeat.Controllers
             this.stationService = stationService;
         }
 
-
-        // GET: api/<StationController>
+        /// <summary>
+        /// Retrieves a list of all stations.
+        /// </summary>
         [HttpGet("GetstationList")]
         public ActionResult<List<Station>> Get()
         {
             return stationService.Get();
         }
 
-        // GET api/<StationController>/5
+        /// <summary>
+        /// Retrieves a station by its unique identifier.
+        /// </summary>
         [HttpGet("GetstationById")]
         public ActionResult<Station> Get(string id)
         {
             var station = stationService.Get(id);
             if (station == null)
             {
-                return NotFound($" Station with ID={id} not found");
+                return NotFound($"Station with ID={id} not found");
             }
             return station;
         }
 
-        // POST api/<StationController>
+        /// <summary>
+        /// Creates a new station record.
+        /// </summary>
         [HttpPost]
         public ActionResult<Station> CreateA([FromBody] Station station)
         {
@@ -45,33 +51,37 @@ namespace BookMySeat.Controllers
             return CreatedAtAction(nameof(Get), new { id = station.StationId }, station);
         }
 
-        // PUT api/<StationController>/5
+        /// <summary>
+        /// Updates an existing station record by its ID.
+        /// </summary>
         [HttpPut("updateById")]
         public ActionResult Put(string id, [FromBody] Station station)
         {
-            var exisitingStaion = stationService.Get(id);
+            var existingStation = stationService.Get(id);
 
-            if (exisitingStaion == null)
+            if (existingStation == null)
             {
-                return NotFound($" Station with ID={id} not found");
+                return NotFound($"Station with ID={id} not found");
             }
             stationService.Update(id, station);
             return NoContent();
         }
 
-        // DELETE api/<StationController>/5
+        /// <summary>
+        /// Removes a station record by its ID.
+        /// </summary>
         [HttpDelete("deleteById")]
         public ActionResult Delete(string id)
         {
-            var Staion = stationService.Get(id);
+            var existingStation = stationService.Get(id);
 
-            if (Staion == null)
+            if (existingStation == null)
             {
-                return NotFound($" Station with ID={id} not found");
+                return NotFound($"Station with ID={id} not found");
             }
             stationService.Remove(id);
 
-            return Ok($"station with id={id} deleted");
+            return Ok($"Station with id={id} deleted");
         }
     }
 }
