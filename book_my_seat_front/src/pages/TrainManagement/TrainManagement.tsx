@@ -17,6 +17,7 @@ import ViewShedulePopup from '../../components/TrainManagement/ViewShedulePopup/
 import ViewStationsPopup from '../../components/TrainManagement/ViewStationsPopup/ViewStationsPopup'
 import { TrainAction } from '../../redux/action/train.Action'
 import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
+import TrainSummaryChart from '../../components/TarinSummaryChart/TarinSummaryChart'
 
 const TrainManagement = () => {
 
@@ -351,10 +352,12 @@ const handleChange = (event: React.SyntheticEvent, newValue: number) => {
           </TabList>
       
       </Grid>
-
-
+     
 <Grid item xs={12} md={12}>
 <TabPanel value="1">
+<Grid item xs={12} md={12}>
+      <TrainSummaryChart/>
+      </Grid>
 <TrainManagementGrid
         page={page}
         rowsPerPage={rowsPerPage}
