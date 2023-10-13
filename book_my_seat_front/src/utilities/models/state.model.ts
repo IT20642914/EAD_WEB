@@ -11,11 +11,16 @@ export interface AlertStateDto {
   export  interface TravelerStateDto {
     getAllTravelers:StateObjectDto<travelerDto[]>
     addTravelers:StateObjectDto<any>
+    getTravelerByID:StateObjectDto<any>
+    updateTravelerByID:StateObjectDto<any>
+    deleteTravelerByID:StateObjectDto<any>
   }
   export  interface TrainStateDto {
     getAllTrainList:StateObjectDto<any[]>
     addTrainDetails:StateObjectDto<any>
     getDetailsById:StateObjectDto<any>
+    updatetrainDetailsByid:StateObjectDto<any>
+    deleteTrainDetailsByid:StateObjectDto<any>
   }
 export interface ApplicationStateDto {
     alert: AlertStateDto;

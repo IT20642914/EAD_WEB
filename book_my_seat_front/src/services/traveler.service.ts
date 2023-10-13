@@ -10,8 +10,20 @@ const addTraveler = (payload:travelerDto):Promise<AxiosResponse<travelerDto[]>> 
     return axiosPrivateInstance.post(`/api/Traveler`,payload);
 }
 
+const getTravelerByID = (payload:string):Promise<AxiosResponse<travelerDto>> => {
+    return axiosPrivateInstance.get(`/api/Traveler/${payload}`,);
+}
+const updateTravelerByID = (payload:travelerDto):Promise<AxiosResponse<travelerDto>> => {
+    return axiosPrivateInstance.put(`/api/Traveler/${payload.travelerId}`,payload);
+}
+const DeleteTravelerByID = (payload:string):Promise<AxiosResponse<travelerDto>> => {
+    return axiosPrivateInstance.delete(`/api/Traveler/${payload}`,);
+}
 
 export const travelerService = {
     getTravelerList,
-    addTraveler
+    addTraveler,
+    getTravelerByID,
+    updateTravelerByID,
+    DeleteTravelerByID,
 }

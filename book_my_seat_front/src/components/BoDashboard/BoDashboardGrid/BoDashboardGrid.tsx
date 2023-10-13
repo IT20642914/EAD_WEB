@@ -3,7 +3,7 @@ import style from './BoDashboard.module.scss'
 import { Typography, Box, TableContainer, Paper, Table, TableHead, TableRow, TableBody, IconButton, Tooltip, TablePagination } from '@mui/material';
 import moment from 'moment';
 import { StyledTableCell, StyledStatusApproved, StyledStatusRejected, StyledStatusPending, StyledStatusDraft, StyledSwitch } from '../../../assets/theme/theme';
-import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
+import { APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES } from '../../../utilities/constants';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import { SortMetaDto } from '../../../utilities/models';
 import { useNavigate } from 'react-router-dom'
@@ -28,6 +28,7 @@ const BoDashboardGrid:React.FC<{
   getFilterList: (col: string) => string[];
   navigateTo(mode: string, id: string): void;
   onClearFilter(): void;
+  handleAction(id:string,type:string):void
 
 } >= (props) => {
   const navigate = useNavigate()
@@ -46,7 +47,8 @@ const BoDashboardGrid:React.FC<{
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Create Traveller' onClick={() => navigate(APP_ROUTES.CREATE_TRAVELLER)} />
+        <CustomButton text='Create Traveller' onClick={() =>{  sessionStorage.setItem("Mode",TRAIN_SCREEN_MODES.CREATE);
+        sessionStorage.setItem("id", ""); navigate(APP_ROUTES.CREATE_TRAVELLER)}} />
       </div>
     </div>
 
@@ -96,21 +98,21 @@ const BoDashboardGrid:React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.travelerId.toString() ,TRAIN_SCREEN_MODES.DELETE) }}>
                           <Tooltip title="Delete">
                             <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>

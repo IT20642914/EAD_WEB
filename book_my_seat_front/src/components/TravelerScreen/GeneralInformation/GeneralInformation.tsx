@@ -19,8 +19,9 @@ const GeneralInformation:React.FC<{
   const lastName = props.TravelloerInfomationForm.lastName
  
   const status = props.TravelloerInfomationForm.isActive
-  const identificationCard = props.TravelloerInfomationForm.identificationCard
-  const userRole = props.TravelloerInfomationForm.userRole
+  const identificationCard = props.TravelloerInfomationForm.nICNumber
+  const password = props.TravelloerInfomationForm.password
+  const userRole = props.TravelloerInfomationForm.roleType
   return (
      <Stepper stepNumber={1} stepTitle={"General Information"}>
         
@@ -96,7 +97,22 @@ const GeneralInformation:React.FC<{
               props.onInputHandleChange("userRole", value)
             }
           />
-        </Grid>
+        </Grid>  <Grid item xs={12} md={6}>
+           <StyledTextField
+                  type="password"
+                      fullWidth
+                      label="PassWord"
+                      placeholder='Enter PassWord'
+                      size='small'
+                      value={password.value}
+                      error={!!password.error}
+                      disabled={password.disable}
+                      required={password.isRequired}
+                      helperText={props.helperText && password.error}
+                      onFocus={() => props.handleInputFocus('password', 'GI')}
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('password', event.target.value)}
+                    />
+           </Grid>
            <Grid item xs={12} md={6}>
            <div className={style.switchField}>
           <Typography className={style.label}>Set Travellor Active</Typography>

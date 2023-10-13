@@ -18,6 +18,20 @@ const INITIAL_STATE: TrainStateDto = {
     isLoading: false,
     status: null
 
+   },
+   updatetrainDetailsByid:{
+    data: {},
+    error: null,
+    isLoading: false,
+    status: null
+
+   },
+   deleteTrainDetailsByid:{
+    data: {},
+    error: null,
+    isLoading: false,
+    status: null
+
    }
 }
 const trainReducer = (state = INITIAL_STATE, action: any) => {
@@ -156,6 +170,94 @@ const trainReducer = (state = INITIAL_STATE, action: any) => {
                   data: null,
                 },
               };
+              case TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST:
+                return {
+                  ...state,
+                  updatetrainDetailsByid: {
+                    ...state.updatetrainDetailsByid,
+                    isLoading: true,
+                    status: APP_ACTION_STATUS.LOADING,
+                    error: null,
+                    data: null,
+                  },
+                };
+              case TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.SUCCESS:
+                return {
+                  ...state,
+                  updatetrainDetailsByid: {
+                    ...state.updatetrainDetailsByid,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.SUCCESS,
+                    error: null,
+                    data: action.data,
+                  },
+                };
+              case TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.ERROR:
+                return {
+                  ...state,
+                  updatetrainDetailsByid: {
+                    ...state.updatetrainDetailsByid,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.ERROR,
+                    error: action.error,
+                    data: null,
+                  },
+                };
+              case TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.CLEAR:
+                return {
+                  ...state,
+                  updatetrainDetailsByid: {
+                    ...state.updatetrainDetailsByid,
+                    isLoading: false,
+                    status: APP_ACTION_STATUS.INITIAL,
+                    error: null,
+                    data: null,
+                  },
+                };
+                case TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST:
+                  return {
+                    ...state,
+                    deleteTrainDetailsByid: {
+                      ...state.deleteTrainDetailsByid,
+                      isLoading: true,
+                      status: APP_ACTION_STATUS.LOADING,
+                      error: null,
+                      data: null,
+                    },
+                  };
+                case TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.SUCCESS:
+                  return {
+                    ...state,
+                    deleteTrainDetailsByid: {
+                      ...state.deleteTrainDetailsByid,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.SUCCESS,
+                      error: null,
+                      data: action.data,
+                    },
+                  };
+                case TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.ERROR:
+                  return {
+                    ...state,
+                    deleteTrainDetailsByid: {
+                      ...state.deleteTrainDetailsByid,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.ERROR,
+                      error: action.error,
+                      data: null,
+                    },
+                  };
+                case TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.CLEAR:
+                  return {
+                    ...state,
+                    deleteTrainDetailsByid: {
+                      ...state.deleteTrainDetailsByid,
+                      isLoading: false,
+                      status: APP_ACTION_STATUS.INITIAL,
+                      error: null,
+                      data: null,
+                    },
+                  };
           default:
             return state;
         }
