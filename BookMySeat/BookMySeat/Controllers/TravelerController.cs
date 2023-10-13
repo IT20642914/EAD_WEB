@@ -26,7 +26,7 @@ namespace BookMySeat.Controllers
         }
 
         // GET api/<TravelerController>/5
-        [HttpGet("{id}")]
+        [HttpGet("getTravelerById")]
         public ActionResult<Traveler> Get(string id)
         {
             var traveler = TravelerService.Get(id);
@@ -46,7 +46,7 @@ namespace BookMySeat.Controllers
         }
 
         // PUT api/<TravelerController>/5
-        [HttpPut("{id}")]
+        [HttpPut("UpdateTravelerById")]
         public ActionResult Put(string id, [FromBody] Traveler traveler)
         {
             var exisitingTraveler = TravelerService.Get(id);
@@ -60,7 +60,7 @@ namespace BookMySeat.Controllers
         }
 
         // DELETE api/<TravelerController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("deleteTravelerById")]
         public ActionResult Delete(string id)
         {
             var Traveler = TravelerService.Get(id);
