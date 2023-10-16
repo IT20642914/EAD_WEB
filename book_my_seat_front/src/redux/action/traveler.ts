@@ -29,7 +29,7 @@ const UpdateTraveler = (payload:travelerDto) => {
         payload:payload
     }
 }
-const DeleteTraveler = (payload:travelerDto) => {
+const DeleteTraveler = (payload:string) => {
     return {
         type: TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST,
         payload:payload
@@ -53,6 +53,13 @@ const travelerUpdateByIDClear = () => {
      
     }
 }
+const DeleteTravelerByIDClear = () => {
+    return {
+        type: TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.CLEAR,
+     
+    }
+}
+
 
 export const TravelersAction = {
     getAllTravelers,
@@ -62,7 +69,8 @@ export const TravelersAction = {
     DeleteTraveler,
     addTravelersClear,
     travelerByIDClear,
-    travelerUpdateByIDClear
+    travelerUpdateByIDClear,
+    DeleteTravelerByIDClear
     
 
 }

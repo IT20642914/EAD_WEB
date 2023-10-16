@@ -44,7 +44,7 @@ const TravelerScreen = () => {
         const travelerAddResponse = useSelector((state: ApplicationStateDto) => state.traveler.addTravelers);
         const travelerByiDesponse = useSelector((state: ApplicationStateDto) => state.traveler.getTravelerByID);
         const travelerUpdatebyRequestResponse = useSelector((state: ApplicationStateDto) => state.traveler.updateTravelerByID);
-
+      
         const handleInputFocus = (property: string, section: string) => {
             if (section === "GI")
             setTravelloerInfomationForm({
@@ -165,6 +165,7 @@ useEffect(() => {
   if(travelerUpdatebyRequestResponse.status===APP_ACTION_STATUS.SUCCESS){
     navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
   }
+  
 }, [travelerUpdatebyRequestResponse.status])
 
         useEffect(() => {

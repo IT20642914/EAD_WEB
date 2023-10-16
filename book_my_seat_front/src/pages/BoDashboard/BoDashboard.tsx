@@ -12,6 +12,7 @@ import SummaryChart from '../../components/Shared/RequestSummaryChart/SummaryCha
 import { Grid } from '@mui/material'
 import BudgetGraph from '../../components/Shared/RequestBudgetGraph/BudgetGraph'
 import { TravelersAction } from '../../redux/action/traveler'
+import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 
 const BoDashboard = () => {
   const INITIAL_SORT_META: SortMetaDto = {
@@ -25,8 +26,9 @@ const BoDashboard = () => {
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
   const [filteredList, setFilteredList] = useState<travelerDto[]>([])
   const [isFiltered, setIsFiltered] = useState(false)
-  
+  const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
   const GetTravelerDetails = useSelector((state: ApplicationStateDto) => state.traveler.getAllTravelers);
+  const deleteRequestResponse = useSelector((state: ApplicationStateDto) => state.traveler.deleteTravelerByID);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     // getRequestList(rowsPerPage, newPage + 1)
@@ -44,6 +46,7 @@ const BoDashboard = () => {
     dispatch(TravelersAction.addTravelersClear())
     dispatch(TravelersAction.travelerByIDClear())
     dispatch(TravelersAction.travelerUpdateByIDClear())
+    dispatch(TravelersAction.DeleteTravelerByIDClear())
   }, [])
   
 
@@ -52,8 +55,17 @@ const BoDashboard = () => {
     if(GetTravelerDetails.status===APP_ACTION_STATUS.SUCCESS){
        setFilteredList(GetTravelerDetails.data)
     }
+ 
   }, [GetTravelerDetails.status])
+
+  useEffect(() => {
+    if(deleteRequestResponse.status===APP_ACTION_STATUS.SUCCESS){
+      dispatch(TravelersAction.getAllTravelers()) 
+    }   
+  }, [deleteRequestResponse.status])
   
+  
+  // dispatch(TravelersAction.getAllTravelers())
 
   const onSortHandle = (col: string) => {
     const sorted = filteredList.sort((_prev: any, _next: any) => {
@@ -137,13 +149,24 @@ const BoDashboard = () => {
 
   const handleAction=(id:string,type:string) =>{
     if(type===TRAIN_SCREEN_MODES.DELETE){
-
+      sessionStorage.setItem("id", id);
+      setisOpenConfirmationDialog(true);
     }else{
       sessionStorage.setItem("Mode",type);
       sessionStorage.setItem("id", id);
       navigate(APP_ROUTES.CREATE_TRAVELLER)
     }
   }
+
+  const handeDelete = (con: boolean) => {
+    if(con){
+      const _id = sessionStorage.getItem("id");
+      if(_id){
+        dispatch(TravelersAction.DeleteTraveler(_id))
+      }
+    }
+    setisOpenConfirmationDialog(false)
+  };
   return (    
   <React.Fragment>
     <AppLayout componentTitle="Traveler Management">
@@ -173,7 +196,12 @@ const BoDashboard = () => {
     isFiltered={isFiltered}
   />
 
-
+<ConfirmationDialog
+       isOpenConfirmationDialog={isOpenConfirmationDialog}
+       onCallback={handeDelete}
+       title="Remove Item"
+       content="Do you want to remove this item ?"
+        />
   </section>
     </AppLayout>
   </React.Fragment>

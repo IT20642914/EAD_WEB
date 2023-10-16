@@ -17,7 +17,7 @@ const updateTravelerByID = (payload:travelerDto):Promise<AxiosResponse<travelerD
     return axiosPrivateInstance.put(`/api/Traveler/UpdateTravelerById?id=${payload.travelerId}`,payload);
 }
 const DeleteTravelerByID = (payload:string):Promise<AxiosResponse<travelerDto>> => {
-    return axiosPrivateInstance.delete(`/api/Traveler/${payload}`,);
+    return axiosPrivateInstance.delete(`/api/Traveler/deleteTravelerById?id=${payload}`);
 }
 
 export const travelerService = {
