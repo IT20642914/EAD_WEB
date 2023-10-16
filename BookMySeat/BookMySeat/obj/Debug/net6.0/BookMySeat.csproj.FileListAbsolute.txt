@@ -195,3 +195,43 @@ D:\my-projects\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\refint\BookMySeat.
 D:\my-projects\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.pdb
 D:\my-projects\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.genruntimeconfig.cache
 D:\my-projects\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\ref\BookMySeat.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\appsettings.Development.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\appsettings.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\BookMySeat.exe
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\BookMySeat.deps.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\BookMySeat.runtimeconfig.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\BookMySeat.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\BookMySeat.pdb
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\AWSSDK.Core.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\DnsClient.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\MongoDB.Bson.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\MongoDB.Driver.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\MongoDB.Driver.Core.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\SharpCompress.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\Snappier.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\ZstdSharp.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.csproj.AssemblyReference.cache
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.GeneratedMSBuildEditorConfig.editorconfig
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.AssemblyInfoInputs.cache
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.AssemblyInfo.cs
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.csproj.CoreCompileInputs.cache
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.MvcApplicationPartsAssemblyInfo.cs
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.MvcApplicationPartsAssemblyInfo.cache
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\staticwebassets.build.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\staticwebassets.development.json
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\scopedcss\bundle\BookMySeat.styles.css
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.csproj.CopyComplete
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\refint\BookMySeat.dll
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.pdb
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\BookMySeat.genruntimeconfig.cache
+C:\4th year\EAD_WEB\BookMySeat\BookMySeat\obj\Debug\net6.0\ref\BookMySeat.dll

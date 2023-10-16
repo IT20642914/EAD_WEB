@@ -47,7 +47,12 @@ const travelerByIDClear = () => {
      
     }
 }
-
+const travelerUpdateByIDClear = () => {
+    return {
+        type: TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.CLEAR,
+     
+    }
+}
 
 export const TravelersAction = {
     getAllTravelers,
@@ -56,7 +61,8 @@ export const TravelersAction = {
     UpdateTraveler,
     DeleteTraveler,
     addTravelersClear,
-    travelerByIDClear
+    travelerByIDClear,
+    travelerUpdateByIDClear
     
 
 }

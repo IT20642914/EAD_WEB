@@ -41,6 +41,6 @@ export interface LoginFormDto {
 }
 
 export interface userRole {
-  roleId: number;
+  roleID: number;
   roleName: string;
 }

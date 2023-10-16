@@ -13,8 +13,8 @@ export interface travelerDto {
   totalReservationCount: number;
   createdDate: string;
   roleType:userRole;
-  nICNumber:string;
-  password:string;
+  nicNumber:string;
+  passWord:string;
 }
 
 export interface TravelerInformationFormDto {

@@ -45,7 +45,18 @@ namespace BookMySeat.Services
         /// <returns>The Traveler object with the specified ID, or null if not found.</returns>
         public Traveler Get(string id)
         {
-            return _travelers.Find(traveler => traveler.TravelerId == id).FirstOrDefault();
+            try
+            {
+                return _travelers.Find(traveler => traveler.TravelerId == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception, log the error, or return an appropriate response.
+                // For example:
+                Console.WriteLine("Error in Get: " + ex.Message);
+                return null; // You might want to return an error response instead of null.
+            }
+
         }
 
         /// <summary>

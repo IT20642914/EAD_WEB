@@ -43,7 +43,7 @@ const BoDashboard = () => {
     dispatch(TravelersAction.getAllTravelers())
     dispatch(TravelersAction.addTravelersClear())
     dispatch(TravelersAction.travelerByIDClear())
-    
+    dispatch(TravelersAction.travelerUpdateByIDClear())
   }, [])
   
 

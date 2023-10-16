@@ -43,7 +43,7 @@ const TravelerScreen = () => {
    
         const travelerAddResponse = useSelector((state: ApplicationStateDto) => state.traveler.addTravelers);
         const travelerByiDesponse = useSelector((state: ApplicationStateDto) => state.traveler.getTravelerByID);
-
+        const travelerUpdatebyRequestResponse = useSelector((state: ApplicationStateDto) => state.traveler.updateTravelerByID);
 
         const handleInputFocus = (property: string, section: string) => {
             if (section === "GI")
@@ -133,12 +133,12 @@ setTravelloerInfomationForm({
   },
   nICNumber:{
     ...TravelloerInfomationForm.nICNumber,
-    value:_data.nICNumber,
+    value:_data.nicNumber,
     readonly:_isDisable
   },
   password:{
     ...TravelloerInfomationForm.password,
-    value:_data.password ,
+    value:_data.passWord ,
     readonly:_isDisable
   },
   totalReservationCount:{
@@ -148,9 +148,10 @@ setTravelloerInfomationForm({
   },
   roleType:{
     ...TravelloerInfomationForm.roleType,
-    value:{label:_data.roleType.roleName,value:_data.roleType.roleId}  as OptionsDto,
+    value:{label:_data.roleType.roleName,value:Number(_data.roleType.roleID)}  as OptionsDto,
     readonly:_isDisable
   },
+
 
 
 })
@@ -158,6 +159,13 @@ setTravelloerInfomationForm({
 }
 }, [travelerByiDesponse.status])
 
+
+useEffect(() => {
+
+  if(travelerUpdatebyRequestResponse.status===APP_ACTION_STATUS.SUCCESS){
+    navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+  }
+}, [travelerUpdatebyRequestResponse.status])
 
         useEffect(() => {
           if(travelerAddResponse.status==APP_ACTION_STATUS.SUCCESS){
@@ -294,9 +302,9 @@ const payload:travelerDto={
   address: TravelloerInfomationForm.address.value,
   totalReservationCount: 0,
   createdDate: dayjs().toString(),
-  roleType: { roleId: Number(TravelloerInfomationForm.roleType.value.value), roleName: TravelloerInfomationForm.roleType.value.label },
-  nICNumber: TravelloerInfomationForm.nICNumber.value,
-  password: TravelloerInfomationForm.password.value,
+  roleType: { roleID: Number(TravelloerInfomationForm.roleType.value.value), roleName: TravelloerInfomationForm.roleType.value.label },
+  nicNumber: TravelloerInfomationForm.nICNumber.value,
+  passWord: TravelloerInfomationForm.password.value,
 }
 
 
@@ -320,9 +328,9 @@ const  editRequest=async () => {
       address: TravelloerInfomationForm.address.value,
       totalReservationCount:Number(TravelloerInfomationForm.totalReservationCount.value),
       createdDate: TravelloerInfomationForm.createdDate.value,
-      nICNumber: TravelloerInfomationForm.nICNumber.value,
-      password: TravelloerInfomationForm.password.value,
-      roleType:{roleId:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
+      nicNumber: TravelloerInfomationForm.nICNumber.value,
+      passWord: TravelloerInfomationForm.password.value,
+      roleType:{roleID:Number(TravelloerInfomationForm.roleType.value.value),roleName:TravelloerInfomationForm.roleType.value.label},
     }
     dispatch(TravelersAction.UpdateTraveler(payload))
   }
