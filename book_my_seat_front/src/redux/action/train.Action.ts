@@ -52,6 +52,19 @@ const DeleteTrainById =(payload:string)=>{
      
     }
 }
+const DeleteTrainByIdCler =()=>{
+    return {
+        type: TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.CLEAR,
+    
+     
+    }
+}
+const trainEditeByidClear = () => {
+    return {
+        type: TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.CLEAR,
+   
+    }
+}
 export const TrainAction = {
     getAllTrainList,
     addTrainDetails,
@@ -60,5 +73,8 @@ export const TrainAction = {
     DeleteTrainById,
     getTrainByIdClear,
     trainEditeByid,
+    UpdateTainByID,
+    DeleteTrainByIdCler,
+    trainEditeByidClear,
 
 }
