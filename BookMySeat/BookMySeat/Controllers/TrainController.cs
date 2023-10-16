@@ -4,70 +4,82 @@ using BookMySeat.Services;
 using Microsoft.AspNetCore.Mvc;
 using static System.Collections.Specialized.BitVector32;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace BookMySeat.Controllers
 {
+    /// <summary>
+    /// Controller for managing train-related operations in the BookMySeat application.
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TrainController : ControllerBase
     {
         private readonly ITrainService trainService;
 
-        public TrainController(ITrainService trainService) {
-         this.trainService = trainService;
+        public TrainController(ITrainService trainService)
+        {
+            this.trainService = trainService;
         }
 
-        // GET: api/<TrainController>
+        /// <summary>
+        /// Retrieves a list of all trains.
+        /// </summary>
         [HttpGet("GetTrainList")]
         public ActionResult<List<Train>> GetTrainList()
         {
             return trainService.GetTrainList();
         }
 
-        // GET api/<TrainController>/5
+        /// <summary>
+        /// Retrieves train details by its unique identifier.
+        /// </summary>
         [HttpGet("GetTrainByID")]
         public ActionResult<Train> GetTrainByID(string id)
         {
             var train = trainService.GetTrainByID(id);
             if (train == null)
             {
-                return NotFound($" Station with ID={id} not found");
+                return NotFound($"Train with ID={id} not found");
             }
             return train;
         }
 
-        // POST api/<TrainController>
+        /// <summary>
+        /// Creates a new train record.
+        /// </summary>
         [HttpPost]
         public ActionResult<Train> CreateTrain([FromBody] Train train)
-        {    
+        {
             trainService.Create(train);
             return CreatedAtAction(nameof(GetTrainByID), new { id = train.TrainId }, train);
         }
 
-        // PUT api/<TrainController>/5
+        /// <summary>
+        /// Updates an existing train record by its ID.
+        /// </summary>
         [HttpPut("UpdateTrainDetailsById")]
         public ActionResult UpdateTrainDetails(string id, [FromBody] Train train)
         {
-            var exisitingStaion = trainService.GetTrainByID(id);
+            var existingTrain = trainService.GetTrainByID(id);
 
-            if (exisitingStaion == null)
+            if (existingTrain == null)
             {
-                return NotFound($" Train with ID={id} not found");
+                return NotFound($"Train with ID={id} not found");
             }
             trainService.Update(id, train);
             return NoContent();
         }
 
-        // DELETE api/<TrainController>/5
+        /// <summary>
+        /// Removes a train record by its ID.
+        /// </summary>
         [HttpDelete("DeleteById")]
         public ActionResult Delete(string id)
         {
-            var exisitingTrain = trainService.GetTrainByID(id);
+            var existingTrain = trainService.GetTrainByID(id);
 
-            if (exisitingTrain == null)
+            if (existingTrain == null)
             {
-                return NotFound($" Train with ID={id} not found");
+                return NotFound($"Train with ID={id} not found");
             }
             trainService.Remove(id);
             return NoContent();
