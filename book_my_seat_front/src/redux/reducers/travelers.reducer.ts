@@ -35,7 +35,12 @@ updateTravelerByID:{
   status: null
 },
 LoginRequest:{
-  data: {},
+  data: {
+    isSuccess: false,
+    message: "",
+    statusCode: 0,
+    traveler: null
+  },
   error: null,
   isLoading: false,
   status: null

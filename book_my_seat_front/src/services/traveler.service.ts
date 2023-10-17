@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 import { axiosPrivateInstance, axiosPublicInstance } from "."
-import { LoginDto, travelerDto } from "../utilities/models/travellor.model";
+import { LoginDto, LoginResponseDto, travelerDto } from "../utilities/models/travellor.model";
 
 
 const getTravelerList = ():Promise<AxiosResponse<travelerDto[]>> => {
@@ -19,8 +19,8 @@ const updateTravelerByID = (payload:travelerDto):Promise<AxiosResponse<travelerD
 const DeleteTravelerByID = (payload:string):Promise<AxiosResponse<travelerDto>> => {
     return axiosPrivateInstance.delete(`/api/Traveler/deleteTravelerById?id=${payload}`);
 }
-const Login = (payload:LoginDto):Promise<AxiosResponse<travelerDto>> => {
-    return axiosPrivateInstance.delete(`/api/Traveler/Login?nic=${payload.nic}&password=${payload.password}'`);
+const Login = (payload:LoginDto):Promise<AxiosResponse<LoginResponseDto>> => {
+    return axiosPrivateInstance.post(`/api/Traveler/Login?nic=${payload.nic}&password=${payload.password}`);
 }
 
 export const travelerService = {

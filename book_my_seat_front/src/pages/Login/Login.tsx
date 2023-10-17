@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import styles from "./Login.module.scss";
 
@@ -8,6 +8,7 @@ import { Button, Grid } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import {
   ALERT_ACTION_TYPES,
+  APP_ACTION_STATUS,
   APP_ROUTES,
   USER_ROLES,
 } from "../../utilities/constants";
@@ -20,6 +21,9 @@ import { logo } from "../../assets/images";
 import { StyledTextField } from "../../assets/theme/theme";
 import { validateFormData } from "../../utilities/helpers";
 import LoginFormComponet from "../../components/Login/LoginFormComponet";
+import { TravelersAction } from "../../redux/action/traveler";
+import { LoginDto, LoginResponseDto } from "../../utilities/models/travellor.model";
+import { ToastContainer, toast } from 'react-toastify';
 const Login = () => {
 
 
@@ -33,35 +37,72 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
   const dispatch = useDispatch();
   const [helperText, setHelperText] = useState(true);
 
+  const LoginResponse = useSelector((state: ApplicationStateDto) => state.traveler.LoginRequest);
 
+  useEffect(() => {
+    console.log(LoginResponse)
+    if(LoginResponse.status===APP_ACTION_STATUS.SUCCESS){
+     console.log("LoginResponse.data.StatusCode",LoginResponse.data.statusCode)
+      if(LoginResponse.data.statusCode===200){
+        console.log("200")
+        toast.success(`${LoginResponse.data.message + "  " + LoginResponse.data.statusCode }`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }else
+      if(LoginResponse.data.statusCode===401){
+        console.log("401")
+        toast.error(`${LoginResponse.data.message + "  " + LoginResponse.data.statusCode}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }else
+      if(LoginResponse.data.statusCode===404){
+        console.log("404")
+        toast.error(`${LoginResponse.data.message+ "  " + LoginResponse.data.statusCode}`, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
+      }
+  
+    
+  }, [ LoginResponse.status])
  
   const handleLogin = async () => {
     const [validateData, isValid] = await validateFormData(LoginForm);
     setLoginForm(validateData);
     if (isValid) {
 
-      navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+      const payload:LoginDto={
+        nic: LoginForm.userName.value,
+        password: LoginForm.passWord.value
+      }
+      dispatch(TravelersAction.Login(payload))
+      // navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
 
     }
  
-    // console.log("instance", instance);
-    // console.log("loginRequest", loginRequest);
-    // instance.loginRedirect(loginRequest).catch((error: string) => {
-    //   console.log("error", error);
-    //   const alert: AlertDto = {
-    //     message: error,
-    //     type: ALERT_ACTION_TYPES.TRIGGER_ALERT,
-    //     options: {
-    //       key: new Date().getTime() + Math.random(),
-    //       persist: true,
-    //       varient: "error",
-    //       anchorOrigin: {
-    //         horizontal: "center",
-    //       },
-    //     },
-    //   };
-    //   dispatch(alertActions.triggerAlert(alert));
-    // });
+    
+
 
  
   };

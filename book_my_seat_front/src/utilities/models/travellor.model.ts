@@ -37,4 +37,11 @@ export interface LoginDto{
   nic:string;
   password:string;
 }
+export interface LoginResponseDto{
+  isSuccess:boolean;
+  message:string;
+  statusCode:number;
+  traveler:travelerDto|null;
+}
+
 

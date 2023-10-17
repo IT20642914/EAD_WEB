@@ -3,7 +3,7 @@ import { station } from "../../utilities/models/trains.model"
 import { call, put, takeEvery } from 'redux-saga/effects'
 import { TRAVELER_ACTION_TYPES, COMMON_ACTION_TYPES } from "../../utilities/constants"
 import { StationService } from "../../services/station.service"
-import { LoginDto, travelerDto } from "../../utilities/models/travellor.model"
+import { LoginDto, LoginResponseDto, travelerDto } from "../../utilities/models/travellor.model"
 import { travelerService } from "../../services/traveler.service"
 import { ToastContainer, toast } from 'react-toastify';
 import { Call } from "@mui/icons-material"
@@ -88,13 +88,14 @@ function* getAllTravelers(action: { type: string,  }) {
   function* Login(action: { type: string, payload:LoginDto }) {
   
     try {
-      const List: AxiosResponse<any> = yield call(travelerService.Login,action.payload)
+      const List: AxiosResponse<LoginResponseDto> = yield call(travelerService.Login,action.payload)
       yield put({
         type: TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.SUCCESS,
         data: List.data
       })
     } catch (error) {
       yield put({
+        
         type: TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.ERROR,
         error: error
         
