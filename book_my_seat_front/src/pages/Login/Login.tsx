@@ -55,6 +55,7 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
           progress: undefined,
           theme: "dark",
           });
+          navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
       }else
       if(LoginResponse.data.statusCode===401){
         console.log("401")
@@ -97,7 +98,7 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
         password: LoginForm.passWord.value
       }
       dispatch(TravelersAction.Login(payload))
-      // navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+      // 
 
     }
  
