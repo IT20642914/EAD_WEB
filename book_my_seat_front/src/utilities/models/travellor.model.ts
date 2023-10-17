@@ -31,6 +31,10 @@ export interface TravelerInformationFormDto {
   roleType: FormFieldDto<OptionsDto>;
   createdDate: FormFieldDto<string>;
   totalReservationCount:FormFieldDto<number>;
-
-  
 }
+
+export interface LoginDto{
+  nic:string;
+  password:string;
+}
+

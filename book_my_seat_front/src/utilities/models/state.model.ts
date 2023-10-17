@@ -14,6 +14,7 @@ export interface AlertStateDto {
     getTravelerByID:StateObjectDto<any>
     updateTravelerByID:StateObjectDto<any>
     deleteTravelerByID:StateObjectDto<any>
+    LoginRequest:StateObjectDto<any>
   }
   export  interface TrainStateDto {
     getAllTrainList:StateObjectDto<any[]>
