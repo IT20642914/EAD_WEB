@@ -1,4 +1,5 @@
-﻿using BookMySeat.IService;
+﻿using BookMySeat.Dtos;
+using BookMySeat.IService;
 using BookMySeat.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,22 @@ namespace BookMySeat.Controllers
             return CreatedAtAction(nameof(Get), new { id = traveler.TravelerId }, traveler);
         }
 
+        /// <summary>
+        /// Creates a new traveler record.
+        /// </summary>
+        [HttpPost("Login")]
+        public ActionResult<LoginResult> LoginByNic( string nic, string password)
+        {
+            var result = TravelerService.LoginByNic(nic, password);
+            if (result.IsSuccess)
+            {
+                return Ok(result); // HTTP status code 200 (OK)
+            }
+            else
+            {
+                return StatusCode(result.StatusCode, result);
+            }
+        }
         /// <summary>
         /// Updates an existing traveler record by its ID.
         /// </summary>

@@ -1,4 +1,5 @@
-﻿using BookMySeat.IService;
+﻿using BookMySeat.Dtos;
+using BookMySeat.IService;
 using BookMySeat.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -57,6 +58,50 @@ namespace BookMySeat.Services
                 return null; // You might want to return an error response instead of null.
             }
 
+        }
+
+        public LoginResult LoginByNic(string nic, string passWord)
+        {
+            var result = new LoginResult();
+
+            var filter = Builders<Traveler>.Filter.Eq("nICNumber", nic);
+                   Traveler traveler = _travelers.Find(filter).FirstOrDefault();
+
+            if (traveler != null)
+            {
+                // Extract the hashed password from the Traveler object
+                string hashedPassword = traveler.PassWord;
+
+                // You should use a secure password hashing library (e.g., BCrypt) to verify the password
+                // For simplicity, we'll use a basic string comparison here, but it's not recommended in production
+                if (passWord == hashedPassword)
+                {
+                    result.IsSuccess = true;
+                    result.Traveler = traveler;
+                    result.StatusCode = 200;
+ 
+                }
+                else
+                {
+                    // Passwords don't match, handle the error accordingly
+                    // Example: DisplayErrorMessage("Incorrect password");  result.IsSuccess = false;
+                    result.IsSuccess = false;
+                    result.ErrorMessage = "Incorrect password";
+                    result.StatusCode = 401; // HTTP status code 401 (Unauthorized)
+                 
+                }
+            }
+            else
+            {
+                // User with the given NIC not found, handle the error accordingly
+                // Example: DisplayErrorMessage("User not found");
+                result.IsSuccess = false;
+                result.ErrorMessage = "User not found";
+                result.StatusCode = 404;
+                ;
+            }
+
+            return result;
         }
 
         /// <summary>
