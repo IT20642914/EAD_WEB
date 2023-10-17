@@ -77,6 +77,7 @@ namespace BookMySeat.Services
                 if (passWord == hashedPassword)
                 {
                     result.IsSuccess = true;
+                    result.Message = "Login SuccuseFully";
                     result.Traveler = traveler;
                     result.StatusCode = 200;
  
@@ -85,8 +86,8 @@ namespace BookMySeat.Services
                 {
                     // Passwords don't match, handle the error accordingly
                     // Example: DisplayErrorMessage("Incorrect password");  result.IsSuccess = false;
-                    result.IsSuccess = false;
-                    result.ErrorMessage = "Incorrect password";
+                    result.IsSuccess = true;
+                    result.Message = "Incorrect password";
                     result.StatusCode = 401; // HTTP status code 401 (Unauthorized)
                  
                 }
@@ -95,8 +96,8 @@ namespace BookMySeat.Services
             {
                 // User with the given NIC not found, handle the error accordingly
                 // Example: DisplayErrorMessage("User not found");
-                result.IsSuccess = false;
-                result.ErrorMessage = "User not found";
+                result.IsSuccess = true;
+                result.Message = "User not found";
                 result.StatusCode = 404;
                 ;
             }

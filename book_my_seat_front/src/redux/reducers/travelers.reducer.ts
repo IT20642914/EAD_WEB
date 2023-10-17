@@ -33,6 +33,17 @@ updateTravelerByID:{
   error: null,
   isLoading: false,
   status: null
+},
+LoginRequest:{
+  data: {
+    isSuccess: false,
+    message: "",
+    statusCode: 0,
+    traveler: null
+  },
+  error: null,
+  isLoading: false,
+  status: null
 }
 }
 const travelerReducer = (state = INITIAL_STATE, action: any) => {
@@ -259,6 +270,50 @@ const travelerReducer = (state = INITIAL_STATE, action: any) => {
                       data: null,
                     },
                   };
+                  case TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.REQUEST:
+                    return {
+                      ...state,
+                      LoginRequest: {
+                        ...state.LoginRequest,
+                        isLoading: true,
+                        status: APP_ACTION_STATUS.LOADING,
+                        error: null,
+                        data: null,
+                      },
+                    };
+                  case TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.SUCCESS:
+                    return {
+                      ...state,
+                      LoginRequest: {
+                        ...state.LoginRequest,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.SUCCESS,
+                        error: null,
+                        data: action.data,
+                      },
+                    };
+                  case TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.ERROR:
+                    return {
+                      ...state,
+                      LoginRequest: {
+                        ...state.LoginRequest,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.ERROR,
+                        error: action.error,
+                        data: null,
+                      },
+                    };
+                  case TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.CLEAR:
+                    return {
+                      ...state,
+                      LoginRequest: {
+                        ...state.LoginRequest,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.INITIAL,
+                        error: null,
+                        data: null,
+                      },
+                    };
           default:
             return state;
         }

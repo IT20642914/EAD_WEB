@@ -1,6 +1,6 @@
 
 import { COMMON_ACTION_TYPES, TRAVELER_ACTION_TYPES } from "../../utilities/constants"
-import { travelerDto } from "../../utilities/models/travellor.model"
+import { LoginDto, travelerDto } from "../../utilities/models/travellor.model"
 
 const getAllTravelers = () => {
     console.log("actionCalled")
@@ -59,6 +59,13 @@ const DeleteTravelerByIDClear = () => {
      
     }
 }
+const Login = (payload:LoginDto) => {
+    return {
+        type: TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.REQUEST,
+        payload: payload
+     
+    }
+}
 
 
 export const TravelersAction = {
@@ -70,7 +77,8 @@ export const TravelersAction = {
     addTravelersClear,
     travelerByIDClear,
     travelerUpdateByIDClear,
-    DeleteTravelerByIDClear
+    DeleteTravelerByIDClear,
+    Login,
     
 
 }

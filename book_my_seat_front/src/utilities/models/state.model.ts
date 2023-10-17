@@ -1,6 +1,6 @@
 import { AlertDto, StateObjectDto } from ".";
 import { station, traindetailsDto } from "./trains.model";
-import { travelerDto } from "./travellor.model";
+import { LoginResponseDto, travelerDto } from "./travellor.model";
 
 export interface AlertStateDto {
     notifications: AlertDto[];
@@ -14,6 +14,7 @@ export interface AlertStateDto {
     getTravelerByID:StateObjectDto<any>
     updateTravelerByID:StateObjectDto<any>
     deleteTravelerByID:StateObjectDto<any>
+    LoginRequest:StateObjectDto<LoginResponseDto>
   }
   export  interface TrainStateDto {
     getAllTrainList:StateObjectDto<any[]>
