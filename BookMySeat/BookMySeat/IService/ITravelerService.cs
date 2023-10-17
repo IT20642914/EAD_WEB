@@ -1,4 +1,5 @@
-﻿using BookMySeat.Models;
+﻿using BookMySeat.Dtos;
+using BookMySeat.Models;
 
 namespace BookMySeat.IService
 {
@@ -39,5 +40,8 @@ namespace BookMySeat.IService
         /// </summary>
         /// <param name="id">The unique identifier of the traveler to remove.</param>
         void Remove(string id);
+
+        LoginResult LoginByNic(string nic,string passWord);
+        
     }
 }

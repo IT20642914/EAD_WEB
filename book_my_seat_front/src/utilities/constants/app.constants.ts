@@ -43,9 +43,9 @@ export const ALERT_CONFIGS = {
     { id: 3, name: "Slow" },
   ];
   export const UserRoles = [
-    { roleId: 1, roleName: "user" },
-    { roleId: 2, roleName: "Travel Agent" },
-    { roleId: 3, roleName: "Back Office" },
+    { roleID: 1, roleName: "user" },
+    { roleID: 2, roleName: "Travel Agent" },
+    { roleID: 3, roleName: "Back Office" },
   ];
   
   export const Ticket_Counts = [

@@ -51,6 +51,8 @@ const TrainManagement = () => {
 useEffect(() => {
   dispatch(TrainAction.getAllTrainList())
   dispatch(TrainAction.addTrainDetailsClear())
+  dispatch(TrainAction.DeleteTrainByIdCler())
+  dispatch(TrainAction.trainEditeByidClear())
 }, [])
 
 useEffect(() => {

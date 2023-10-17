@@ -1210,19 +1210,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AvishkaChanaka\\.nuget\\packages\\": {}
+    "C:\\Users\\avishka\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\my-projects\\EAD_WEB\\BookMySeat\\BookMySeat\\BookMySeat.csproj",
+      "projectUniqueName": "C:\\4th year\\EAD_WEB\\BookMySeat\\BookMySeat\\BookMySeat.csproj",
       "projectName": "BookMySeat",
-      "projectPath": "D:\\my-projects\\EAD_WEB\\BookMySeat\\BookMySeat\\BookMySeat.csproj",
-      "packagesPath": "C:\\Users\\AvishkaChanaka\\.nuget\\packages\\",
-      "outputPath": "D:\\my-projects\\EAD_WEB\\BookMySeat\\BookMySeat\\obj\\",
+      "projectPath": "C:\\4th year\\EAD_WEB\\BookMySeat\\BookMySeat\\BookMySeat.csproj",
+      "packagesPath": "C:\\Users\\avishka\\.nuget\\packages\\",
+      "outputPath": "C:\\4th year\\EAD_WEB\\BookMySeat\\BookMySeat\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\AvishkaChanaka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\avishka\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1276,7 +1281,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\6.0.414\\RuntimeIdentifierGraph.json"
       }
     }
   }

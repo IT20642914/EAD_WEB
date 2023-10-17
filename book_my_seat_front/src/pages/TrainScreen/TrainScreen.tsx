@@ -13,6 +13,7 @@ import { StationAction } from '../../redux/action/station.Action';
 import { useDispatch, useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import { TrainAction } from '../../redux/action/train.Action';
+import { ToastContainer, toast } from 'react-toastify';
 const TrainScreen = () => {
   const TRAIN_INFORMATION_FORM_INITIAL_STATE: trainDetailsGridFormDto = {
     trainId: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
@@ -48,6 +49,7 @@ const TrainScreen = () => {
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
   const addTrainResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
   const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.getDetailsById);
+  const EditRequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.updatetrainDetailsByid);
 
   useEffect(() => {
 
@@ -55,6 +57,23 @@ const TrainScreen = () => {
    
   }, [])
 
+useEffect(() => {
+  if(EditRequestByIdResponse.status===APP_ACTION_STATUS.SUCCESS){
+    navigate(APP_ROUTES.TRAIN_MANAGEMENT)
+    toast.success('Update SuccusessFull', {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+      });
+    
+    }
+
+}, [EditRequestByIdResponse.status])
 
 
 
@@ -159,6 +178,11 @@ useEffect(() => {
                   value:Number(_data.thirdClassSeatCount),
                   readonly:_isDisable
                   },
+                  trainId:{
+                    ...TrainInfomationForm.trainId,
+                    value:_data.trainId,
+                    readonly:_isDisable
+                  }
                   
     })
    

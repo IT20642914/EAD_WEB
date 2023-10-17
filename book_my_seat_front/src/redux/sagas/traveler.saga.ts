@@ -5,7 +5,8 @@ import { TRAVELER_ACTION_TYPES, COMMON_ACTION_TYPES } from "../../utilities/cons
 import { StationService } from "../../services/station.service"
 import { travelerDto } from "../../utilities/models/travellor.model"
 import { travelerService } from "../../services/traveler.service"
-
+import { ToastContainer, toast } from 'react-toastify';
+import { Call } from "@mui/icons-material"
 function* getAllTravelers(action: { type: string,  }) {
     
     try {
@@ -44,6 +45,7 @@ function* getAllTravelers(action: { type: string,  }) {
         type: TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS,
         data: List.data
       })
+    
     } catch (error) {
       yield put({
         type: TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR,
@@ -59,6 +61,7 @@ function* getAllTravelers(action: { type: string,  }) {
         type: TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS,
         data: List.data
       })
+  
     } catch (error) {
       yield put({
         type: TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR,
@@ -69,15 +72,16 @@ function* getAllTravelers(action: { type: string,  }) {
   function* deleteTravelerByID(action: { type: string, payload:string }) {
   
     try {
-      const List: AxiosResponse<travelerDto> = yield call(travelerService.getTravelerByID,action.payload)
+      const List: AxiosResponse<travelerDto> = yield call(travelerService.DeleteTravelerByID,action.payload)
       yield put({
-        type: TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS,
+        type: TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.SUCCESS,
         data: List.data
       })
     } catch (error) {
       yield put({
-        type: TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR,
+        type: TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.ERROR,
         error: error
+        
       })
     }
   }
@@ -87,7 +91,7 @@ function* getAllTravelers(action: { type: string,  }) {
     yield takeEvery(TRAVELER_ACTION_TYPES.ADD_TRAVELER + COMMON_ACTION_TYPES.REQUEST, addTravelers)
     yield takeEvery(TRAVELER_ACTION_TYPES.GET_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST, getTravelerByID)
     yield takeEvery(TRAVELER_ACTION_TYPES.UPDATE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST, updateTravelerByID)
-    
+    yield takeEvery(TRAVELER_ACTION_TYPES.DELETE_TRAVELER_BY_ID + COMMON_ACTION_TYPES.REQUEST, deleteTravelerByID)
   }
   
   export default travelerSaga
