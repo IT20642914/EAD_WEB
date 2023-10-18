@@ -7,11 +7,12 @@ import { useNavigate } from 'react-router-dom'
 import { DetailedInformationTicket, GeneralInformationTicket } from '../../components/TicketReservationManagementScreen'
 import { CustomButton } from '../../components/Shared'
 import { ALERT_ACTION_TYPES, APP_ACTION_STATUS, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TRAIN_SCREEN_MODES, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
-import { SeatNumber, TainlistDto, schedule, station, trainDetailsDto } from '../../utilities/models/trains.model'
+import { SeatNumber, TainlistDto, getAvilibleTrainDto, getAvilibleTrainParamDto, schedule, station, trainDetailsDto, trainDetailsGridDto } from '../../utilities/models/trains.model'
 import { alertActions } from '../../redux/action/alert.action'
 import { useDispatch, useSelector } from 'react-redux'
 import { StationAction } from '../../redux/action/station.Action'
 import { validateFormData } from '../../utilities/helpers'
+import { TrainAction } from '../../redux/action/train.Action'
 
 const TicketReservationManagementScreen = () => {
 
@@ -41,14 +42,15 @@ const TicketReservationManagementScreen = () => {
   const [TrainDetails, setTrainDetails] = useState<trainDetailsDto[]>(TrainDataset);
   
   const [Shedules, setShedules] = useState<schedule[]>([]);
-  const [ShedulesUnchange, setShedulesUnchange] = useState<schedule[]>([]);
+
   const [TrainList, setTrainList] = useState<TainlistDto[]>([]);
   const [SeatData, setSeatData] = useState<SeatNumber[]>(SeatList);
   const [SelectedSeatLis, setSelectedSeatLis] = useState<SeatNumber[]>([]);
-
+  const [avilibletrains, setavilibletrains] = useState<getAvilibleTrainDto[]>([])
   const [Stations, setStations] = useState<station[]>([]);
   
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
+  const AvilibleTrainsResponse = useSelector((state: ApplicationStateDto) => state.train.getAvilibletrains);
 
   useEffect(() => {
     dispatch(StationAction.getAllStations());
@@ -61,15 +63,29 @@ if(StationList.status===APP_ACTION_STATUS.SUCCESS){
 }
 }, [StationList.status])
 
+useEffect(() => {
+ const payload:getAvilibleTrainParamDto={
+   departueStationId:TicketInfomationForm.depatureFrom?.value?.value?.toString(),
+   arriveStationId: TicketInfomationForm.arriveTo?.value?.value?.toString()
+ }
+  dispatch(TrainAction.getAvilibleTrain(payload));
+
+}, [TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value])
+
+
+ 
 
   useEffect(() => {
-    const trainList:TainlistDto[] = TrainDetails.map((train:trainDetailsDto) => ({
-      id: train.id,
-      name: train.name,
-    }));
-    setTrainList(trainList)
-  }, [])
-  
+if(AvilibleTrainsResponse.status===APP_ACTION_STATUS.SUCCESS){
+  setavilibletrains(AvilibleTrainsResponse.data)
+  const trainList= AvilibleTrainsResponse.data.map(train => ({
+    id:train.trainId,
+    name: train.trainName,
+  }));
+  setTrainList(trainList)
+}
+
+  },[AvilibleTrainsResponse.status])
 
   useEffect(() => {
 
@@ -127,22 +143,28 @@ if(value){
 
 // Details Section
 if(property==="trainName"){ 
+ console.log("value",value)
+  const selectedTrain=  avilibletrains.filter(tr => tr.trainId===value.value)
+  console.log("avilibletrains",avilibletrains)
+  if (selectedTrain.length > 0 && selectedTrain[0].trainShedule) {
+   // Access the trainShedule property
+   const schedule = selectedTrain[0].trainShedule;
+   console.log(schedule,"scheduleschedule")
+   setShedules(schedule)
+   // Now you can use the 'schedule' data
+ } else {
+   // Handle the case when 'selectedTrain' or 'trainShedule' is undefined
+ }
   setTicketInfomationForm({...TicketInfomationForm,
   trainName:{...TicketInfomationForm.trainName,
             value:value },
-            arriveTo:{...TicketInfomationForm.arriveTo,
-              disable:false
-            },
-            depatureFrom:{...TicketInfomationForm.depatureFrom,
-              disable:false
-            }
+          
+         
   })
 
  
 }
 if(property==="depatureFrom"){
-;
-  const shedules=Shedules.filter((item:schedule) => item.stationId === value.value)
 
   setTicketInfomationForm({...TicketInfomationForm,
   depatureFrom:{...TicketInfomationForm.depatureFrom,
@@ -151,7 +173,7 @@ if(property==="depatureFrom"){
   })
   
 
-  setShedules(shedules)
+
 }
 if(property==="arriveTo"){
   if(value.value!==TicketInfomationForm.depatureFrom.value.value){
@@ -188,14 +210,25 @@ if(property==="arriveTo"){
 }
 
 if(property==="depatureTime"){
-  const arriveTime=ShedulesUnchange.filter((item:schedule) => (item.stationId === value.value)&&(item.arrivalAt === value.label))
-  setTicketInfomationForm({...TicketInfomationForm,
-  depatureTime:{...TicketInfomationForm.depatureTime,
-            value:value },
-            arriveTime:{...TicketInfomationForm.arriveTime,
-            value:arriveTime[0].arrivalAt}
-
-  })
+  console.log("Shedules" ,value)
+  const arriveTime = Shedules.filter((item: schedule) => (item.stationId === value.value) );
+console.log("arriveTime",arriveTime)
+if (arriveTime.length > 0) {
+  setTicketInfomationForm({
+    ...TicketInfomationForm,
+    depatureTime: {
+      ...TicketInfomationForm.depatureTime,
+      value: value
+    },
+    arriveTime: {
+      ...TicketInfomationForm.arriveTime,
+      value: arriveTime[0].arrivalAt
+    }
+  });
+} else {
+  // Handle the case where no matching 'arriveTime' is found in 'Shedules'.
+  // You may want to set a default value or display an error message.
+}
 }
 if(property==="seatNumbers"){
   console.log("seatNumbers",value)
@@ -225,6 +258,10 @@ if(property==="seatNumbers"){
     })
   }
   if(property==="trainName"){
+
+   
+
+
     setTicketInfomationForm({...TicketInfomationForm,
     trainName:{...TicketInfomationForm.trainName,
               value:{}as OptionsDto }
@@ -311,8 +348,8 @@ const removeFrometable=(id:number) =>{
 }
 
 const calculateTicketPrice = (departureFrom:OptionsDto,arriveTo:OptionsDto) => {
-  const distanceA= ShedulesUnchange.filter(shedules=>shedules.stationId==departureFrom.value)
-  const distanceB= ShedulesUnchange.filter(shedules=>shedules.stationId==arriveTo.value)
+  const distanceA= Shedules.filter(shedules=>shedules.stationId==departureFrom.value)
+  const distanceB= Shedules.filter(shedules=>shedules.stationId==arriveTo.value)
 
   let difference = 0;
 
@@ -364,6 +401,7 @@ const ticketPrice =( basePrice + difference * ratePerKM)*ticketCount;
            />
             
            <DetailedInformationTicket
+           
             SelectedSeatLis={SelectedSeatLis}
             SeatData={SeatData}
             Shedules={Shedules}

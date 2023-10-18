@@ -11,9 +11,10 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const DetailedInformationTicket: React.FC<{
+ 
     SelectedSeatLis:SeatNumber[]
 SeatData:SeatNumber[]
-Shedules:schedule[];
+  Shedules:schedule[];
   stationList: station[];
   TrainList: TainlistDto[];
   helperText: boolean;

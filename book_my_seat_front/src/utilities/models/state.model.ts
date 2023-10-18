@@ -1,5 +1,5 @@
 import { AlertDto, StateObjectDto, TicketReservationDetailsDto } from ".";
-import { station, traindetailsDto } from "./trains.model";
+import { getAvilibleTrainDto, station, traindetailsDto } from "./trains.model";
 import { LoginResponseDto, travelerDto } from "./travellor.model";
 
 export interface AlertStateDto {
@@ -25,6 +25,7 @@ export interface AlertStateDto {
     getDetailsById:StateObjectDto<any>
     updatetrainDetailsByid:StateObjectDto<any>
     deleteTrainDetailsByid:StateObjectDto<any>
+    getAvilibletrains:StateObjectDto<getAvilibleTrainDto[]>
   }
 export interface ApplicationStateDto {
     alert: AlertStateDto;

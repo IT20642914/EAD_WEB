@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios"
 import { axiosPrivateInstance, axiosPublicInstance } from "."
-import { traindetailsDto } from "../utilities/models/trains.model"
+import { getAvilibleTrainParamDto, traindetailsDto } from "../utilities/models/trains.model"
 
 
 const addTrainDetails = (payload:traindetailsDto):  Promise<AxiosResponse<any[]>> => {
@@ -18,10 +18,14 @@ const updatetrainDetailsByid = (payload:traindetailsDto):  Promise<AxiosResponse
 const deletetrainDetailsByid = (payload:string):  Promise<AxiosResponse<traindetailsDto>> => {   
      return axiosPrivateInstance.delete(`api/Train/DeleteById?id=${payload}`);
 }
+const getAvilibleTrains = (payload:getAvilibleTrainParamDto):  Promise<AxiosResponse<traindetailsDto>> => {   
+    return axiosPrivateInstance.get(`/api/Train/GetAvilibleTrainList?departueStationId=${payload.departueStationId}&arriveStationId=${payload.arriveStationId}`);
+}
 export const trainService = {
     addTrainDetails,
     getAllTrainDetails,
     getTrainDetailsById,
     updatetrainDetailsByid,
-    deletetrainDetailsByid
+    deletetrainDetailsByid,
+    getAvilibleTrains
 }

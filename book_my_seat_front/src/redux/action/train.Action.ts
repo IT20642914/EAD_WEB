@@ -1,5 +1,5 @@
 import { COMMON_ACTION_TYPES, TRAIN_ACTION_TYPES } from "../../utilities/constants"
-import { traindetailsDto } from "../../utilities/models/trains.model"
+import { getAvilibleTrainParamDto, traindetailsDto } from "../../utilities/models/trains.model"
 
 const getAllTrainList = () => {
     return {
@@ -65,6 +65,13 @@ const trainEditeByidClear = () => {
    
     }
 }
+const getAvilibleTrain = (payload:getAvilibleTrainParamDto) => {
+    return {
+        type: TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload
+   
+    }
+}
 export const TrainAction = {
     getAllTrainList,
     addTrainDetails,
@@ -76,5 +83,6 @@ export const TrainAction = {
     UpdateTainByID,
     DeleteTrainByIdCler,
     trainEditeByidClear,
+    getAvilibleTrain,
 
 }
