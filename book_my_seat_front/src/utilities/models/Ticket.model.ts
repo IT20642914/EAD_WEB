@@ -1,10 +1,11 @@
 import { Dayjs } from "dayjs";
 import { FormFieldDto, OptionsDto } from ".";
+import { station } from "./trains.model";
 
 export interface TicketReservationDetailsDto{
-    referenceID: string;
+    referenceID: string[];
     reservationID: string;
-    TicketType:string;
+    TicketType:TicketType;
     ReservedPesonName:string;
     ReserverNationalID:string;
     ticketIDs: string[];
@@ -16,7 +17,28 @@ export interface TicketReservationDetailsDto{
     arriveDateAndTime:string
     arriveTo: string;
     totalPrice: number
+} 
+export interface TicketReservationDetailsParmDto{
+    ticketCount:number,
+    totalPrice:number, 
+    ReservedPesonName:string,
+    ReserverNationalID:string,
+    depatureFrom:station,
+    depatureDate:string,
+    depatureTime: string
+    arriveTime:string
+    arriveTo:station, 
+    trainName:string
+    TicketType:TicketType,
+    arriveDistance:number
+    dipatureDistance:number
 }
+
+ export interface  TicketType{
+    ticketTypeID:string;
+    ticketTypeName:string;
+    
+ }
 
 export interface TicketReservationDetailsFormDto{
     ticketCount:FormFieldDto<OptionsDto>,
@@ -36,8 +58,6 @@ export interface TicketReservationDetailsFormDto{
 }
 export interface TicketReservationTableDto{
     seatNumber:string,
-    
-
 }
 
 

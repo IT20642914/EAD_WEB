@@ -3,7 +3,7 @@ import { COMMON_ACTION_TYPES, TRAVELER_ACTION_TYPES } from "../../utilities/cons
 import { LoginDto, travelerDto } from "../../utilities/models/travellor.model"
 
 const getAllTravelers = () => {
-    console.log("actionCalled")
+
     return {
 
         type: TRAVELER_ACTION_TYPES.GET_ALL_TRAVELER_LIST + COMMON_ACTION_TYPES.REQUEST,

@@ -84,5 +84,17 @@ namespace BookMySeat.Controllers
             trainService.Remove(id);
             return NoContent();
         }
+        [HttpGet("GetAvilibleTrainList")]
+        public ActionResult<List<Train>> getAvilibleTrainList(string departueStationId,string arriveStationId)
+        {
+            var existingTrains = trainService.GetAvilibaleTrains(departueStationId, arriveStationId);
+
+            if (existingTrains == null)
+            {
+                return NotFound($"Trains  not found");
+            }
+      
+            return existingTrains;
+        }
     }
 }

@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react'
 import style from './TicketReservationManagementScreen.module.scss'
 import { Typography } from '@mui/material'
 import { AppLayout } from '../../templates'
-import { AlertDto, ApplicationStateDto, OptionsDto, TicketReservationDetailsFormDto } from '../../utilities/models'
+import { AlertDto, ApplicationStateDto, OptionsDto, TicketReservationDetailsDto, TicketReservationDetailsFormDto, TicketReservationDetailsParmDto,  } from '../../utilities/models'
 import { useNavigate } from 'react-router-dom'
 import { DetailedInformationTicket, GeneralInformationTicket } from '../../components/TicketReservationManagementScreen'
 import { CustomButton } from '../../components/Shared'
-import { ALERT_ACTION_TYPES, APP_ACTION_STATUS, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
+import { ALERT_ACTION_TYPES, APP_ACTION_STATUS, APP_ROUTES, COMMON_ACTION_TYPES, SeatList, TRAIN_SCREEN_MODES, TrainDataset, Train_Ticket_Classes } from '../../utilities/constants'
 import { SeatNumber, TainlistDto, schedule, station, trainDetailsDto } from '../../utilities/models/trains.model'
 import { alertActions } from '../../redux/action/alert.action'
 import { useDispatch, useSelector } from 'react-redux'
 import { StationAction } from '../../redux/action/station.Action'
+import { validateFormData } from '../../utilities/helpers'
 
 const TicketReservationManagementScreen = () => {
 
@@ -261,7 +262,39 @@ if(property==="seatNumbers"){
 }
 
 
-const  createNewRequest=() => {
+const  createNewRequest=async () => {
+  const [validateData, isValid] = await validateFormData(TicketInfomationForm);
+  setTicketInfomationForm(validateData);
+  if (isValid) {
+
+
+const payload:TicketReservationDetailsParmDto={
+  ticketCount: Number(TicketInfomationForm.ticketCount.value.value),
+  totalPrice: TicketInfomationForm.totalPrice.value,
+  ReservedPesonName: TicketInfomationForm.ReservedPesonName.value,
+  ReserverNationalID: TicketInfomationForm.ReserverNationalID.value,
+  depatureFrom: {
+    stationId:TicketInfomationForm.depatureFrom.value.value.toString(),
+    stationName:TicketInfomationForm.depatureFrom.value.label,
+  },
+  depatureDate: TicketInfomationForm.depatureDate.value.value.toString(),
+  depatureTime: TicketInfomationForm.depatureTime.value.value.toString(),
+  arriveTime: TicketInfomationForm.arriveTime.value,
+  arriveTo: { 
+    stationId:TicketInfomationForm.arriveTo.value.value.toString(),
+  stationName:TicketInfomationForm.arriveTo.value.label,},
+  trainName: TicketInfomationForm.trainName.value.label,
+  TicketType: {
+    ticketTypeID:TicketInfomationForm.TicketType.value.value.toString(),
+    ticketTypeName:TicketInfomationForm.TicketType.value.label,
+  },
+  arriveDistance:TicketInfomationForm.arriveDistance.value,
+  dipatureDistance: TicketInfomationForm.dipatureDistance.value
+}
+
+
+
+  }
     
 }
 const  editRequest=() => {
@@ -353,9 +386,10 @@ const ticketPrice =( basePrice + difference * ratePerKM)*ticketCount;
                   bgColor="#bfbfbf"
                   onClick={onClose}
                 />
-                
+                 {screenMode !== TRAIN_SCREEN_MODES.VIEW && (
                   <>
-            
+              {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.CREATE && (
                         <>
                           <CustomButton
                             text="Clear"
@@ -373,18 +407,19 @@ const ticketPrice =( basePrice + difference * ratePerKM)*ticketCount;
                             onClick={() => createNewRequest()}
                           />
                         </>
-                 
+                 )}
                 
-                    
+                {sessionStorage.getItem("Mode") ===
+                      TRAIN_SCREEN_MODES.EDIT && (
                         <CustomButton
                           text="Edit Booking"
                           disabled={false}
                           isLoading={false}
                           onClick={editRequest}
                         />
-                    
+                        )}
                   </>
-            
+              )}
               </section>
          </section>
          

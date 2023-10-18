@@ -1,4 +1,4 @@
-import { AlertDto, StateObjectDto } from ".";
+import { AlertDto, StateObjectDto, TicketReservationDetailsDto } from ".";
 import { station, traindetailsDto } from "./trains.model";
 import { LoginResponseDto, travelerDto } from "./travellor.model";
 
@@ -7,6 +7,9 @@ export interface AlertStateDto {
   }
   export  interface StationStateDto {
     getAllStation:StateObjectDto<station[]>
+  }
+  export  interface TicketStateDto {
+    getAllBookings:StateObjectDto<TicketReservationDetailsDto[]>
   }
   export  interface TravelerStateDto {
     getAllTravelers:StateObjectDto<travelerDto[]>
@@ -28,4 +31,5 @@ export interface ApplicationStateDto {
     station:StationStateDto,
     train:TrainStateDto,
     traveler:TravelerStateDto
+    ticket:TicketStateDto
   }

@@ -170,7 +170,7 @@ Shedules:schedule[];
   onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('totalPrice', event.target.value)}
 />
   </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
             label="Seat Numbers"
@@ -197,9 +197,9 @@ Shedules:schedule[];
           />
         </Grid>
         <Grid item xs={12} md={12}>
-        </Grid>
-      </Grid>
-      <section>
+        </Grid>*/}
+      </Grid> 
+      {/* <section>
         <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -244,7 +244,7 @@ Shedules:schedule[];
                 }
               </Table>
             </TableContainer>
-          </section>
+          </section> */}
     </Stepper>
   );
 };

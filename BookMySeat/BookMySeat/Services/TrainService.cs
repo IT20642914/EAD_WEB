@@ -2,6 +2,7 @@
 using BookMySeat.Models;
 using MongoDB.Driver;
 using static System.Collections.Specialized.BitVector32;
+using System.Linq;
 
 namespace BookMySeat.Services
 {
@@ -66,6 +67,31 @@ namespace BookMySeat.Services
         public void Update(string id, Train train)
         {
             _train.ReplaceOne(train => train.TrainId == id, train);
+        }
+
+
+
+
+        public List<Train> GetAvilibaleTrains(string departueStationId, string arriveStationId)
+        {
+            var allTrains = GetTrainList();
+
+            // Filter the list of trains based on their schedules
+            var availableTrains = allTrains.Where(train =>
+            {
+                var schedule = train.TrainShedule;
+                if (schedule != null && schedule.Any())
+                {
+                    var departureStationFound = schedule.Any(s => s.StationId == departueStationId);
+                    var arriveStationFound = schedule.Any(s => s.StationId == arriveStationId);
+
+                    return departureStationFound || arriveStationFound;
+                }
+
+                return false;
+            }).ToList();
+
+            return availableTrains;
         }
     }
 }

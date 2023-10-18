@@ -1,6 +1,6 @@
 import { Box, IconButton, Paper, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from '@mui/material';
 import React from 'react'
-import { APP_ROUTES, APP_TABLE_CONFIGS } from '../../../utilities/constants';
+import { APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES } from '../../../utilities/constants';
 import { SortMetaDto, TicketReservationDetailsDto } from '../../../utilities/models';
 import style from './TicketReservationManagementGrid.module.scss'
 import { StyledTableCell, StyledSwitch } from '../../../assets/theme/theme';
@@ -43,7 +43,8 @@ const TicketReservationManagementGrid:React.FC<{
         {props.isFiltered &&
           <CustomButton text='Clear filter' textColor='black' bgColor='#bfbfbf' onClick={props.onClearFilter} />
         }
-        <CustomButton text='Book Tickets' onClick={() => navigate(APP_ROUTES.BOOK_TICKET)} />
+        <CustomButton text='Book Tickets' onClick={() => { sessionStorage.setItem("Mode",TRAIN_SCREEN_MODES.CREATE);
+        sessionStorage.setItem("id", ""); navigate(APP_ROUTES.BOOK_TICKET)}} />
       </div>
     </div>
 
@@ -78,7 +79,7 @@ const TicketReservationManagementGrid:React.FC<{
                    <StyledTableCell >{req.ReserverNationalID  }</StyledTableCell>
                    <StyledTableCell >{req.ReservedPesonName}</StyledTableCell>
                    <StyledTableCell >{req.trainName}</StyledTableCell>
-                   <StyledTableCell >{req.TicketType}</StyledTableCell>
+                   <StyledTableCell >{req.TicketType.ticketTypeName}</StyledTableCell>
                    <StyledTableCell >{req.depatureFrom}</StyledTableCell>
                    <StyledTableCell >{req.depatureFromDateandTime}</StyledTableCell>           
                    <StyledTableCell >{req.arriveTo}</StyledTableCell>

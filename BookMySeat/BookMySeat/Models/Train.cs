@@ -8,6 +8,8 @@ namespace BookMySeat.Models
     [BsonIgnoreExtraElements]
     public class Train
     {
+       
+
         /// <summary>
         /// Gets or sets the unique identifier for the train.
         /// </summary>

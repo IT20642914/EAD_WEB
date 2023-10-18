@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import { Grid } from '@mui/material'
 import BudgetGraph from '../../components/Shared/RequestBudgetGraph/BudgetGraph'
@@ -6,11 +6,12 @@ import TicketSummaryChart from '../../components/TicketSummaryChart/TicketSummar
 import { TicketReservationManagementGrid } from '../../components/TicketReservationManagement'
 import dayjs from 'dayjs'
 import moment from 'moment'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_TABLE_CONFIGS, ticketReservations } from '../../utilities/constants'
-import { SortMetaDto, TicketReservationDetailsDto } from '../../utilities/models'
+import { APP_ACTION_STATUS, APP_TABLE_CONFIGS, } from '../../utilities/constants'
+import { ApplicationStateDto, SortMetaDto, TicketReservationDetailsDto } from '../../utilities/models'
 import { travelerDto } from '../../utilities/models/travellor.model'
+import { TicketAction } from '../../redux/action/ticket.action'
 
 const TicketReservationManagement = () => {
   const INITIAL_SORT_META: SortMetaDto = {
@@ -22,9 +23,27 @@ const TicketReservationManagement = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-  const [filteredList, setFilteredList] = useState<TicketReservationDetailsDto  []>(ticketReservations)
+  const [filteredList, setFilteredList] = useState<TicketReservationDetailsDto  []>([])
   const [isFiltered, setIsFiltered] = useState(false)
   
+  const GetBookingDetails = useSelector((state: ApplicationStateDto) => state.ticket.getAllBookings);
+
+   useEffect(() => {
+ getInitialData()
+   }, [])
+   
+
+const getInitialData=() =>{
+  dispatch(TicketAction.getAllBookingDetails())
+  }
+
+useEffect(() => {
+ 
+  if(GetBookingDetails.status===APP_ACTION_STATUS.SUCCESS){
+    setFilteredList(GetBookingDetails.data)
+  }
+}, [GetBookingDetails.status])
+
 
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -69,7 +88,7 @@ const TicketReservationManagement = () => {
 
   const onFilterHandle = (col: string, value: any) => {
     setIsFiltered(true)
-    const filtered = ticketReservations.filter((item) => {
+    const filtered = filteredList.filter((item) => {
       const _value = (item as any)[col];
       if (typeof _value === "boolean") {
         return _value ? value === "Yes" : value === "No";
@@ -96,7 +115,7 @@ const TicketReservationManagement = () => {
   };
   const getFilterList = (col: string): string[] => {
     if (true)
-      return ticketReservations
+      return filteredList
         .map((item) => {
           const value = (item as any)[col];
           if (typeof value === "boolean") {
@@ -115,7 +134,7 @@ const TicketReservationManagement = () => {
   }
   const onClearFilter = () => {
     setIsFiltered(false)
-    setFilteredList(ticketReservations)
+    setFilteredList(filteredList)
   }
 
 
@@ -133,7 +152,7 @@ const TicketReservationManagement = () => {
      </Grid>
      </Grid>
 
-     <TicketReservationManagementGrid 
+  <TicketReservationManagementGrid 
     page={page}
     rowsPerPage={rowsPerPage}
     onHandleChangePage={handleChangePage}
@@ -147,10 +166,6 @@ const TicketReservationManagement = () => {
     navigateTo={navigteTORequestScreen}
     onClearFilter={onClearFilter}
     isFiltered={isFiltered}
-          
-          
-          
-          
           />
 
       </section>

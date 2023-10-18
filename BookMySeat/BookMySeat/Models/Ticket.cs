@@ -94,5 +94,6 @@ namespace BookMySeat.Models
         /// </summary>
         [BsonElement("totalPrice")]
         public int TotalPrice { get; set; }
+
     }
 }
