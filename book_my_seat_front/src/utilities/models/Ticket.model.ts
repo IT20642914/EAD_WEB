@@ -11,6 +11,7 @@ export interface TicketReservationDetailsDto{
     ticketIDs: string[];
     ticketCount: number;
     seatNumbers:string[];
+    isActive:boolean;
     trainName: string;
     departureTime:string;
     departureDate:string;

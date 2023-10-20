@@ -22,8 +22,32 @@ const addBookingsClear = () => {
        
     }
 }
+const updateBookings = (payload:TicketReservationDetailsParmDto) => {
+    return {
+        type: TICKET_ACTION_TYPES.UPDATE_BOOKING + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload,
+       
+    }
+}
+const cancleBookings = (payload:string) => {
+    return {
+        type: TICKET_ACTION_TYPES.CANCLE_BOOKING + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload,
+       
+    }
+}
+const GetBookingDetailsByID = (payload:string) => {
+    return {
+        type: TICKET_ACTION_TYPES.GET_BOOKING_DETAILS_BY_ID + COMMON_ACTION_TYPES.REQUEST,
+        payload:payload,
+       
+    }
+}
 export const TicketAction = {
     getAllBookingDetails,
     addBookings,
-    addBookingsClear
+    addBookingsClear,
+    GetBookingDetailsByID,
+    updateBookings,
+    cancleBookings
 }

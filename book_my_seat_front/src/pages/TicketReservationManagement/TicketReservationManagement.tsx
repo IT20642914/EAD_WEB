@@ -8,10 +8,11 @@ import dayjs from 'dayjs'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { APP_ACTION_STATUS, APP_TABLE_CONFIGS, } from '../../utilities/constants'
+import { APP_ACTION_STATUS, APP_ROUTES, APP_TABLE_CONFIGS, TRAIN_SCREEN_MODES, } from '../../utilities/constants'
 import { ApplicationStateDto, SortMetaDto, TicketReservationDetailsDto } from '../../utilities/models'
 import { travelerDto } from '../../utilities/models/travellor.model'
 import { TicketAction } from '../../redux/action/ticket.action'
+import ConfirmationDialog from '../../components/Shared/ConfirmationDialog/ConfirmationDialog'
 
 const TicketReservationManagement = () => {
   const INITIAL_SORT_META: SortMetaDto = {
@@ -25,7 +26,7 @@ const TicketReservationManagement = () => {
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
   const [filteredList, setFilteredList] = useState<TicketReservationDetailsDto  []>([])
   const [isFiltered, setIsFiltered] = useState(false)
-  
+  const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
   const GetBookingDetails = useSelector((state: ApplicationStateDto) => state.ticket.getAllBookings);
 
    useEffect(() => {
@@ -138,7 +139,26 @@ useEffect(() => {
     setFilteredList(filteredList)
   }
 
-
+  const handleAction =(id:string,type:string)=>{
+    if(type===TRAIN_SCREEN_MODES.DELETE){
+      sessionStorage.setItem("id", id)
+      setisOpenConfirmationDialog(true)
+    }else{
+      sessionStorage.setItem("Mode",type);
+      sessionStorage.setItem("id", id);
+      navigate(APP_ROUTES.BOOK_TICKET)
+    }
+  }
+  
+  const handeCancle = (con: boolean) => {
+    if(con){
+      const _id = sessionStorage.getItem("id");
+      if(_id){
+        dispatch(TicketAction.cancleBookings(_id));
+      }
+    }
+    setisOpenConfirmationDialog(false)
+  };
   return (
     <React.Fragment>
     <AppLayout componentTitle="Traveler Management">
@@ -167,8 +187,14 @@ useEffect(() => {
     navigateTo={navigteTORequestScreen}
     onClearFilter={onClearFilter}
     isFiltered={isFiltered}
+    handleAction={handleAction}
           />
-
+<ConfirmationDialog
+       isOpenConfirmationDialog={isOpenConfirmationDialog}
+       onCallback={handeCancle}
+       title="Cancele Booking"
+       content="Do you want to Cancel this Booking ?"
+        />
       </section>
     </AppLayout>
   </React.Fragment>

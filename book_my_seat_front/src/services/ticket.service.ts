@@ -9,10 +9,13 @@ const getAllBookingDetails = ():  Promise<AxiosResponse<any[]>> => {
 const createBooking = (payload:TicketReservationDetailsParmDto):  Promise<AxiosResponse<any[]>> => {
     return axiosPrivateInstance.post(`/api/Ticket`,payload);
 }
-
+const getAllBookingDetailsByid = (payload:string):  Promise<AxiosResponse<any[]>> => {
+    return axiosPrivateInstance.post(`/api/Ticket`,payload);
+}
 
 
 export const ticketService = {
     getAllBookingDetails,
-    createBooking
+    createBooking,
+    getAllBookingDetailsByid
 }

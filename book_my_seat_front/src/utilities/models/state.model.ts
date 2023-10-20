@@ -11,6 +11,9 @@ export interface AlertStateDto {
   export  interface TicketStateDto {
     getAllBookings:StateObjectDto<TicketReservationDetailsDto[]>
     createBooking:StateObjectDto<any>
+    getBookingDetails:StateObjectDto<TicketReservationDetailsDto>
+    updateBooking:StateObjectDto<any>
+    CanceleBooking:StateObjectDto<any>
   }
   export  interface TravelerStateDto {
     getAllTravelers:StateObjectDto<travelerDto[]>

@@ -7,10 +7,12 @@ import { StyledTableCell, StyledSwitch } from '../../../assets/theme/theme';
 import { travelerDto } from '../../../utilities/models/travellor.model';
 import { CustomButton, CustomHeaderCell, AppSkeleton } from '../../Shared';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import CancelIcon from '@mui/icons-material/Cancel';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { EditOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 const TicketReservationManagementGrid:React.FC<{
+    handleAction(id:string,type:string):void
     page: number,
     rowsPerPage: number,
     isFiltered: boolean,
@@ -56,6 +58,7 @@ const TicketReservationManagementGrid:React.FC<{
             <CustomHeaderCell width={220} id='referenceID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Reference ID</CustomHeaderCell>
             <CustomHeaderCell width={220} id='ReserverNationalID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Reserved  Persons National Identity Card</CustomHeaderCell>
             <CustomHeaderCell width={180} id='ReservedPesonName' sortable onSort={props.onSortHandle} >Reserved Peson Name</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='isActive' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Is Active</CustomHeaderCell>
             <CustomHeaderCell width={180} id='trainName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Train Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='TicketType' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Ticket Type</CustomHeaderCell>
             <CustomHeaderCell width={300} id='depatureFrom' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Depature From</CustomHeaderCell>
@@ -79,6 +82,13 @@ const TicketReservationManagementGrid:React.FC<{
                    <StyledTableCell >{req.referenceID  }</StyledTableCell>
                    <StyledTableCell >{req.reserverNationalID  }</StyledTableCell>
                    <StyledTableCell >{req.reservedPersonName}</StyledTableCell>
+                   <StyledTableCell >{
+                    <StyledSwitch
+                    checked={req.isActive}
+                    disabled={false}
+                    onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
+                   
+                  }</StyledTableCell>
                    <StyledTableCell >{req.trainName}</StyledTableCell>
                    <StyledTableCell >{req.ticketType.ticketTypeName}</StyledTableCell>
                    <StyledTableCell >{req.departureFrom.stationName}</StyledTableCell>
@@ -93,23 +103,23 @@ const TicketReservationManagementGrid:React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {" props.navigateTo(DRIVER_SCREEN_MODES.VIEW, item.id)" }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { "props.navigateTo(DRIVER_SCREEN_MODES.EDIT, item.id)" }}>
+                        <IconButton size='small' onClick={() => { props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {"props.onSelectDriverForRemove(item.id)"}}>
-                          <Tooltip title="Delete">
-                            <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+                        <IconButton size='small' onClick={() => {props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
+                          <Tooltip title="Cancle">
+                            <CancelIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>

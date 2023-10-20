@@ -161,7 +161,7 @@ useEffect(() => {
       }
       const onClearFilter = () => {
         setIsFiltered(false)
-        setFilteredList(filteredList)
+        setFilteredList(GetTrainResponse.data)
       }
 /////////////////////////
 const handleChangePage2 = (event: unknown, newPage: number) => {
@@ -205,7 +205,7 @@ const onSortHandle2 = (col: string) => {
 };
 
 const onFilterHandle2 = (col: string, value: any) => {
-  setIsFiltered(true)
+  setIsFiltered2(true)
   const filtered = filteredList2.filter((item) => {
     const _value = (item as any)[col];
     if (typeof _value === "boolean") {
@@ -252,15 +252,13 @@ const navigteTORequestScreen2 = (mode: string, id: string) => {
 }
 const onClearFilter2 = () => {
   setIsFiltered2(false)
-  setFilteredList2(filteredList2)
+  setFilteredList2(GetTrainResponse.data)
 }
 
 const handleView=(property: string, value:number)=>{
 console.log("property",property,value)
 if(property==="schedule"){
 
-  console.log("filteredList2[value].schedule",filteredList2[value].trainShedule)
-  
   setShedule(filteredList2[value].trainShedule)
   setisOpenViewShedulePopup(true)
 }else{

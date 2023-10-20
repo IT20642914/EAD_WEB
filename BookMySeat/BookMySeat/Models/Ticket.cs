@@ -101,6 +101,12 @@ namespace BookMySeat.Models
         [BsonElement("arriveDistance")]
         public float ArriveDistance { get; set; } = 0;
 
+        /// <summary>
+        /// arriveDistance from the station.
+        /// </summary>
+        [BsonElement("isActive")]
+        public Boolean IsActive { get; set; } = true;
+
 
     }
 }
