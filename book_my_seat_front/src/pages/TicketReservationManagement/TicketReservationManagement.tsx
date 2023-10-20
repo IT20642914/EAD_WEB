@@ -35,6 +35,7 @@ const TicketReservationManagement = () => {
 
 const getInitialData=() =>{
   dispatch(TicketAction.getAllBookingDetails())
+  dispatch(TicketAction.addBookingsClear())
   }
 
 useEffect(() => {

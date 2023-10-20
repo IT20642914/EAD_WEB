@@ -44,8 +44,8 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
     if(LoginResponse.status===APP_ACTION_STATUS.SUCCESS){
      console.log("LoginResponse.data.StatusCode",LoginResponse.data.statusCode)
       if(LoginResponse.data.statusCode===200){
-   
-
+   localStorage.setItem("nic",LoginResponse.data.traveler?.nicNumber||'')
+   localStorage.setItem("name",LoginResponse.data.traveler?.firstName||'')     
   if(LoginResponse.data.traveler?.roleType.roleID===3){
 
   toast.success(`${LoginResponse.data.message} as Back Office`, {

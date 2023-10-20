@@ -8,6 +8,12 @@ const INITIAL_STATE: TicketStateDto = {
      error: null,
      isLoading: false,
      status: null
+    },
+    createBooking:{
+      data: [],
+     error: null,
+     isLoading: false,
+     status: null
     }
  }
 
@@ -53,6 +59,50 @@ const INITIAL_STATE: TicketStateDto = {
             ...state,
             getAllBookings: {
               ...state.getAllBookings,
+              isLoading: false,
+              status: APP_ACTION_STATUS.INITIAL,
+              error: null,
+              data: [],
+            },
+          };
+          case TICKET_ACTION_TYPES.CREATE_BOOKING + COMMON_ACTION_TYPES.REQUEST:
+          return {
+            ...state,
+            createBooking: {
+              ...state.createBooking,
+              isLoading: true,
+              status: APP_ACTION_STATUS.LOADING,
+              error: null,
+              data: null,
+            },
+          };
+        case TICKET_ACTION_TYPES.CREATE_BOOKING + COMMON_ACTION_TYPES.SUCCESS:
+          return {
+            ...state,
+            createBooking: {
+              ...state.createBooking,
+              isLoading: false,
+              status: APP_ACTION_STATUS.SUCCESS,
+              error: null,
+              data: action.data,
+            },
+          };
+        case TICKET_ACTION_TYPES.CREATE_BOOKING + COMMON_ACTION_TYPES.ERROR:
+          return {
+            ...state,
+            createBooking: {
+              ...state.createBooking,
+              isLoading: false,
+              status: APP_ACTION_STATUS.ERROR,
+              error: action.error,
+              data: [],
+            },
+          };
+        case TICKET_ACTION_TYPES.CREATE_BOOKING + COMMON_ACTION_TYPES.CLEAR:
+          return {
+            ...state,
+            createBooking: {
+              ...state.createBooking,
               isLoading: false,
               status: APP_ACTION_STATUS.INITIAL,
               error: null,

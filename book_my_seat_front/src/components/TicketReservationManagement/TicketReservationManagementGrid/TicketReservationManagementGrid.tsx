@@ -59,9 +59,10 @@ const TicketReservationManagementGrid:React.FC<{
             <CustomHeaderCell width={180} id='trainName' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Train Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='TicketType' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Ticket Type</CustomHeaderCell>
             <CustomHeaderCell width={300} id='depatureFrom' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Depature From</CustomHeaderCell>
-            <CustomHeaderCell width={220} id='depatureFromDateandTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Depature Date And Time</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='depatureFromDate' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Depature Date</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='depatureFromTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Depature Time</CustomHeaderCell>
             <CustomHeaderCell width={220} id='arriveTo' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >arriveTo</CustomHeaderCell>
-            <CustomHeaderCell width={250} id='arriveDateAndTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} > Arrive Date And Time</CustomHeaderCell>
+            <CustomHeaderCell width={250} id='arriveTime' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} > Arrive Date And Time</CustomHeaderCell>
             <CustomHeaderCell width={150} id='ticketCount' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Ticket Count</CustomHeaderCell>
             <CustomHeaderCell width={150} id='totalPrice' sortable onSort={props.onSortHandle}  filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Total Price</CustomHeaderCell>
             <CustomHeaderCell width={100} id='actions' >Actions</CustomHeaderCell>
@@ -76,14 +77,15 @@ const TicketReservationManagementGrid:React.FC<{
               <TableRow key={req.reservationID}>
                   <StyledTableCell >{req.reservationID}</StyledTableCell>
                    <StyledTableCell >{req.referenceID  }</StyledTableCell>
-                   <StyledTableCell >{req.ReserverNationalID  }</StyledTableCell>
-                   <StyledTableCell >{req.ReservedPesonName}</StyledTableCell>
+                   <StyledTableCell >{req.reserverNationalID  }</StyledTableCell>
+                   <StyledTableCell >{req.reservedPersonName}</StyledTableCell>
                    <StyledTableCell >{req.trainName}</StyledTableCell>
-                   <StyledTableCell >{req.TicketType.ticketTypeName}</StyledTableCell>
-                   <StyledTableCell >{req.depatureFrom}</StyledTableCell>
-                   <StyledTableCell >{req.depatureFromDateandTime}</StyledTableCell>           
-                   <StyledTableCell >{req.arriveTo}</StyledTableCell>
-                   <StyledTableCell >{req.arriveDateAndTime}</StyledTableCell>
+                   <StyledTableCell >{req.ticketType.ticketTypeName}</StyledTableCell>
+                   <StyledTableCell >{req.departureFrom.stationName}</StyledTableCell>
+                   <StyledTableCell >{req.departureDate}</StyledTableCell>  
+                   <StyledTableCell >{req.departureTime}</StyledTableCell>           
+                   <StyledTableCell >{req.arriveTo.stationName}</StyledTableCell>
+                   <StyledTableCell >{req.arriveTime}</StyledTableCell>
                    <StyledTableCell >{req.ticketCount}</StyledTableCell>
                    <StyledTableCell >{req.totalPrice}</StyledTableCell>
 

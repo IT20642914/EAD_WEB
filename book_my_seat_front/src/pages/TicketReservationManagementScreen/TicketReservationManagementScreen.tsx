@@ -13,26 +13,28 @@ import { useDispatch, useSelector } from 'react-redux'
 import { StationAction } from '../../redux/action/station.Action'
 import { validateFormData } from '../../utilities/helpers'
 import { TrainAction } from '../../redux/action/train.Action'
+import { TicketAction } from '../../redux/action/ticket.action'
 
 const TicketReservationManagementScreen = () => {
 
 
 
   const TICKET_INFORMATION_FORM_INITIAL_STATE: TicketReservationDetailsFormDto = {
+    ReservationID:{ value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
     ticketCount: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     totalPrice: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    ReservedPesonName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    reservedPersonName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     ReserverNationalID: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    depatureDate: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    depatureTime: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    departureDate: { value: {} as string, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    departureTime: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arriveTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     arriveTo: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     trainName: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    seatNumbers: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    seatNumbers: { value: {} as OptionsDto, isRequired: false, disable: false, readonly: false, validator: "object", error: "", },
     TicketType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    depatureFrom: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    arriveDistance: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
-    dipatureDistance:  { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+    departureFrom: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    arriveDistance: { value: 0, isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+    dipatureDistance:  { value: 0, isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
   }
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -51,12 +53,39 @@ const TicketReservationManagementScreen = () => {
   
   const StationList = useSelector((state: ApplicationStateDto) => state.station.getAllStation);
   const AvilibleTrainsResponse = useSelector((state: ApplicationStateDto) => state.train.getAvilibletrains);
+  const createBookingResponse = useSelector((state: ApplicationStateDto) => state.ticket.createBooking);
 
   useEffect(() => {
     dispatch(StationAction.getAllStations());
-
+  const nicNumber =localStorage.getItem('nic')
+  const name =localStorage.getItem('name')
+     
+      setTicketInfomationForm({
+       ...TicketInfomationForm,
+       ReserverNationalID:{
+         ...TicketInfomationForm.ReserverNationalID,
+         value:nicNumber||''
+     
+       },
+       reservedPersonName:{
+         ...TicketInfomationForm.reservedPersonName,
+         value:name||''
+     
+       }
+     
+      })
+     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+useEffect(() => {
+if(createBookingResponse.status===APP_ACTION_STATUS.SUCCESS){
+  navigate(APP_ROUTES.TR_MANAGEMENT)
+}
+}, [createBookingResponse.status])
+
+
+
 useEffect(() => {
 if(StationList.status===APP_ACTION_STATUS.SUCCESS){
   setStations(StationList.data)
@@ -65,15 +94,14 @@ if(StationList.status===APP_ACTION_STATUS.SUCCESS){
 
 useEffect(() => {
  const payload:getAvilibleTrainParamDto={
-   departueStationId:TicketInfomationForm.depatureFrom?.value?.value?.toString(),
+   departueStationId:TicketInfomationForm.departureFrom?.value?.value?.toString(),
    arriveStationId: TicketInfomationForm.arriveTo?.value?.value?.toString()
  }
   dispatch(TrainAction.getAvilibleTrain(payload));
 
-}, [TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value])
+}, [TicketInfomationForm.departureFrom.value,TicketInfomationForm.arriveTo.value])
 
 
- 
 
   useEffect(() => {
 if(AvilibleTrainsResponse.status===APP_ACTION_STATUS.SUCCESS){
@@ -90,7 +118,7 @@ if(AvilibleTrainsResponse.status===APP_ACTION_STATUS.SUCCESS){
   useEffect(() => {
 
     if(TicketInfomationForm.TicketType.value.value){
-      const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,TicketInfomationForm.arriveTo.value)
+      const price =calculateTicketPrice(TicketInfomationForm.departureFrom.value,TicketInfomationForm.arriveTo.value)
       setTicketInfomationForm({...TicketInfomationForm,
                   totalPrice:{...TicketInfomationForm.totalPrice,
                   value:price},
@@ -121,7 +149,7 @@ if(value){
   }
   if(property==="ReservedPesonName"){
     setTicketInfomationForm({...TicketInfomationForm,
-    ReservedPesonName:{...TicketInfomationForm.ReservedPesonName,
+      reservedPersonName:{...TicketInfomationForm.reservedPersonName,
               value:value }
     })
   }
@@ -132,9 +160,10 @@ if(value){
     })
   }
   if(property==="depatureDate"){
+    console.log(value.toString())
     setTicketInfomationForm({...TicketInfomationForm,
-    depatureDate:{...TicketInfomationForm.depatureDate,
-              value:value }
+    departureDate:{...TicketInfomationForm.departureDate,
+              value:value.toString() }
     })
   }
 
@@ -167,7 +196,7 @@ if(property==="trainName"){
 if(property==="depatureFrom"){
 
   setTicketInfomationForm({...TicketInfomationForm,
-  depatureFrom:{...TicketInfomationForm.depatureFrom,
+  departureFrom:{...TicketInfomationForm.departureFrom,
             value:value },
            
   })
@@ -176,9 +205,9 @@ if(property==="depatureFrom"){
 
 }
 if(property==="arriveTo"){
-  if(value.value!==TicketInfomationForm.depatureFrom.value.value){
+  if(value.value!==TicketInfomationForm.departureFrom.value.value){
 
-    const price =calculateTicketPrice(TicketInfomationForm.depatureFrom.value,value)
+    const price =calculateTicketPrice(TicketInfomationForm.departureFrom.value,value)
     console.log("price",price)
     setTicketInfomationForm({...TicketInfomationForm,
       arriveTo:{...TicketInfomationForm.arriveTo,
@@ -210,14 +239,14 @@ if(property==="arriveTo"){
 }
 
 if(property==="depatureTime"){
-  console.log("Shedules" ,value)
+ console.log(value)
   const arriveTime = Shedules.filter((item: schedule) => (item.stationId === value.value) );
-console.log("arriveTime",arriveTime)
+
 if (arriveTime.length > 0) {
   setTicketInfomationForm({
     ...TicketInfomationForm,
-    depatureTime: {
-      ...TicketInfomationForm.depatureTime,
+    departureTime: {
+      ...TicketInfomationForm.departureTime,
       value: value
     },
     arriveTime: {
@@ -270,7 +299,7 @@ if(property==="seatNumbers"){
   if(property==="depatureFrom"){
  
     setTicketInfomationForm({...TicketInfomationForm,
-    depatureFrom:{...TicketInfomationForm.depatureFrom,
+    departureFrom:{...TicketInfomationForm.departureFrom,
               value:{}as OptionsDto }
     })
   }
@@ -302,23 +331,25 @@ if(property==="seatNumbers"){
 const  createNewRequest=async () => {
   const [validateData, isValid] = await validateFormData(TicketInfomationForm);
   setTicketInfomationForm(validateData);
+  console.log("isValid",isValid,validateData)
   if (isValid) {
 
-
 const payload:TicketReservationDetailsParmDto={
+  ReservationID:'',
+  ReferenceIDs:[],
   ticketCount: Number(TicketInfomationForm.ticketCount.value.value),
   totalPrice: TicketInfomationForm.totalPrice.value,
-  ReservedPesonName: TicketInfomationForm.ReservedPesonName.value,
+  reservedPersonName: TicketInfomationForm.reservedPersonName.value,
   ReserverNationalID: TicketInfomationForm.ReserverNationalID.value,
-  depatureFrom: {
-    stationId:TicketInfomationForm.depatureFrom.value.value.toString(),
-    stationName:TicketInfomationForm.depatureFrom.value.label,
+  departureFrom: {
+    stationId:TicketInfomationForm.departureFrom.value.value.toString(),
+    stationName:TicketInfomationForm.departureFrom.value.label,
   },
-  depatureDate: TicketInfomationForm.depatureDate.value.value.toString(),
-  depatureTime: TicketInfomationForm.depatureTime.value.value.toString(),
+  departureDate: TicketInfomationForm.departureDate.value,
+  departureTime: TicketInfomationForm.departureTime.value?.label?.toString(),
   arriveTime: TicketInfomationForm.arriveTime.value,
   arriveTo: { 
-    stationId:TicketInfomationForm.arriveTo.value.value.toString(),
+  stationId:TicketInfomationForm.arriveTo.value.value.toString(),
   stationName:TicketInfomationForm.arriveTo.value.label,},
   trainName: TicketInfomationForm.trainName.value.label,
   TicketType: {
@@ -329,7 +360,9 @@ const payload:TicketReservationDetailsParmDto={
   dipatureDistance: TicketInfomationForm.dipatureDistance.value
 }
 
+console.log("payload",payload)
 
+dispatch(TicketAction.addBookings(payload))
 
   }
     
@@ -348,8 +381,8 @@ const removeFrometable=(id:number) =>{
 }
 
 const calculateTicketPrice = (departureFrom:OptionsDto,arriveTo:OptionsDto) => {
-  const distanceA= Shedules.filter(shedules=>shedules.stationId==departureFrom.value)
-  const distanceB= Shedules.filter(shedules=>shedules.stationId==arriveTo.value)
+  const distanceA= Shedules.filter(shedules=>shedules.stationId===departureFrom.value)
+  const distanceB= Shedules.filter(shedules=>shedules.stationId===arriveTo.value)
 
   let difference = 0;
 

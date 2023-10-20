@@ -85,7 +85,7 @@ namespace BookMySeat.Services
                     var departureStationFound = schedule.Any(s => s.StationId == departueStationId);
                     var arriveStationFound = schedule.Any(s => s.StationId == arriveStationId);
 
-                    return departureStationFound || arriveStationFound;
+                    return departureStationFound && arriveStationFound;
                 }
 
                 return false;

@@ -27,7 +27,7 @@ namespace BookMySeat.Models
         /// Type of the ticket.
         /// </summary>
         [BsonElement("ticketType")]
-        public string TicketType { get; set; } = String.Empty;
+        public TicketTypes TicketType { get; set; } =  new TicketTypes();
 
         /// <summary>
         /// Name of the person who reserved the ticket.
@@ -41,11 +41,6 @@ namespace BookMySeat.Models
         [BsonElement("reserverNationalID")]
         public string ReserverNationalID { get; set; } = String.Empty;
 
-        /// <summary>
-        /// List of individual ticket IDs associated with the reservation.
-        /// </summary>
-        [BsonElement("ticketIDs")]
-        public List<string> TicketIDs { get; set; } = new List<string>();
 
         /// <summary>
         /// Number of tickets reserved in this reservation.
@@ -53,11 +48,6 @@ namespace BookMySeat.Models
         [BsonElement("ticketCount")]
         public int TicketCount { get; set; }
 
-        /// <summary>
-        /// List of seat numbers for the tickets in this reservation.
-        /// </summary>
-        [BsonElement("seatNumbers")]
-        public List<string> SeatNumbers { get; set; } = new List<string>();
 
         /// <summary>
         /// Name of the train associated with the reservation.
@@ -68,32 +58,49 @@ namespace BookMySeat.Models
         /// <summary>
         /// Date and time of departure for the train.
         /// </summary>
-        [BsonElement("departureFromDateAndTime")]
-        public string DepartureFromDateAndTime { get; set; } = String.Empty;
+        [BsonElement("departureDate")]
+        public string DepartureDate { get; set; } = String.Empty;
 
         /// <summary>
         /// Departure location for the train.
         /// </summary>
         [BsonElement("departureFrom")]
-        public string DepartureFrom { get; set; } = String.Empty;
-
+        public Station DepartureFrom { get; set; } = new Station();
+        /// <summary>
+        /// Departure Time for the train.
+        /// </summary>
+        [BsonElement("departureTime")]
+        public string DepartureTime { get; set; } = String.Empty;
         /// <summary>
         /// Date and time of arrival for the train.
         /// </summary>
-        [BsonElement("arriveDateAndTime")]
-        public string ArriveDateAndTime { get; set; } = String.Empty;
+        [BsonElement("arriveTime")]
+        public string ArriveTime { get; set; } = String.Empty;
+
 
         /// <summary>
         /// Arrival location for the train.
         /// </summary>
         [BsonElement("arriveTo")]
-        public string ArriveTo { get; set; } = String.Empty;
+        public Station ArriveTo { get; set; } = new Station();
 
         /// <summary>
         /// Total price for the reservation.
         /// </summary>
         [BsonElement("totalPrice")]
-        public int TotalPrice { get; set; }
+        public float TotalPrice { get; set; } = 0;
+
+        /// <summary>
+        /// dipatureDistance from the station.
+        /// </summary>
+        [BsonElement("dipatureDistance")]
+        public float DipatureDistance { get; set; } = 0;
+        /// <summary>
+        /// arriveDistance from the station.
+        /// </summary>
+        [BsonElement("arriveDistance")]
+        public float ArriveDistance { get; set; } = 0;
+
 
     }
 }

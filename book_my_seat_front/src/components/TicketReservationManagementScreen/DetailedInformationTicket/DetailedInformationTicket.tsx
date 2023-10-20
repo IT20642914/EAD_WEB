@@ -25,9 +25,9 @@ SeatData:SeatNumber[]
   removeFrometable(id: Number): void;
 }> = (props) => {
   const trainName = props.TicketInfomationForm.trainName;
-  const depatureFrom = props.TicketInfomationForm.depatureFrom;
+  const depatureFrom = props.TicketInfomationForm.departureFrom;
   const arriveTo = props.TicketInfomationForm.arriveTo;
-  const depatureTime=props.TicketInfomationForm.depatureTime
+  const depatureTime=props.TicketInfomationForm.departureTime
   const arriveTime=props.TicketInfomationForm.arriveTime
   const seatNumbers=props.TicketInfomationForm.seatNumbers
   const totalPrice=props.TicketInfomationForm.totalPrice
