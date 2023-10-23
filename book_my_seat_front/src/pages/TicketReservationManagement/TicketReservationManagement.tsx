@@ -38,6 +38,7 @@ const getInitialData=() =>{
   dispatch(TicketAction.getAllBookingDetails())
   dispatch(TicketAction.addBookingsClear())
   dispatch(TicketAction.updateBookingsByIDClear())
+  dispatch(TicketAction.GetBookingDetailsByIDClear())
   
   }
   useEffect(() => {
