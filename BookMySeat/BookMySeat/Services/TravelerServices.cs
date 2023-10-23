@@ -77,7 +77,7 @@ namespace BookMySeat.Services
                 if (passWord == hashedPassword)
                 {
                     result.IsSuccess = true;
-                    result.Message = "Login SuccuseFully";
+                    result.Message = "Login Succusess";
                     result.Traveler = traveler;
                     result.StatusCode = 200;
  

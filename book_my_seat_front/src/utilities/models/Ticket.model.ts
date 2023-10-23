@@ -1,31 +1,60 @@
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { FormFieldDto, OptionsDto } from ".";
+import { station } from "./trains.model";
 
 export interface TicketReservationDetailsDto{
-    referenceID: string;
+    referenceID: string[];
     reservationID: string;
-    TicketType:string;
-    ReservedPesonName:string;
-    ReserverNationalID:string;
+    ticketType:TicketType;
+    reservedPersonName:string;
+    reserverNationalID:string;
     ticketIDs: string[];
     ticketCount: number;
     seatNumbers:string[];
+    isActive:boolean;
     trainName: string;
-    depatureFromDateandTime: string;
-    depatureFrom: string;
-    arriveDateAndTime:string
-    arriveTo: string;
-    totalPrice: number
+    departureTime:string;
+    departureDate:string;
+    departureFrom: station;
+    arriveTime:string;
+    arriveTo: station;
+    totalPrice: number;
+    dipatureDistance:number;
+    arriveDistance: number;
+} 
+export interface TicketReservationDetailsParmDto{
+    ReservationID:string;
+    ReferenceIDs:string[];
+    ticketCount:number,
+    totalPrice:number, 
+    reservedPersonName:string,
+    ReserverNationalID:string,
+    departureFrom:station,
+    departureDate:string,
+    departureTime: string
+    arriveTime:string
+    arriveTo:station, 
+    trainName:string
+    TicketType:TicketType,
+    arriveDistance:number
+    dipatureDistance:number
 }
 
+ export interface  TicketType{
+    ticketTypeID:string;
+    ticketTypeName:string;
+    
+ }
+
 export interface TicketReservationDetailsFormDto{
+    ReservationID:FormFieldDto<string>,
     ticketCount:FormFieldDto<OptionsDto>,
     totalPrice:FormFieldDto<number>, 
-    ReservedPesonName:FormFieldDto<string>,
+    reservedPersonName:FormFieldDto<string>,
     ReserverNationalID:FormFieldDto<string>,
-    depatureFrom:FormFieldDto<OptionsDto>;
-    depatureDate:FormFieldDto<OptionsDto>;
-    depatureTime: FormFieldDto<OptionsDto>;
+    departureFrom:FormFieldDto<OptionsDto>;
+    departureDate:FormFieldDto<string>;
+    departureTime: FormFieldDto<OptionsDto>;
     arriveTime: FormFieldDto<string>;
     arriveTo:FormFieldDto<OptionsDto>, 
     trainName:FormFieldDto<OptionsDto>,
@@ -36,8 +65,6 @@ export interface TicketReservationDetailsFormDto{
 }
 export interface TicketReservationTableDto{
     seatNumber:string,
-    
-
 }
 
 

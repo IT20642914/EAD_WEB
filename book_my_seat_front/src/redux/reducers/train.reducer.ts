@@ -32,6 +32,12 @@ const INITIAL_STATE: TrainStateDto = {
     isLoading: false,
     status: null
 
+   },
+   getAvilibletrains:{
+    data: [],
+    error: null,
+    isLoading: false,
+    status: null
    }
 }
 const trainReducer = (state = INITIAL_STATE, action: any) => {
@@ -258,6 +264,50 @@ const trainReducer = (state = INITIAL_STATE, action: any) => {
                       data: null,
                     },
                   };
+                  case TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.REQUEST:
+                    return {
+                      ...state,
+                      getAvilibletrains: {
+                        ...state.getAvilibletrains,
+                        isLoading: true,
+                        status: APP_ACTION_STATUS.LOADING,
+                        error: null,
+                        data: null,
+                      },
+                    };
+                  case TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.SUCCESS:
+                    return {
+                      ...state,
+                      getAvilibletrains: {
+                        ...state.getAvilibletrains,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.SUCCESS,
+                        error: null,
+                        data: action.data,
+                      },
+                    };
+                  case TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.ERROR:
+                    return {
+                      ...state,
+                      getAvilibletrains: {
+                        ...state.getAvilibletrains,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.ERROR,
+                        error: action.error,
+                        data: [],
+                      },
+                    };
+                  case TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.CLEAR:
+                    return {
+                      ...state,
+                      getAvilibletrains: {
+                        ...state.getAvilibletrains,
+                        isLoading: false,
+                        status: APP_ACTION_STATUS.INITIAL,
+                        error: null,
+                        data: [],
+                      },
+                    };
           default:
             return state;
         }

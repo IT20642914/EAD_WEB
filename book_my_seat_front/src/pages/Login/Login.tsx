@@ -44,18 +44,68 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
     if(LoginResponse.status===APP_ACTION_STATUS.SUCCESS){
      console.log("LoginResponse.data.StatusCode",LoginResponse.data.statusCode)
       if(LoginResponse.data.statusCode===200){
-        console.log("200")
-        toast.success(`${LoginResponse.data.message + "  " + LoginResponse.data.statusCode }`, {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-          });
-          navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+   localStorage.setItem("nic",LoginResponse.data.traveler?.nicNumber||'')
+   localStorage.setItem("name",LoginResponse.data.traveler?.firstName||'')     
+  if(LoginResponse.data.traveler?.roleType.roleID===3){
+
+  toast.success(`${LoginResponse.data.message} as Back Office`, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+    navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+
+}else if(LoginResponse.data.traveler?.roleType.roleID===2){
+
+toast.success(`${LoginResponse.data.message} as Travel Agent`, {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+  });
+  navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
+
+}else{
+  console.log("404")
+  toast.error(`Not An Admin User Can not login`, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    });
+}
+
+
+
+
+
+
+
+        // toast.success(`${LoginResponse.data.message}`, {
+        //   position: "top-center",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "dark",
+        //   });
+
+        //   navigate(APP_ROUTES.TRAVELLER_MANAGEMENT)
       }else
       if(LoginResponse.data.statusCode===401){
         console.log("401")

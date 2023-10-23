@@ -11,9 +11,10 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 const DetailedInformationTicket: React.FC<{
+ 
     SelectedSeatLis:SeatNumber[]
 SeatData:SeatNumber[]
-Shedules:schedule[];
+  Shedules:schedule[];
   stationList: station[];
   TrainList: TainlistDto[];
   helperText: boolean;
@@ -24,9 +25,9 @@ Shedules:schedule[];
   removeFrometable(id: Number): void;
 }> = (props) => {
   const trainName = props.TicketInfomationForm.trainName;
-  const depatureFrom = props.TicketInfomationForm.depatureFrom;
+  const depatureFrom = props.TicketInfomationForm.departureFrom;
   const arriveTo = props.TicketInfomationForm.arriveTo;
-  const depatureTime=props.TicketInfomationForm.depatureTime
+  const depatureTime=props.TicketInfomationForm.departureTime
   const arriveTime=props.TicketInfomationForm.arriveTime
   const seatNumbers=props.TicketInfomationForm.seatNumbers
   const totalPrice=props.TicketInfomationForm.totalPrice
@@ -170,7 +171,7 @@ Shedules:schedule[];
   onChange={(event: React.ChangeEvent<HTMLInputElement>) => props.onInputHandleChange('totalPrice', event.target.value)}
 />
   </Grid>
-        <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
           <CustomAutocomplete
             freeSolo={true}
             label="Seat Numbers"
@@ -197,9 +198,9 @@ Shedules:schedule[];
           />
         </Grid>
         <Grid item xs={12} md={12}>
-        </Grid>
-      </Grid>
-      <section>
+        </Grid>*/}
+      </Grid> 
+      {/* <section>
         <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -244,7 +245,7 @@ Shedules:schedule[];
                 }
               </Table>
             </TableContainer>
-          </section>
+          </section> */}
     </Stepper>
   );
 };

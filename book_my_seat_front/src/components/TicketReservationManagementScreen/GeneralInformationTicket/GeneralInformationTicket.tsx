@@ -18,9 +18,9 @@ const GeneralInformationTicket:React.FC<{
 
   const ticketCount=props.TicketInfomationForm.ticketCount
   const TicketType=props.TicketInfomationForm.TicketType
-  const ReservedPesonName=props.TicketInfomationForm.ReservedPesonName
+  const ReservedPesonName=props.TicketInfomationForm.reservedPersonName
   const ReserverNationalID=props.TicketInfomationForm.ReserverNationalID
-  const depatureDate=props.TicketInfomationForm.depatureDate
+  const depatureDate=props.TicketInfomationForm.departureDate
 
   
 

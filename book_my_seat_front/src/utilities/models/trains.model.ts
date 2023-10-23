@@ -19,7 +19,7 @@ export interface schedule {
 }
 
 export interface TainlistDto {
-  id: number;
+  id: string;
   name: string;
 }
 
@@ -66,20 +66,39 @@ export interface SheduleListFormDto {
 }
 
 export interface trainTypeDto {
-  typeID:number;
-  typeName:string;
+  typeID: number;
+  typeName: string;
 }
 
 export interface traindetailsDto {
-  trainId:string;
-  trainName:string;
-  trainType:trainTypeDto;
-  trainLength:string;
+  trainId: string;
+  trainName: string;
+  trainType: trainTypeDto;
+  trainLength: string;
   isActive: boolean;
-  departureStation:station
-  arrivalStation: station
-  firstClassSeatCount:string;
-  secondClassSeatCount:string;
+  departureStation: station;
+  arrivalStation: station;
+  firstClassSeatCount: string;
+  secondClassSeatCount: string;
   thirdClassSeatCount: string;
+  trainShedule: schedule[];
+}
+
+export interface getAvilibleTrainParamDto {
+  departueStationId: string;
+  arriveStationId: string;
+}
+
+export interface getAvilibleTrainDto {
+  trainId: string;
+  trainName: string;
+  trainType:trainTypeDto
+  trainLength: string;
+  isActive: true;
+  departureStation: station
+  arrivalStation:station
+  firstClassSeatCount:string,
+  secondClassSeatCount: string,
+  thirdClassSeatCount: string,
   trainShedule:schedule[]
 }

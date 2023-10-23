@@ -3,6 +3,7 @@ import alertSaga from "./alert.saga";
 import stationSaga from "./station.saga";
 import trainSaga from "./train.saga";
 import travelerSaga from "./traveler.saga";
+import ticketSaga from "./ticket.saga";
 
 
 export default function* rootSaga() {
@@ -11,6 +12,7 @@ export default function* rootSaga() {
     stationSaga(),
     trainSaga(),
     travelerSaga(),
+    ticketSaga(),
 
   ]);
 }

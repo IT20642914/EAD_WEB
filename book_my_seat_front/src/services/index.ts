@@ -2,7 +2,6 @@ import axios from 'axios'
 import { exceptionHandler } from '../core'
 import { APP_CONFIGS } from '../utilities/constants'
 
-// import { InteractionRequiredAuthError } from '@azure/msal-browser'
 
 axios.defaults.baseURL = "https://localhost:7282"
 //  APP_CONFIGS.API_BASE
@@ -16,13 +15,6 @@ axiosPrivateInstance.interceptors.request.use(async (request: any) => {
     scopes: APP_CONFIGS.APP_SCOPES
   }
   const tokenResponse ={ accessToken:"token"}
-//   await msalInstance.acquireTokenSilent(msalRequest)
-    // .catch(error => {
-    //   if (error instanceof InteractionRequiredAuthError) {
-    //   // fallback to interaction when silent call fails
-    //     return msalInstance.acquireTokenRedirect(msalRequest)
-    //   }
-    // })
   request.headers.Authorization = `Bearer ${tokenResponse?.accessToken}`
 
   return request

@@ -39,5 +39,8 @@ namespace BookMySeat.IService
         /// </summary>
         /// <param name="id">The unique identifier of the train to remove.</param>
         void Remove(string id);
+
+        List<Train> GetAvilibaleTrains(string departueStationId , string arriveStationId);
+
     }
 }
