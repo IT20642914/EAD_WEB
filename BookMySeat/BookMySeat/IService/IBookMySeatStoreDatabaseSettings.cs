@@ -34,5 +34,7 @@
         /// Gets or sets the name of the collection for storing ticket data.
         /// </summary>
         public string TicketCollectionName { get; set; }
+
+        public string TripCollectionName { get; set; }
     }
 }

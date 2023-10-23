@@ -13,7 +13,7 @@ const getBookingDetailsByid = (payload:string):  Promise<AxiosResponse<any[]>> =
     return axiosPrivateInstance.get(`/api/Ticket/GetTicketById?id=${payload}`,);
 }
 const updateBookings = (payload:TicketReservationDetailsParmDto):  Promise<AxiosResponse<any[]>> => {
-    return axiosPrivateInstance.put(`/api/Ticket/updateTicketById?id=${payload.ReservationID}`,payload);
+    return axiosPrivateInstance.put(`/api/Ticket/updateTicketById?id=${payload.ReferenceID}`,payload);
 }
 const cancleBookings = (payload:string):  Promise<AxiosResponse<any[]>> => {
     return axiosPrivateInstance.put(`/api/Ticket/cancleBooking?id=${payload}`);

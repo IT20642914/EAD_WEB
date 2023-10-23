@@ -36,5 +36,6 @@ namespace BookMySeat.Services
         /// Gets or sets the collection name for tickets in the database.
         /// </summary>
         public string TicketCollectionName { get; set; } = string.Empty;
+        public string TripCollectionName { get; set; } = string.Empty;
     }
 }

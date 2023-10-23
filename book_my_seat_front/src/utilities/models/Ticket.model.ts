@@ -3,8 +3,8 @@ import { FormFieldDto, OptionsDto } from ".";
 import { station } from "./trains.model";
 
 export interface TicketReservationDetailsDto{
-    referenceID: string[];
-    reservationID: string;
+    referenceID: string;
+    reservationIDs: string[];
     ticketType:TicketType;
     reservedPersonName:string;
     reserverNationalID:string;
@@ -12,7 +12,7 @@ export interface TicketReservationDetailsDto{
     ticketCount: number;
     seatNumbers:string[];
     isActive:boolean;
-    trainName: string;
+    train: Train;
     departureTime:string;
     departureDate:string;
     departureFrom: station;
@@ -23,8 +23,8 @@ export interface TicketReservationDetailsDto{
     arriveDistance: number;
 } 
 export interface TicketReservationDetailsParmDto{
-    ReservationID:string;
-    ReferenceIDs:string[];
+    ReservationIDs:string[];
+    ReferenceID:string;
     ticketCount:number,
     totalPrice:number, 
     reservedPersonName:string,
@@ -34,7 +34,7 @@ export interface TicketReservationDetailsParmDto{
     departureTime: string
     arriveTime:string
     arriveTo:station, 
-    trainName:string
+    train:Train
     TicketType:TicketType,
     arriveDistance:number
     dipatureDistance:number
@@ -46,9 +46,14 @@ export interface TicketReservationDetailsParmDto{
     
  }
 
+export interface  Train{
+    trainId: string;
+    trainName: string;
+} 
+
 export interface TicketReservationDetailsFormDto{
-    ReferenceIDs:FormFieldDto<string[]>,
-    reservationID:FormFieldDto<string>,
+    ReferenceID:FormFieldDto<string>,
+    reservationIDs:FormFieldDto<string[]>,
     ticketCount:FormFieldDto<OptionsDto>,
     totalPrice:FormFieldDto<number>, 
     reservedPersonName:FormFieldDto<string>,
@@ -58,7 +63,7 @@ export interface TicketReservationDetailsFormDto{
     departureTime: FormFieldDto<OptionsDto>;
     arriveTime: FormFieldDto<string>;
     arriveTo:FormFieldDto<OptionsDto>, 
-    trainName:FormFieldDto<OptionsDto>,
+    train:FormFieldDto<OptionsDto>,
     seatNumbers:FormFieldDto<OptionsDto>,
     TicketType:FormFieldDto<OptionsDto>,
     arriveDistance:FormFieldDto<number>

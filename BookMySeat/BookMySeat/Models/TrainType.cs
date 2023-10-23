@@ -7,7 +7,7 @@ namespace BookMySeat.Models
         [BsonElement("typeID")]
         public int TypeID { get; set; }
 
-        [BsonElement("TypeName")]
+        [BsonElement("typeName")]
         public string TypeName { get; set; } = String.Empty;
     }
 }

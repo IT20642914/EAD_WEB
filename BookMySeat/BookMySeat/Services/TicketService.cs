@@ -27,7 +27,15 @@ namespace BookMySeat.Services
         /// <returns>The created Ticket object.</returns>
         public Ticket Create(Ticket ticket)
         {
+            Random random = new Random();
+            for (int i = 0; i < ticket.TicketCount; i++)
+            {
+                ticket.ReservationIDs.Add(random.Next().ToString());
+            }
+
             _ticket.InsertOne(ticket);
+
+
             return ticket;
         }
 
@@ -38,7 +46,7 @@ namespace BookMySeat.Services
         /// <returns>The Ticket object with the specified ReservationID, or null if not found.</returns>
         public Ticket GetTicketDetailsByID(string id)
         {
-            return _ticket.Find(ticket => ticket.ReservationID == id).FirstOrDefault();
+            return _ticket.Find(ticket => ticket.ReferenceID == id).FirstOrDefault();
         }
 
         /// <summary>
@@ -56,7 +64,7 @@ namespace BookMySeat.Services
         /// <param name="id">The ReservationID of the Ticket to remove.</param>
         public void Remove(string id)
         {
-            _ticket.DeleteOne(train => train.ReservationID == id);
+            _ticket.DeleteOne(train => train.ReferenceID == id);
         }
 
         /// <summary>
@@ -66,7 +74,7 @@ namespace BookMySeat.Services
         /// <param name="ticket">The updated Ticket object.</param>
         public void Update(string id, Ticket ticket)
         {
-            _ticket.ReplaceOne(train => train.ReservationID == id, ticket);
+            _ticket.ReplaceOne(train => train.ReferenceID == id, ticket);
         }
 
         public CommonResponse CancleBooking(string id)

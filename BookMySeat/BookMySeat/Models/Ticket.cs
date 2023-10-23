@@ -15,13 +15,13 @@ namespace BookMySeat.Models
         /// </summary>
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
-        public string ReservationID { get; set; } = String.Empty;
+        public string ReferenceID { get; set; } = String.Empty;
 
         /// <summary>
         /// List of reference IDs associated with the reservation.
         /// </summary>
-        [BsonElement("referenceIDs")]
-        public List<string> ReferenceIDs { get; set; } = new List<string>();
+        [BsonElement("reservationIDs")]
+        public List<string> ReservationIDs { get; set; } = new List<string>();
 
         /// <summary>
         /// Type of the ticket.
@@ -52,8 +52,8 @@ namespace BookMySeat.Models
         /// <summary>
         /// Name of the train associated with the reservation.
         /// </summary>
-        [BsonElement("trainName")]
-        public string TrainName { get; set; } = String.Empty;
+        [BsonElement("train")]
+        public TrainDetails Train { get; set; } = new TrainDetails();
 
         /// <summary>
         /// Date and time of departure for the train.

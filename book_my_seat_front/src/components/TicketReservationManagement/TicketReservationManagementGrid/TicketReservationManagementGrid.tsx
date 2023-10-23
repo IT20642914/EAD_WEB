@@ -30,6 +30,9 @@ const TicketReservationManagementGrid:React.FC<{
   
   }> =(props) => {
     const navigate = useNavigate()
+
+
+    console.log("filteredList",props.filteredList)
   return (
     <section className={style.gridContainer}>
     <div className={style.gridHeader}>
@@ -54,8 +57,8 @@ const TicketReservationManagementGrid:React.FC<{
       <Table className={style.table}>
         <TableHead>
           <TableRow>
-            <CustomHeaderCell width={180} id='reservationID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>reservation ID</CustomHeaderCell>
-            <CustomHeaderCell width={220} id='referenceID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Reference ID</CustomHeaderCell>
+            <CustomHeaderCell width={180} id='reservationID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}> Reference ID</CustomHeaderCell>
+            <CustomHeaderCell width={220} id='referenceID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Reservation IDs</CustomHeaderCell>
             <CustomHeaderCell width={220} id='ReserverNationalID' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle}>Reserved  Persons National Identity Card</CustomHeaderCell>
             <CustomHeaderCell width={180} id='ReservedPesonName' sortable onSort={props.onSortHandle} >Reserved Peson Name</CustomHeaderCell>
             <CustomHeaderCell width={180} id='isActive' sortable onSort={props.onSortHandle} filtered getFilterList={props.getFilterList} onFilter={props.onFilterHandle} >Is Active</CustomHeaderCell>
@@ -77,9 +80,9 @@ const TicketReservationManagementGrid:React.FC<{
         {!props.requestDataIsLoading && props.filteredList.length > 0 &&
           <TableBody>
             {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: TicketReservationDetailsDto) => (
-              <TableRow key={req.reservationID}>
-                  <StyledTableCell >{req.reservationID}</StyledTableCell>
-                   <StyledTableCell >{req.referenceID  }</StyledTableCell>
+              <TableRow key={req.referenceID}>
+                  <StyledTableCell >R{req.referenceID}</StyledTableCell>
+                   <StyledTableCell >Res{req.reservationIDs.join('  Res') }</StyledTableCell>
                    <StyledTableCell >{req.reserverNationalID  }</StyledTableCell>
                    <StyledTableCell >{req.reservedPersonName}</StyledTableCell>
                    <StyledTableCell >{
@@ -89,7 +92,7 @@ const TicketReservationManagementGrid:React.FC<{
                     onChange={() => "props.onInputHandleChangeRequestForSomeone('isForSomeone', !_isForSomeone.value)"}/>
                    
                   }</StyledTableCell>
-                   <StyledTableCell >{req.trainName}</StyledTableCell>
+                   <StyledTableCell >{req.train?.trainName}</StyledTableCell>
                    <StyledTableCell >{req.ticketType.ticketTypeName}</StyledTableCell>
                    <StyledTableCell >{req.departureFrom.stationName}</StyledTableCell>
                    <StyledTableCell >{req.departureDate}</StyledTableCell>  
@@ -103,21 +106,21 @@ const TicketReservationManagementGrid:React.FC<{
 
                   <Box className='layout-row'>
                     <Box>
-                    <IconButton size='small' onClick={() => {props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
+                    <IconButton size='small' onClick={() => {props.handleAction(req.referenceID.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
                           <Tooltip title="View">
                             <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => { props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
+                        <IconButton size='small' onClick={() => { props.handleAction(req.referenceID.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
                             <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>
                         </IconButton>
                       </Box>
                       <Box>
-                        <IconButton size='small' onClick={() => {props.handleAction(req.reservationID.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
+                        <IconButton size='small' onClick={() => {props.handleAction(req.referenceID.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
                           <Tooltip title="Cancle">
                             <CancelIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
                           </Tooltip>

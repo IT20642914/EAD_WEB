@@ -222,8 +222,8 @@ const TrainScreenForm :React.FC<{
            <Grid item xs={12} md={6}>
            <StyledTextField
                       fullWidth
-                      label="Third Class Seat Count"
-                      placeholder='Enter Third Class Seat Count'
+                      label=" Total Seat Count"
+                      placeholder='Seat Count'
                       size='small'
                       value={TotalSeatCount.value}
                       error={!!TotalSeatCount.error}

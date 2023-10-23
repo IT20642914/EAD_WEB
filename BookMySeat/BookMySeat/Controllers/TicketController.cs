@@ -49,7 +49,7 @@ namespace BookMySeat.Controllers
         public ActionResult<Ticket> Post([FromBody] Ticket ticket)
         {
             ticketService.Create(ticket);
-            return CreatedAtAction(nameof(GetTicketDetailsByID), new { id = ticket.ReservationID }, ticket);
+            return CreatedAtAction(nameof(GetTicketDetailsByID), new { id = ticket.ReferenceID }, ticket);
         }
 
         /// <summary>

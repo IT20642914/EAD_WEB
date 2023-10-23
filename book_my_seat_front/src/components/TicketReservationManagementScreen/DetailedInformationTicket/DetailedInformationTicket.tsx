@@ -24,7 +24,7 @@ SeatData:SeatNumber[]
   handleInputFocus(property: string, section: string): void;
   removeFrometable(id: Number): void;
 }> = (props) => {
-  const trainName = props.TicketInfomationForm.trainName;
+  const train = props.TicketInfomationForm.train;
   const depatureFrom = props.TicketInfomationForm.departureFrom;
   const arriveTo = props.TicketInfomationForm.arriveTo;
   const depatureTime=props.TicketInfomationForm.departureTime
@@ -102,14 +102,14 @@ SeatData:SeatNumber[]
               })
             }
             value={{
-              label: trainName.value.label,
-              value: trainName.value.value,
+              label: train.value.label,
+              value: train.value.value,
             }}
-            error={!!trainName.error}
-            disabled={trainName.disable}
-            readonly={trainName.readonly}
-            required={trainName.isRequired}
-            helperText={props.helperText && trainName.error}
+            error={!!train.error}
+            disabled={train.disable}
+            readonly={train.readonly}
+            required={train.isRequired}
+            helperText={props.helperText && train.error}
             onChange={(event: any, value: any) =>
               props.onInputHandleChange("trainName", value)
             }

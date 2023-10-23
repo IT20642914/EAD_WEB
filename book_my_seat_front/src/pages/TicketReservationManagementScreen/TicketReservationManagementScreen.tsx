@@ -20,8 +20,8 @@ const TicketReservationManagementScreen = () => {
 
 
   const TICKET_INFORMATION_FORM_INITIAL_STATE: TicketReservationDetailsFormDto = {
-    ReferenceIDs:{ value: [], isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
-    reservationID:{ value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+    ReferenceID:{ value: '', isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
+    reservationIDs:{ value: [], isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
     ticketCount: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     totalPrice: { value: 0, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     reservedPersonName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
@@ -30,7 +30,7 @@ const TicketReservationManagementScreen = () => {
     departureTime: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     arriveTime: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
     arriveTo: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
-    trainName: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
+    train: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     seatNumbers: { value: {} as OptionsDto, isRequired: false, disable: false, readonly: false, validator: "object", error: "", },
     TicketType: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
     departureFrom: { value: {} as OptionsDto, isRequired: true, disable: false, readonly: false, validator: "object", error: "", },
@@ -144,9 +144,9 @@ if(item){
       value:_data.dipatureDistance,
       readonly:_isDisable
     },
-    reservationID:{
-      ...TicketInfomationForm.reservationID,
-      value:_data.reservationID,
+    reservationIDs:{
+      ...TicketInfomationForm.reservationIDs,
+      value:_data.reservationIDs,
       readonly:_isDisable
     },
     departureFrom:{
@@ -194,11 +194,17 @@ if(item){
       value:_data.totalPrice,
       readonly:_isDisable
     },
-    trainName:{
-      ...TicketInfomationForm.trainName,
-      value:{label:_data.trainName,value:_data.trainName},
+    train:{
+      ...TicketInfomationForm.train,
+      value:{label:_data.train.trainId,value:_data.train.trainName},
       readonly:_isDisable
     },
+    ReferenceID:{
+      ...TicketInfomationForm.ReferenceID,
+      value:_data.referenceID,
+      readonly:_isDisable
+    },
+
 
   })
 }
@@ -307,7 +313,7 @@ if(property==="trainName"){
    // Handle the case when 'selectedTrain' or 'trainShedule' is undefined
  }
   setTicketInfomationForm({...TicketInfomationForm,
-  trainName:{...TicketInfomationForm.trainName,
+  train:{...TicketInfomationForm.train,
             value:value },
           
          
@@ -410,11 +416,8 @@ if(property==="seatNumbers"){
   }
   if(property==="trainName"){
 
-   
-
-
     setTicketInfomationForm({...TicketInfomationForm,
-    trainName:{...TicketInfomationForm.trainName,
+    train:{...TicketInfomationForm.train,
               value:{}as OptionsDto }
     })
   }
@@ -457,8 +460,8 @@ const  createNewRequest=async () => {
   if (isValid) {
 
 const payload:TicketReservationDetailsParmDto={
-  ReservationID:'',
-  ReferenceIDs:[],
+  ReservationIDs:[],
+  ReferenceID:'',
   ticketCount: Number(TicketInfomationForm.ticketCount.value.value),
   totalPrice: TicketInfomationForm.totalPrice.value,
   reservedPersonName: TicketInfomationForm.reservedPersonName.value,
@@ -473,7 +476,10 @@ const payload:TicketReservationDetailsParmDto={
   arriveTo: { 
   stationId:TicketInfomationForm.arriveTo.value.value.toString(),
   stationName:TicketInfomationForm.arriveTo.value.label,},
-  trainName: TicketInfomationForm.trainName.value.label,
+  train: {
+    trainId:TicketInfomationForm.train.value.value.toString(),
+    trainName:TicketInfomationForm.train.value.label,
+  },
   TicketType: {
     ticketTypeID:TicketInfomationForm.TicketType.value.value.toString(),
     ticketTypeName:TicketInfomationForm.TicketType.value.label,
@@ -497,8 +503,8 @@ const  editRequest=async () => {
   if (isValid) {
 
     const payload:TicketReservationDetailsParmDto={
-      ReservationID:TicketInfomationForm.reservationID.value,
-      ReferenceIDs:TicketInfomationForm.ReferenceIDs?.value||[],
+      ReservationIDs:TicketInfomationForm.reservationIDs?.value||[],
+      ReferenceID:TicketInfomationForm.ReferenceID.value,
       ticketCount: Number(TicketInfomationForm.ticketCount.value.value),
       totalPrice: TicketInfomationForm.totalPrice.value,
       reservedPersonName: TicketInfomationForm.reservedPersonName.value,
@@ -513,7 +519,10 @@ const  editRequest=async () => {
       arriveTo: { 
       stationId:TicketInfomationForm.arriveTo.value.value.toString(),
       stationName:TicketInfomationForm.arriveTo.value.label,},
-      trainName: TicketInfomationForm.trainName.value.label,
+      train: {
+      trainId:TicketInfomationForm.train.value.value.toString(),
+      trainName:TicketInfomationForm.train.value.label,
+      },
       TicketType: {
         ticketTypeID:TicketInfomationForm.TicketType.value.value.toString(),
         ticketTypeName:TicketInfomationForm.TicketType.value.label,
