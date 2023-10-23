@@ -83,5 +83,16 @@ namespace BookMySeat.Controllers
             ticketService.Remove(id);
             return NoContent();
         }
+        [HttpPut("cancleBooking")]
+        public ActionResult CancleBooking(string id)
+        {
+            var updateTikcet = ticketService.CancleBooking(id);
+
+            if (updateTikcet.IsSuccess == false)
+            {
+                return NotFound($"Ticket with ID={id} not found");
+            }
+            return NoContent();
+        }
     }
 }

@@ -15,6 +15,10 @@ const getBookingDetailsByid = (payload:string):  Promise<AxiosResponse<any[]>> =
 const updateBookings = (payload:TicketReservationDetailsParmDto):  Promise<AxiosResponse<any[]>> => {
     return axiosPrivateInstance.put(`/api/Ticket/updateTicketById?id=${payload.ReservationID}`,payload);
 }
+const cancleBookings = (payload:string):  Promise<AxiosResponse<any[]>> => {
+    return axiosPrivateInstance.put(`/api/Ticket/cancleBooking?id=${payload}`);
+}
+
 
 
 export const ticketService = {
@@ -22,4 +26,5 @@ export const ticketService = {
     createBooking,
     getBookingDetailsByid,
     updateBookings,
+    cancleBookings,
 }

@@ -1,4 +1,5 @@
-﻿using BookMySeat.IService;
+﻿using BookMySeat.Dtos;
+using BookMySeat.IService;
 using BookMySeat.Models;
 using MongoDB.Driver;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace BookMySeat.Services
             _ticket = database.GetCollection<Ticket>(settings.TicketCollectionName);
         }
 
+  
         /// <summary>
         /// Creates a new Ticket entity in the database.
         /// </summary>
@@ -66,5 +68,36 @@ namespace BookMySeat.Services
         {
             _ticket.ReplaceOne(train => train.ReservationID == id, ticket);
         }
+
+        public CommonResponse CancleBooking(string id)
+        {
+            var filter = Builders<Ticket>.Filter.Eq("ReservationID", id);
+            var update = Builders<Ticket>.Update.Set("isActive", false);
+
+            var result = _ticket.UpdateOne(filter, update);
+             var response = new CommonResponse();
+
+            if (result.ModifiedCount == 1)
+            {
+
+                response.IsSuccess = true;
+                response.Message = "Booking Cancele";
+                response.StatusCode = 200;
+
+              
+            }
+            else
+            {
+                response.IsSuccess = false;
+                response.Message = "Booking Cancele Failed";
+                response.StatusCode = 403;
+
+         
+
+            }
+            return response;
+
+        }
+
     }
 }

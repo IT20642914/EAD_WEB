@@ -28,7 +28,7 @@ const TicketReservationManagement = () => {
   const [isFiltered, setIsFiltered] = useState(false)
   const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
   const GetBookingDetails = useSelector((state: ApplicationStateDto) => state.ticket.getAllBookings);
-
+  const CanselBookingResponse = useSelector((state: ApplicationStateDto) => state.ticket.CanceleBooking);
    useEffect(() => {
  getInitialData()
    }, [])
@@ -37,8 +37,15 @@ const TicketReservationManagement = () => {
 const getInitialData=() =>{
   dispatch(TicketAction.getAllBookingDetails())
   dispatch(TicketAction.addBookingsClear())
+  dispatch(TicketAction.updateBookingsByIDClear())
+  
   }
-
+  useEffect(() => {
+if(CanselBookingResponse.status===APP_ACTION_STATUS.SUCCESS){
+  dispatch(TicketAction.getAllBookingDetails())
+}
+  }, [CanselBookingResponse.status])
+  
 useEffect(() => {
  
   if(GetBookingDetails.status===APP_ACTION_STATUS.SUCCESS){
