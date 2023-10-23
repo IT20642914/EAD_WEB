@@ -47,11 +47,12 @@ export interface TicketReservationDetailsParmDto{
  }
 
 export interface TicketReservationDetailsFormDto{
-    ReservationID:FormFieldDto<string>,
+    ReferenceIDs:FormFieldDto<string[]>,
+    reservationID:FormFieldDto<string>,
     ticketCount:FormFieldDto<OptionsDto>,
     totalPrice:FormFieldDto<number>, 
     reservedPersonName:FormFieldDto<string>,
-    ReserverNationalID:FormFieldDto<string>,
+    reserverNationalID:FormFieldDto<string>,
     departureFrom:FormFieldDto<OptionsDto>;
     departureDate:FormFieldDto<string>;
     departureTime: FormFieldDto<OptionsDto>;

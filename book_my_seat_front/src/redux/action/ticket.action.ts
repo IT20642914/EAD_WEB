@@ -43,11 +43,25 @@ const GetBookingDetailsByID = (payload:string) => {
        
     }
 }
+const GetBookingDetailsByIDClear = () => {
+    return {
+        type: TICKET_ACTION_TYPES.GET_BOOKING_DETAILS_BY_ID + COMMON_ACTION_TYPES.CLEAR,
+       
+       
+    }
+}
+const updateBookingsByIDClear = () => {
+    return {
+        type: TICKET_ACTION_TYPES.UPDATE_BOOKING + COMMON_ACTION_TYPES.CLEAR,
+    }
+}
 export const TicketAction = {
     getAllBookingDetails,
     addBookings,
     addBookingsClear,
     GetBookingDetailsByID,
     updateBookings,
-    cancleBookings
+    cancleBookings,
+    GetBookingDetailsByIDClear,
+    updateBookingsByIDClear,
 }
