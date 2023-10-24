@@ -33,6 +33,21 @@ const TicketReservationManagementGrid:React.FC<{
 
 
     console.log("filteredList",props.filteredList)
+
+    function isDepartureDateWithin5Days(departureDate: string) {
+      // Convert departureDate to a Date object
+      const currentDate = new Date();
+      const departureDateObj = new Date(departureDate);
+      const timeDifference = departureDateObj.getTime() - currentDate.getTime();
+      const daysDifference = timeDifference / (1000 * 3600 * 24);
+  
+      // Check if the departure date is at least 5 days before the current date
+      return daysDifference >= 5;
+    }
+
+
+
+    
   return (
     <section className={style.gridContainer}>
     <div className={style.gridHeader}>
@@ -112,6 +127,8 @@ const TicketReservationManagementGrid:React.FC<{
                           </Tooltip>
                         </IconButton>
                       </Box>
+                      {isDepartureDateWithin5Days(req.departureDate) && (
+                     <>
                       <Box>
                         <IconButton size='small' onClick={() => { props.handleAction(req.referenceID.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
                           <Tooltip title="Edit">
@@ -126,6 +143,8 @@ const TicketReservationManagementGrid:React.FC<{
                           </Tooltip>
                         </IconButton>
                       </Box>
+                      </> )}
+
                   </Box>
                 </StyledTableCell>
               </TableRow>

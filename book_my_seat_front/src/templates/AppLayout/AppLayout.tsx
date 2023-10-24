@@ -12,15 +12,23 @@ const AppLayout: React.FC<{
   componentTitle: string;
 }> = (props) => {
 
+
+const first = localStorage.getItem('name')
+const Last = localStorage.getItem('Lname')
+const roles = localStorage.getItem('userRole')
+const nic = localStorage.getItem('nic' )
+const email = localStorage.getItem('email')
+
+
   const authorizedUser: AuthorizedUserDto = {
     userId: 1,
-    firstName: "John",
-    lastName: "Doe",
+    firstName:first||'',
+    lastName: Last||'',
     roleId: 2,
-    roleName: "User",
-    emailId: "john.doe@example.com",
+    roleName: roles||'',
+    emailId: email||'',
     isActive: true,
-    nic: "123456789",
+    nic: nic||'',
     contactNumber: "+1234567890",
     homeContactNumber: "+9876543210",
     permissions: [
@@ -31,6 +39,8 @@ const AppLayout: React.FC<{
     department: "Engineering",
     address: "123 Main Street, Cityville",
   };
+
+  const role =localStorage.getItem('userRole')
   return (
     <React.Fragment>
       <div className={"layout-row authorizedContainer"}>
@@ -73,21 +83,21 @@ const AppLayout: React.FC<{
                     </div>
                   </NavLink>
                   </aside>
-
-                  <aside className={"links"}>
-                  <NavLink
-                    style={{ textDecoration: "none" }}
-                    className={({ isActive }) =>
-                      isActive ? "layout-row is-active" : "layout-row"
-                    }
-                    to={APP_ROUTES.TRAIN_MANAGEMENT}
-                  >
-                    <div className={`navBarContent navLink layout-row`}>
-                      <span>Train Management</span>
-                    </div>
-                  </NavLink>
-                  </aside>
-
+                  {roles === "3" ? (
+  <aside className="links">
+    <NavLink
+      style={{ textDecoration: "none" }}
+      className={({ isActive }) =>
+        isActive ? "layout-row is-active" : "layout-row"
+      }
+      to={APP_ROUTES.TRAIN_MANAGEMENT}
+    >
+      <div className="navBarContent navLink layout-row">
+        <span>Train Management</span>
+      </div>
+    </NavLink>
+  </aside>
+) : null}
            
           </aside>
         </aside>

@@ -22,6 +22,8 @@ const GeneralInformation:React.FC<{
   const identificationCard = props.TravelloerInfomationForm.nICNumber
   const password = props.TravelloerInfomationForm.password
   const userRole = props.TravelloerInfomationForm.roleType
+
+  const role =localStorage.getItem('userRole')
   return (
      <Stepper stepNumber={1} stepTitle={"General Information"}>
         
@@ -116,11 +118,22 @@ const GeneralInformation:React.FC<{
            <Grid item xs={12} md={6}>
            <div className={style.switchField}>
           <Typography className={style.label}>Set Travellor Active</Typography>
-          <StyledSwitch
-            checked={status.value}
-            disabled={status.disable}
-            onChange={() => props.onInputHandleChange('status',status.value)}
-          />
+          {role === "3" ? ( // Replace `userRole` with your actual variable that stores the user's role
+  <StyledSwitch
+    checked={status.value}
+    disabled={status.disable}
+    onChange={() => props.onInputHandleChange('status', status.value)}
+  />
+) : (
+  <div>
+   <StyledSwitch
+    checked={status.value}
+    disabled={true}
+    onChange={() => props.onInputHandleChange('status', status.value)}
+  />
+  </div>
+)}
+
         </div>
            </Grid>
 

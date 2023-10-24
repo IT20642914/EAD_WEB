@@ -14,10 +14,13 @@ namespace BookMySeat.Controllers
     public class TrainController : ControllerBase
     {
         private readonly ITrainService trainService;
+        private readonly ITripService tripService;
 
-        public TrainController(ITrainService trainService)
+        public TrainController(ITrainService trainService, ITripService tripService)
         {
+            
             this.trainService = trainService;
+            this.tripService = tripService;
         }
 
         /// <summary>
@@ -95,6 +98,19 @@ namespace BookMySeat.Controllers
             }
       
             return existingTrains;
+        }
+
+        [HttpGet("getTripDetails")]
+        public ActionResult<List<Trip>> GetTripList()
+        {
+            var Trips = tripService.GetTripList();
+
+            if (Trips == null)
+            {
+                return NotFound($"Trips  not found");
+            }
+
+            return Trips;
         }
     }
 }

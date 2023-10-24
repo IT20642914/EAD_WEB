@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { APP_ROUTES, APP_ACTION_STATUS } from "../../utilities/constants";
 import { useNavigate } from "react-router-dom";
+import { TravelersAction } from "../../redux/action/traveler";
 
 const AppLayoutHeader: React.FC<{
   authorizedUser: AuthorizedUserDto
@@ -44,14 +45,8 @@ const AppLayoutHeader: React.FC<{
     setAnchorEl(null);
   };
   const openPersonPopover = Boolean(anchorEl);
-  
-  const handleSignOut = (instance: any) => {
-    setAnchorEl(null);
-    // instance.logoutRedirect().catch((e: any) => {
-    //   // eslint-disable-next-line no-console
-    //   console.error('Signout Error', e)
-    // })
-  }
+  const userName =localStorage.getItem('name')
+ 
   
   const handleClickedNotificationIcon=()=>{
 
@@ -65,7 +60,16 @@ const hanndelprofileClicke=()=>{
   // navigate(APP_ROUTES.PROFILE_VIEW,{ state: { TabValue: TabValue } })
 
 }
-
+const handleSignOut = (instance: any) => {
+  setAnchorEl(null);
+  // instance.logoutRedirect().catch((e: any) => {
+  //   // eslint-disable-next-line no-console
+  //   console.error('Signout Error', e)
+  // })
+  localStorage.clear()
+  dispatch(TravelersAction.LoginClear())
+  navigate(APP_ROUTES.ROOT)
+}
 
   return (
     <Box sx={{ flexGrow: 1 }}>

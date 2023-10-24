@@ -23,7 +23,7 @@ const TravelerScreen = () => {
         lastName: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         email: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         createdDate:{ value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
-        isActive: { value: false, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
+        isActive: { value: true, isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         contactHome: { value: "", isRequired: false, disable: false, readonly: false, validator: "text", error: "", },
         contactMobile: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
         address: { value: "", isRequired: true, disable: false, readonly: false, validator: "text", error: "", },
@@ -80,6 +80,7 @@ useEffect(() => {
 if(travelerByiDesponse.status===APP_ACTION_STATUS.SUCCESS){
  
   const _mode = sessionStorage.getItem("Mode");
+  const role = sessionStorage.getItem("userRole");
 
 const _data:travelerDto=travelerByiDesponse.data
 const _isDisable = _mode === TRAIN_SCREEN_MODES.VIEW

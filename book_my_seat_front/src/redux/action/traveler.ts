@@ -66,6 +66,12 @@ const Login = (payload:LoginDto) => {
      
     }
 }
+const LoginClear = () => {
+    return {
+        type: TRAVELER_ACTION_TYPES.LOGIN + COMMON_ACTION_TYPES.CLEAR
+     
+    }
+}
 
 
 export const TravelersAction = {
@@ -79,7 +85,7 @@ export const TravelersAction = {
     travelerUpdateByIDClear,
     DeleteTravelerByIDClear,
     Login,
-    
+    LoginClear,
 
 }
 

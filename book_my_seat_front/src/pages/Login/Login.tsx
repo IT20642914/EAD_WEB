@@ -45,7 +45,11 @@ const INITIAL_LOGIN_FORM:LoginFormDto={
      console.log("LoginResponse.data.StatusCode",LoginResponse.data.statusCode)
       if(LoginResponse.data.statusCode===200){
    localStorage.setItem("nic",LoginResponse.data.traveler?.nicNumber||'')
-   localStorage.setItem("name",LoginResponse.data.traveler?.firstName||'')     
+   localStorage.setItem("name",LoginResponse.data.traveler?.firstName||'')
+   localStorage.setItem("Lname",LoginResponse.data.traveler?.lastName||'')   
+   localStorage.setItem("userRole", LoginResponse.data.traveler?.roleType?.roleID.toString() || '');
+   localStorage.setItem("email", LoginResponse.data.traveler?.email || '');
+      
   if(LoginResponse.data.traveler?.roleType.roleID===3){
 
   toast.success(`${LoginResponse.data.message} as Back Office`, {
