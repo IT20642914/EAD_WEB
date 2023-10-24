@@ -14,10 +14,11 @@ namespace BookMySeat.Services
         private readonly IMongoCollection<Ticket> _ticket;
         private readonly ITripService _tripService;
 
-        public TicketService( IMongoClient mongoClient, IBookMySeatStoreDatabaseSettings settings)
+        public TicketService (ITripService tripService, IMongoClient mongoClient, IBookMySeatStoreDatabaseSettings settings)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _ticket = database.GetCollection<Ticket>(settings.TicketCollectionName);
+            _tripService = tripService;
         }
      
 

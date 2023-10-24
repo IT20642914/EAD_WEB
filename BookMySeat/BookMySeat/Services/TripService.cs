@@ -10,10 +10,11 @@ namespace BookMySeat.Services
         private readonly IMongoCollection<Trip> _trip;
         private readonly ITrainService _trainService;
 
-        public TripService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient) {
+        public TripService(ITrainService trainService, IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient) {
 
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _trip = database.GetCollection<Trip>(settings.TripCollectionName);
+            _trainService = trainService;
 
         }
 
