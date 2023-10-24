@@ -4,7 +4,7 @@ namespace BookMySeat.Models
 {
     public class TrainDetails
     {  
-        [BsonElement("trainID")]
+        [BsonElement("trainId")]
         public string TrainId { get; set; } = string.Empty;
           
         [BsonElement("trainName")]

@@ -85,7 +85,7 @@ namespace BookMySeat.Controllers
             return NoContent();
         }
         [HttpGet("GetAvilibleTrainList")]
-        public ActionResult<List<Train>> getAvilibleTrainList(string departueStationId,string arriveStationId)
+        public ActionResult<List<Train>> GetAvilibleTrainList(string departueStationId,string arriveStationId)
         {
             var existingTrains = trainService.GetAvilibaleTrains(departueStationId, arriveStationId);
 

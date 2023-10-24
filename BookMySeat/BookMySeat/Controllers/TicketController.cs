@@ -1,4 +1,5 @@
-﻿using BookMySeat.IService;
+﻿using BookMySeat.Dtos;
+using BookMySeat.IService;
 using BookMySeat.Models;
 using BookMySeat.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -46,10 +47,19 @@ namespace BookMySeat.Controllers
         /// Creates a new ticket booking.
         /// </summary>
         [HttpPost]
-        public ActionResult<Ticket> Post([FromBody] Ticket ticket)
+        public ActionResult<TicketBookingResults> Post([FromBody] Ticket ticket)
         {
-            ticketService.Create(ticket);
-            return CreatedAtAction(nameof(GetTicketDetailsByID), new { id = ticket.ReferenceID }, ticket);
+              var TicketBookingResultsresponse = ticketService.Create(ticket);
+            if (TicketBookingResultsresponse.IsSuccess == true)
+            {
+                return CreatedAtAction(nameof(GetTicketDetailsByID), new { id = ticket.ReferenceID }, ticket);
+            }
+            else
+            {
+                return NotFound($"not Craeted:{TicketBookingResultsresponse.Message}");
+            }
+
+           
         }
 
         /// <summary>

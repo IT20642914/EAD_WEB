@@ -2,7 +2,8 @@
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace BookMySeat.Models
-{
+{    /// </summary>
+    [BsonIgnoreExtraElements]
     public class Trip
     {
         [BsonId]
@@ -13,13 +14,25 @@ namespace BookMySeat.Models
         public string DepartureDate { get; set; } = String.Empty;
 
         [BsonElement("train")]
-        public TrainType Train { get; set; } = new TrainType();
+        public TrainDetails Train { get; set; } = new TrainDetails();
 
         [BsonElement("seatCount")]
         public int SeatCount { get; set; }
 
         [BsonElement("availableSeatCount")]
         public int AvailableSeatCount { get; set; }
+
+
+        [BsonElement("availableFirstClassSeatCount")]
+        public int AvailableFirstClassSeatCount { get; set; } = 0;
+        [BsonElement("availableSecondClassSeatCount")]
+        public int AvailableSecondClassSeatCount { get; set; }= 0;
+
+        [BsonElement("availableThirdClassSeatCount")]
+        public int AvailableThirdClassSeatCount { get; set; } = 0;
+
+        
+
         /// <summary>
         /// Departure location for the train.
         /// </summary>

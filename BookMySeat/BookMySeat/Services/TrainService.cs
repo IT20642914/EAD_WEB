@@ -12,6 +12,7 @@ namespace BookMySeat.Services
     public class TrainService : ITrainService
     {
         private readonly IMongoCollection<Train> _train;
+    
 
         public TrainService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient)
         {
@@ -19,6 +20,8 @@ namespace BookMySeat.Services
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _train = database.GetCollection<Train>(settings.TrainCollectionName);
         }
+
+  
 
         /// <summary>
         /// Creates a new train record in the database.

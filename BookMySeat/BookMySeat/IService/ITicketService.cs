@@ -26,7 +26,7 @@ namespace BookMySeat.IService
         /// </summary>
         /// <param name="ticket">The ticket object to be created.</param>
         /// <returns>The created ticket object.</returns>
-        Ticket Create(Ticket ticket);
+        TicketBookingResults Create(Ticket ticket);
 
         /// <summary>
         /// Updates an existing ticket record.

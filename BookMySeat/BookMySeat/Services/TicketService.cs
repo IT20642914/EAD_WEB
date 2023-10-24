@@ -12,32 +12,102 @@ namespace BookMySeat.Services
     public class TicketService : ITicketService
     {
         private readonly IMongoCollection<Ticket> _ticket;
+        private readonly ITripService _tripService;
 
-        public TicketService(IBookMySeatStoreDatabaseSettings settings, IMongoClient mongoClient)
+        public TicketService( IMongoClient mongoClient, IBookMySeatStoreDatabaseSettings settings)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _ticket = database.GetCollection<Ticket>(settings.TicketCollectionName);
         }
+     
 
-  
+
         /// <summary>
         /// Creates a new Ticket entity in the database.
         /// </summary>
         /// <param name="ticket">The Ticket object to be created.</param>
         /// <returns>The created Ticket object.</returns>
-        public Ticket Create(Ticket ticket)
+        public TicketBookingResults Create(Ticket ticket)
         {
-            Random random = new Random();
-            for (int i = 0; i < ticket.TicketCount; i++)
+            try
             {
-                ticket.ReservationIDs.Add(random.Next().ToString());
+                if (ticket == null)
+                {
+                    return new TicketBookingResults
+                    {
+                        IsSuccess = false,
+                        Message = "Invalid ticket data",
+                        StatusCode = 400,
+                    };
+                }
+
+                Random random = new Random();
+                if (ticket.ReservationIDs == null)
+                {
+                    ticket.ReservationIDs = new List<string>();
+                }
+                for (int i = 0; i < ticket.TicketCount; i++)
+                {
+                    ticket.ReservationIDs.Add(random.Next().ToString());
+                }
+
+                TripDataDtos tripData = new TripDataDtos
+                {
+                    DepartureDate = ticket.DepartureDate,
+                    Train = ticket.Train,
+                    TicketType = ticket.TicketType,
+                    TicketCount = ticket.TicketCount,
+                    DepartureFrom = ticket.DepartureFrom,
+                    ArriveTo = ticket.ArriveTo,
+                };
+                if (tripData.Train == null || tripData.TicketType == null)
+                {
+                    return new TicketBookingResults
+                    {
+                        IsSuccess = false,
+                        Message = "Invalid trip data",
+                        StatusCode = 400,
+                    };
+                }
+
+                if (_tripService == null)
+                {
+                    return new TicketBookingResults
+                    {
+                        IsSuccess = false,
+                        Message = "Trip service is not initialized",
+                        StatusCode = 500, // You can choose an appropriate status code
+                    };
+                }
+
+                CommonResponse response = _tripService.CreateTrip(tripData);
+
+                if (response.IsSuccess)
+                {
+                    _ticket.InsertOne(ticket);
+                }
+
+                TicketBookingResults response2 = new TicketBookingResults
+                {
+                    IsSuccess = response.IsSuccess,
+                    StatusCode = response.StatusCode,
+                    Message = response.Message,
+                };
+
+                return response2;
             }
-
-            _ticket.InsertOne(ticket);
-
-
-            return ticket;
+            catch (Exception ex)
+            {
+                // Handle the exception here, you can log it or perform any other necessary actions
+                TicketBookingResults errorResponse = new TicketBookingResults
+                {
+                    IsSuccess = false,
+                    Message = ex.Message
+                };
+                return errorResponse;
+            }
         }
+
 
         /// <summary>
         /// Retrieves a Ticket entity by its ReservationID from the database.
