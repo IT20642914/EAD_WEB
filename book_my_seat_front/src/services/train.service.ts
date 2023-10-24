@@ -21,11 +21,17 @@ const deletetrainDetailsByid = (payload:string):  Promise<AxiosResponse<traindet
 const getAvilibleTrains = (payload:getAvilibleTrainParamDto):  Promise<AxiosResponse<traindetailsDto>> => {   
     return axiosPrivateInstance.get(`/api/Train/GetAvilibleTrainList?departueStationId=${payload.departueStationId}&arriveStationId=${payload.arriveStationId}`);
 }
+
+const getTripDetails = ():  Promise<AxiosResponse<any>> => {   
+    console.log("xxxxxxxxxxxxxxxxxxxx")
+    return axiosPrivateInstance.get(`/api/Train/getTripDetails`);
+}
 export const trainService = {
     addTrainDetails,
     getAllTrainDetails,
     getTrainDetailsById,
     updatetrainDetailsByid,
     deletetrainDetailsByid,
-    getAvilibleTrains
+    getAvilibleTrains,
+    getTripDetails,
 }

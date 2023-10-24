@@ -50,7 +50,8 @@ const TrainScreen = () => {
   const addTrainResponse = useSelector((state: ApplicationStateDto) => state.train.addTrainDetails);
   const RequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.getDetailsById);
   const EditRequestByIdResponse = useSelector((state: ApplicationStateDto) => state.train.updatetrainDetailsByid);
-
+  const getTripDetailsResponse = useSelector((state: ApplicationStateDto) => state.train.getTripDetails);
+      
   useEffect(() => {
 
     GetInitialData()
@@ -110,6 +111,7 @@ const GetInitialData =()=>{
   const _mode = sessionStorage.getItem("Mode");
     if (_mode !== null) setScreenMode(_mode);
     dispatch(StationAction.getAllStations());
+    dispatch(TrainAction.getTrips());
     dispatch(TrainAction.getTrainByIdClear());
     
     const _id = sessionStorage.getItem("id");

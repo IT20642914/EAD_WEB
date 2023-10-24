@@ -57,6 +57,7 @@ const TicketReservationManagementScreen = () => {
   const createBookingResponse = useSelector((state: ApplicationStateDto) => state.ticket.createBooking);
   const EditRequestByIdResponse = useSelector((state: ApplicationStateDto) => state.ticket.getBookingDetails);
   const UpdateTicketBooking = useSelector((state: ApplicationStateDto) => state.ticket.updateBooking);
+  
 
   useEffect(() => {
     dispatch(StationAction.getAllStations());

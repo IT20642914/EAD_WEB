@@ -72,6 +72,13 @@ const getAvilibleTrain = (payload:getAvilibleTrainParamDto) => {
    
     }
 }
+const getTrips = () => {
+    return {
+        type: TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.REQUEST,
+        
+   
+    }
+}
 export const TrainAction = {
     getAllTrainList,
     addTrainDetails,
@@ -84,5 +91,6 @@ export const TrainAction = {
     DeleteTrainByIdCler,
     trainEditeByidClear,
     getAvilibleTrain,
+    getTrips,
 
 }

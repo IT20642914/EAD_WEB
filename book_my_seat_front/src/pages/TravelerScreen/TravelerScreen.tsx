@@ -44,6 +44,7 @@ const TravelerScreen = () => {
         const travelerAddResponse = useSelector((state: ApplicationStateDto) => state.traveler.addTravelers);
         const travelerByiDesponse = useSelector((state: ApplicationStateDto) => state.traveler.getTravelerByID);
         const travelerUpdatebyRequestResponse = useSelector((state: ApplicationStateDto) => state.traveler.updateTravelerByID);
+        const getTripDetailsResponse = useSelector((state: ApplicationStateDto) => state.train.getTripDetails);
       
         const handleInputFocus = (property: string, section: string) => {
             if (section === "GI")

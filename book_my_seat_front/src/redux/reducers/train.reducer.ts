@@ -39,6 +39,13 @@ const INITIAL_STATE: TrainStateDto = {
     isLoading: false,
     status: null
    }
+  ,
+  getTripDetails:{
+    data: [],
+    error: null,
+    isLoading: false,
+    status: null
+  }
 }
 const trainReducer = (state = INITIAL_STATE, action: any) => {
     console.log("first action",action)
@@ -308,6 +315,51 @@ const trainReducer = (state = INITIAL_STATE, action: any) => {
                         data: [],
                       },
                     };
+
+                    case TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.REQUEST:
+                      return {
+                        ...state,
+                        getTripDetails: {
+                          ...state.getTripDetails,
+                          isLoading: true,
+                          status: APP_ACTION_STATUS.LOADING,
+                          error: null,
+                          data: null,
+                        },
+                      };
+                    case TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.SUCCESS:
+                      return {
+                        ...state,
+                        getTripDetails: {
+                          ...state.getTripDetails,
+                          isLoading: false,
+                          status: APP_ACTION_STATUS.SUCCESS,
+                          error: null,
+                          data: action.data,
+                        },
+                      };
+                    case TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.ERROR:
+                      return {
+                        ...state,
+                        getTripDetails: {
+                          ...state.getTripDetails,
+                          isLoading: false,
+                          status: APP_ACTION_STATUS.ERROR,
+                          error: action.error,
+                          data: [],
+                        },
+                      };
+                    case TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.CLEAR:
+                      return {
+                        ...state,
+                        getTripDetails: {
+                          ...state.getTripDetails,
+                          isLoading: false,
+                          status: APP_ACTION_STATUS.INITIAL,
+                          error: null,
+                          data: [],
+                        },
+                      };
           default:
             return state;
         }

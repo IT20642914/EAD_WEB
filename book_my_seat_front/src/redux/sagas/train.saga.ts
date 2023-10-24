@@ -165,6 +165,21 @@ function* getAllTrainList(action: { type: string,  }) {
       })
     }
   }
+  function* getTripDetails(action: { type: string }) {
+   
+    try {
+      const trainDetails: AxiosResponse<any[]> = yield call(trainService.getTripDetails)
+      yield put({
+        type: TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.SUCCESS,
+        data: trainDetails.data
+      })
+    } catch (error) {
+      yield put({
+        type: TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.ERROR,
+        error: error
+      })
+    }
+  }
   function* trainSaga() {
     yield takeEvery(TRAIN_ACTION_TYPES.GET_ALL_TRAIN_LIST + COMMON_ACTION_TYPES.REQUEST, getAllTrainList)
     yield takeEvery(TRAIN_ACTION_TYPES.ADD_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST, addTrainDetails)
@@ -172,6 +187,7 @@ function* getAllTrainList(action: { type: string,  }) {
     yield takeEvery(TRAIN_ACTION_TYPES.EDIT_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST, updaeTrainDetailsByid)
     yield takeEvery(TRAIN_ACTION_TYPES.DELETE_TRAIN_DETAILS + COMMON_ACTION_TYPES.REQUEST, deleteTrainDetailsByid)
     yield takeEvery(TRAIN_ACTION_TYPES.GET_AVILIBLE_TRAINS + COMMON_ACTION_TYPES.REQUEST, getAvilibleTrains)
+    yield takeEvery(TRAIN_ACTION_TYPES.Get_TripDetails + COMMON_ACTION_TYPES.REQUEST, getTripDetails)
 
   }
   

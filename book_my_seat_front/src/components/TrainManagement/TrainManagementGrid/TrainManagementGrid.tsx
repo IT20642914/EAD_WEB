@@ -14,6 +14,7 @@ import { EditOutlined } from '@mui/icons-material';
 import style from './TrainManagementGrid.module.scss'
 import { trainDetailsGridDto } from '../../../utilities/models/trains.model';
 const TrainManagementGrid :React.FC<{
+    TripTraindIds:string[],
     page: number,
     rowsPerPage: number,
     isFiltered: boolean,
@@ -31,6 +32,8 @@ const TrainManagementGrid :React.FC<{
     onClearFilter(): void;
   
   } >= (props)  => {
+
+    const ids=props.TripTraindIds
     const navigate = useNavigate()
   return (
     <section className={style.gridContainer}>
@@ -86,30 +89,50 @@ const TrainManagementGrid :React.FC<{
                    <StyledTableCell >{req.thirdClassSeatCount}</StyledTableCell>
                    
                   <StyledTableCell style={{ backgroundColor: '#282828' }}>
-
                   <Box className='layout-row'>
-                    <Box>
-                    <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.VIEW) }}>
-                          <Tooltip title="View">
-                            <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
-                          </Tooltip>
-                        </IconButton>
-                      </Box>
-                      <Box>
-                        <IconButton size='small' onClick={() => { props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.EDIT) }}>
-                          <Tooltip title="Edit">
-                            <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
-                          </Tooltip>
-                        </IconButton>
-                      </Box>
-                      <Box>
-                        <IconButton size='small' onClick={() => {props.handleAction(req.trainId.toString() ,TRAIN_SCREEN_MODES.DELETE)}}>
-                          <Tooltip title="Delete">
-                            <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
-                          </Tooltip>
-                        </IconButton>
-                      </Box>
-                  </Box>
+    
+          <Box>
+            <IconButton
+              size='small'
+              onClick={() => {
+                props.handleAction(req.trainId.toString(), TRAIN_SCREEN_MODES.VIEW);
+              }}
+            >
+              <Tooltip title='View'>
+                <VisibilityOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+              </Tooltip>
+            </IconButton>
+          </Box>
+          {ids.includes(req.trainId.toString()) ? null : (
+        <>
+          <Box>
+            <IconButton
+              size='small'
+              onClick={() => {
+                props.handleAction(req.trainId.toString(), TRAIN_SCREEN_MODES.EDIT);
+              }}
+            >
+              <Tooltip title='Edit'>
+                <EditOutlined sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+              </Tooltip>
+            </IconButton>
+          </Box>
+       
+          <Box>
+            <IconButton
+              size='small'
+              onClick={() => {
+                props.handleAction(req.trainId.toString(), TRAIN_SCREEN_MODES.DELETE);
+              }}
+            >
+              <Tooltip title='Delete'>
+                <DeleteOutlinedIcon sx={{ fontSize: '20px', mr: '-1', color: 'white' }} />
+              </Tooltip>
+            </IconButton>
+          </Box>
+        </>
+      )}
+    </Box>
                 </StyledTableCell>
               </TableRow>
             ))}

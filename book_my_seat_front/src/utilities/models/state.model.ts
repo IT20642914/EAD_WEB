@@ -30,6 +30,7 @@ export interface AlertStateDto {
     updatetrainDetailsByid:StateObjectDto<any>
     deleteTrainDetailsByid:StateObjectDto<any>
     getAvilibletrains:StateObjectDto<getAvilibleTrainDto[]>
+    getTripDetails:StateObjectDto<any[]>
   }
 export interface ApplicationStateDto {
     alert: AlertStateDto;

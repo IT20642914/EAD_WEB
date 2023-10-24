@@ -32,6 +32,7 @@ const TrainManagement = () => {
       const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
       const [filteredList, setFilteredList] = useState<trainDetailsGridDto[]>([])
       const [isFiltered, setIsFiltered] = useState(false)
+      const [Trips, setTrips] = useState<any[]>([])
 
       const [page2, setPage2] = useState(0)
       const [rowsPerPage2, setRowsPerPage2] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
@@ -39,7 +40,7 @@ const TrainManagement = () => {
       const [filteredList2, setFilteredList2] = useState<sheduleTrainDetailsGridDto[]>([])
       const [shedule, setShedule] = useState<schedule[]>([])
       const [stationlist, setstationlist] = useState<station[]>([])
-      
+      const [TripTraindIds, setTripTraindIds] = useState<string[]>([])
       const [isFiltered2, setIsFiltered2] = useState(false)
       const [value, setValue] = React.useState(1);
       const [isOpenViewShedulePopup, setisOpenViewShedulePopup] =useState(false);
@@ -47,13 +48,39 @@ const TrainManagement = () => {
       const [isOpenConfirmationDialog, setisOpenConfirmationDialog] = useState(false);
       const GetTrainResponse = useSelector((state: ApplicationStateDto) => state.train.getAllTrainList);
       const DeleteTrainResponse = useSelector((state: ApplicationStateDto) => state.train.deleteTrainDetailsByid);
-
+      const getTripDetailsResponse = useSelector((state: ApplicationStateDto) => state.train.getTripDetails);
+      
 useEffect(() => {
   dispatch(TrainAction.getAllTrainList())
+  dispatch(TrainAction.getTrips())
   dispatch(TrainAction.addTrainDetailsClear())
   dispatch(TrainAction.DeleteTrainByIdCler())
   dispatch(TrainAction.trainEditeByidClear())
 }, [])
+
+useEffect(() => {
+  const uniqueTrainIds = Trips.reduce((acc, item) => {
+    if (!acc.includes(item.train.trainId)) {
+      acc.push(item.train.trainId);
+    }
+
+    console.log(acc,"acc")
+    return acc;
+  }, []);
+  setTripTraindIds(uniqueTrainIds);
+}, [Trips]);
+
+
+useEffect(() => {
+  if(getTripDetailsResponse.status===APP_ACTION_STATUS.SUCCESS){
+    console.log("ssssss",getTripDetailsResponse.data)
+    setTrips(getTripDetailsResponse.data)
+  }
+}, [getTripDetailsResponse.status])
+
+
+const trainIds = Trips.map(item => item.train.trainId);
+
 
 useEffect(() => {
 
@@ -359,6 +386,7 @@ const handleChange = (event: React.SyntheticEvent, newValue: number) => {
       <TrainSummaryChart/>
       </Grid>
 <TrainManagementGrid
+        TripTraindIds={TripTraindIds}
         page={page}
         rowsPerPage={rowsPerPage}
         onHandleChangePage={handleChangePage}
