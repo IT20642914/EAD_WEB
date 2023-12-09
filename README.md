@@ -1,4 +1,4 @@
-#Fron-end For  Ticketing System
+#Front-End For  Ticketing System
 ![Capture](https://github.com/IT20642914/EAD_WEB/assets/88711826/6b001edd-bc0e-422e-a456-07941ba2b77e)
 ![Capture2](https://github.com/IT20642914/EAD_WEB/assets/88711826/6e296b08-17a1-4edd-b339-92175ea2ebf6)
 ![Capture6](https://github.com/IT20642914/EAD_WEB/assets/88711826/75734cfc-21ce-4d51-8925-ab1e8aab9d5e)
